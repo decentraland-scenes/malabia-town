@@ -1033,7 +1033,7 @@ async function getFactory(contractConfig: any) {
 }
 
 /* Electricidad */
-const electricidad_pasillo_frames = [
+const electricidadPasilloFrames = [
   new GLTFShape('models/electricidad_pasillo-001.gltf'),
   new GLTFShape('models/electricidad_pasillo-002.gltf'),
   new GLTFShape('models/electricidad_pasillo-003.gltf'),
@@ -1043,7 +1043,7 @@ const electricidad_pasillo_frames = [
 ]
 
 // Puerta principal (Bosque)
-const electricidad1 = new Electricidad(electricidad_pasillo_frames)
+const electricidad1 = new Electricidad(electricidadPasilloFrames)
 electricidad1.Transform.create({
     position: Vector3.create(16 + 8 + 2, 0.2, 16 + 8 + 3),
     scale: Vector3.create(3, 10, 3),
@@ -1052,7 +1052,7 @@ electricidad1.Transform.create({
 )
 
 // Vulva
-const electricidad2 = new Electricidad(electricidad_pasillo_frames)
+const electricidad2 = new Electricidad(electricidadPasilloFrames)
 electricidad2.Transform.create({
     position: Vector3.create(14, 0.1, 14.5),
     scale: Vector3.create(1, 0.7, 1)
@@ -1062,7 +1062,7 @@ electricidad2.Transform.create({
 electricidad2.setParent(building_core)
 
 // Inodoros
-const electricidad3 = new Electricidad(electricidad_pasillo_frames)
+const electricidad3 = new Electricidad(electricidadPasilloFrames)
 electricidad3.Transform.create({
     position: Vector3.create(9, 6.92, 11.54), //10.69
     scale: Vector3.create(1.5, 2, 1.5)
@@ -1072,7 +1072,7 @@ electricidad3.Transform.create({
 electricidad3.setParent(building_core)
 
 // Lavadero
-const electricidad4 = new Electricidad(electricidad_pasillo_frames)
+const electricidad4 = new Electricidad(electricidadPasilloFrames)
 electricidad4.Transform.create({
     position: Vector3.create(38.64, 0.05, 11.42),
     scale: Vector3.create(1, 0.6, 1)
@@ -1082,7 +1082,7 @@ electricidad4.Transform.create({
 electricidad4.setParent(building_core)
 
 // Pasillo
-const electricidad5 = new Electricidad(electricidad_pasillo_frames)
+const electricidad5 = new Electricidad(electricidadPasilloFrames)
 electricidad5.Transform.create({
     position: Vector3.create(46.17, 0.05, 30.97),
     scale: Vector3.create(1, 0.9, 1)

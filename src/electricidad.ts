@@ -1,51 +1,72 @@
-import { engine, Entity, Transform } from "@dcl/sdk/ecs"
+import { engine, type Entity, GltfContainer, Schemas, Transform } from "@dcl/sdk/ecs"
 
-@Component('electricidad')
-export class ElectricidadComponent {
-  entity_frames: Entity[]
-  frame: number
-  base_transform: Transform
-  gltf_frames: GLTFShape[]
-  looping: boolean
-  playing: boolean
-  constructor() {
-    this.entity_frames = []
-    this.frame = 0
-    this.base_transform = new Transform()
-    this.gltf_frames = []
-    this.looping = true
-    this.playing = true
-  }
 
-  playOnce() {
-    this.frame = 0
-    this.looping = false
-    this.playing = true
+
+export const ElectricidadComponent = engine.defineComponent(
+	"electricidad",
+	{
+		entity_frames:  Schemas.Array(Schemas.Entity),
+    frame: Schemas.Int,
+    base_transform: Schemas.Map({
+      position: Schemas.Vector3,
+      scale: Schemas.Vector3,
+      parent: Schemas.Entity,
+      rotation: Schemas.Quaternion			
+    }),
+    gltf_frames:  Schemas.Array(Schemas.String),
+    looping: Schemas.Boolean,
+    playing: Schemas.Boolean
+	})
+
+
+
+// SDK6
+// @Component('electricidad')
+// export class ElectricidadComponent {
+//   entity_frames: Entity[]
+//   frame: number
+//   base_transform: Transform
+//   gltf_frames: string[]
+//   looping: boolean
+//   playing: boolean
+//   constructor() {
+//     this.entity_frames = []
+//     this.frame = 0
+//     this.base_transform = new Transform()
+//     this.gltf_frames = []
+//     this.looping = true
+//     this.playing = true
+//   }
+
+//   playOnce() {
+//     this.frame = 0
+//     this.looping = false
+//     this.playing = true
+//   }
+// }
+
+
+// export class Electricidad extends Entity {
+//   constructor(electricidadPasilloFrames: string[]) {
+//     super()
+// const elect_component = new ElectricidadComponent()
+// this.addComponent(elect_component)
+
+export function createElectricidad(electricidadPasilloFrames:string[]):Entity{
+  const electricidad = engine.addEntity()
+  ElectricidadComponent.create(electricidad)
+  const MutableElectricidadComponent = ElectricidadComponent.getMutable(electricidad)
+  MutableElectricidadComponent.gltf_frames = electricidadPasilloFrames
+
+  for (let n = 0; n < electricidadPasilloFrames.length; n++) {
+    MutableElectricidadComponent.entity_frames.push(engine.addEntity())
+    GltfContainer.create(MutableElectricidadComponent.entity_frames[n], {src:electricidadPasilloFrames[n]})
+    Transform.create(MutableElectricidadComponent.entity_frames[n], {parent:electricidad})
   }
+  return electricidad
 }
 
-export class Electricidad extends Entity {
-  constructor(electricidad_pasillo_frames: GLTFShape[]) {
-    super()
-
-    const elect_component = new ElectricidadComponent()
-    this.addComponent(elect_component)
-
-    elect_component.gltf_frames = electricidad_pasillo_frames
-
-    for (let n = 0; n < electricidad_pasillo_frames.length; n++) {
-      elect_component.entity_frames.push(new Entity())
-      elect_component.entity_frames[n].addComponent(
-        electricidad_pasillo_frames[n]
-      )
-      elect_component.entity_frames[n].addComponent(new Transform())
-      engine.addEntity(elect_component.entity_frames[n])
-      elect_component.entity_frames[n].setParent(this)
-    }
-  }
-}
-
-const electGroup = engine.getComponentGroup(ElectricidadComponent)
+const electGroup = engine.getEntitiesWith(ElectricidadComponent)
 export class ElectricidadSystem implements ISystem {
   timePass: number = 0
   update(td: number) {
