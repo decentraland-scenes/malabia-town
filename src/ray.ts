@@ -1,38 +1,23 @@
+import { engine, Material, MeshRenderer } from '@dcl/sdk/ecs'
+import { type Color4 } from '@dcl/sdk/math'
 import { tiles } from './common'
-const texture = new Texture(`textures/rays.png`, {
-  samplingMode: 1,
-  hasAlpha: false
+import { RayComponent } from './definitions'
+
+
+export const texture = Material.Texture.Common({
+  src: 'textures/rays.png'
 })
 
-@Component('rayvolt')
-export class RayComponent {
-  plane: PlaneShape
-  constructor() {
-    this.plane = new PlaneShape()
-  }
-}
-
-export class Ray extends Entity {
-  constructor(color: Color3) {
-    super()
-    //const rays = new Entity()
-    const plane = new PlaneShape()
-    plane.withCollisions = false
-    plane.uvs = tiles(2, 2, 0, 0)
-    this.addComponent(plane)
-    const rayComponent = new RayComponent()
-    rayComponent.plane = plane
-    this.addComponent(rayComponent)
-    engine.addEntity(this)
-
-    const mat = new Material()
-    mat.emissiveColor = color
-    mat.emissiveIntensity = 5
-    mat.albedoTexture = texture
-    mat.alphaTexture = texture
-
-    this.addComponent(mat)
-  }
+export function createRay(color:Color4): void{
+  const ray = engine.addEntity()
+  MeshRenderer.setPlane(ray, tiles(2,2,0,0))
+  RayComponent.create(ray, {plane: tiles(2,2,0,0)})
+  Material.setPbrMaterial(ray, {
+    albedoColor: color,
+    emissiveIntensity: 5,
+    texture,
+    alphaTest: 0.5
+  })
 }
 
 const frames = [
@@ -42,24 +27,15 @@ const frames = [
   [1, 1]
 ]
 
-const raysGroup = engine.getComponentGroup(RayComponent)
-export class RaySystem implements ISystem {
-  timePass: number = 0
-  frame: number = 0
-  update(td: number) {
-    this.timePass += td
-    if (this.timePass < 0.1) {
-      return
-    }
-    this.timePass = 0
-    for (let ray of raysGroup.entities) {
-      const plane = ray.getComponent(RayComponent).plane
-      //
-      plane.uvs = tiles(2, 2, frames[this.frame][0], frames[this.frame][1])
-    }
-    this.frame += 1
-    if (this.frame > 3) {
-      this.frame = 0
-    }
+let frame = 0
+export function RaySystem(dt: number): void {
+  for (const [ray] of engine.getEntitiesWith(RayComponent)) {
+      MeshRenderer.deleteFrom(ray)
+      MeshRenderer.setPlane(ray, tiles(2, 2, frames[frame][0], frames[frame][1]))
+  }
+  frame += 1
+  if (frame > 3) {
+    frame = 0
   }
 }
+

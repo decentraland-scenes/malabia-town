@@ -1,5 +1,5 @@
 import { engine, Schemas } from "@dcl/sdk/ecs"
-import { type Vector3, type Quaternion } from "@dcl/sdk/math"
+import { type Quaternion, type Vector3 } from "@dcl/sdk/math"
 
 export type BlenderTransform = {
     position:Vector3,
@@ -21,5 +21,12 @@ export const ElectricidadComponent = engine.defineComponent(
     gltf_frames:  Schemas.Array(Schemas.String),
     looping: Schemas.Boolean,
     playing: Schemas.Boolean
+  }
+)
+
+export const RayComponent = engine.defineComponent(
+	"rayvolt",
+	{
+		plane:Schemas.Array(Schemas.Int)
   }
 )
