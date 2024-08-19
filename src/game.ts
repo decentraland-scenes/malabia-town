@@ -1,4 +1,3 @@
-// import { Ray, RaySystem } from "./ray"
 import { Color3, Color4, Quaternion, Vector3 } from '@dcl/sdk/math'
 import {
   AudioSource,
@@ -30,6 +29,9 @@ import {
   createElectricidad,
   ElectricidadSystem
 } from './electricidad'
+import * as eth from "eth-connect";
+import { createEthereumProvider } from '@dcl/sdk/ethereum-provider'
+
 
 // import { getUserAccount } from '@decentraland/EthereumController'
 // import { getProvider } from '@decentraland/web3-provider'
@@ -40,52 +42,51 @@ import {
 // } from 'decentraland-transactions'
 
 import { ElectricidadComponent } from './definitions'
-import abiMensajes from './mensajesAbi'
-import canvas from './ui/canvas'
-// const functionTransfer = new eth.SolidityFunction(
-//   getFunction('transfer', abiManaArray)
-// )
-// const functionSetGreeting = new eth.SolidityFunction(
-//   getFunction('setGreeting', abiMensajes)
-// )
+import { abiMensajes } from './mensajesAbi'
+import { abiManaArray } from './erc20Abi'
+import { getPlayer } from '@dcl/sdk/src/players'
 
-// function getFunction(name: string, abi: Array<AbiObjectType>) {
-//   for (let n = 0; n < abi.length; n++) {
-//     if (abi[n].type == 'function' && abi[n].name == name) {
-//       return abi[n]
-//     }
-//   }
-//   console.log(abi)
-//   throw new Error('Function not found: ' + name)
-// }
 
-// const publicKeyRequest = executeTask(async () => {
-//   const publicKey = await getUserPublicKey()
-//   console.log(publicKey)
-//   return publicKey
-// })
+const functionTransfer = new eth.SolidityFunction(
+  getFunction('transfer', abiManaArray)
+)
+const functionSetGreeting = new eth.SolidityFunction(
+  getFunction('setGreeting', abiMensajes)
+)
 
-// //const mumbaiProvider: any = new eth.WebSocketProvider("wss://ws-mumbai.matic.today")
-// //const mumbaiProvider: any = new eth.WebSocketProvider("wss://rpc-mainnet.maticvigil.com/")
-// const maticProvider: any = new eth.HTTPProvider(
-//   'https://rpc-mainnet.maticvigil.com'
-// )
-// const metaRequestManager: any = new eth.RequestManager(maticProvider)
+function getFunction(name: string, abi: eth.AbiItemGeneric[]): eth.AbiFunction {
+  for (let n = 0; n < abi.length; n++) {
+    if (abi[n].type === 'function' && abi[n].name === name) {
+      
+      return abi[n] as eth.AbiFunction
+    }
+  }
+  console.log(abi)
+  throw new Error('Function not found: ' + name)
+}
 
-// async function prepareMetaTransaction(
-//   functionSignature: any,
-//   contractConfig: any
-// ) {
-//   const provider = await getProvider()
-//   const requestManager: any = new eth.RequestManager(provider)
+const publicKeyRequest = getPlayer()?.userId
 
-//   return sendMetaTransaction(
-//     requestManager,
-//     metaRequestManager,
-//     functionSignature.data,
-//     contractConfig
-//   )
-// }
+
+const maticProvider: any = new eth.HTTPProvider(
+  'https://rpc-mainnet.maticvigil.com'
+)
+const metaRequestManager: any = new eth.RequestManager(maticProvider)
+
+async function prepareMetaTransaction(
+  functionSignature: any,
+  contractConfig: any
+):Promise<void> {
+  const provider = createEthereumProvider()
+  const requestManager: any = new eth.RequestManager(provider)
+
+  return sendMetaTransaction(
+    requestManager,
+    metaRequestManager,
+    functionSignature.data,
+    contractConfig
+  )
+}
 
 //
 
@@ -429,28 +430,28 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
 }) */
 
 /* Wearables Anim */
-// const wearablesT = {
-//   position: {
-//     x: -21.087,
-//     y: 2.86733,
-//     z: 1.94923
-//   },
-//   rotation: {
-//     w: 0.707107,
-//     x: 0,
-//     y: 0,
-//     z: 0.707107
-//   },
-//   scale: {
-//     x: 2.71706,
-//     y: 2.71706,
-//     z: 2.71706
-//   }
-// }
+const wearablesT = {
+  position: {
+    x: -21.087,
+    y: 2.86733,
+    z: 1.94923
+  },
+  rotation: {
+    w: 0.707107,
+    x: 0,
+    y: 0,
+    z: 0.707107
+  },
+  scale: {
+    x: 2.71706,
+    y: 2.71706,
+    z: 2.71706
+  }
+}
 
-// const hiddenTransform = {
-//   position: Vector3.create(8, -5, 8)
-// }
+const hiddenTransform = {
+  position: Vector3.create(8, -5, 8)
+}
 
 const wearablesFrames = [
   'models/wearables-001.gltf',
@@ -560,48 +561,44 @@ const contracts = {
 const donacion = engine.addEntity()
 GltfContainer.create(donacion, {src:'models/expendedora.gltf'})
 Transform.create(donacion, blenderTransform(donacionT, buildingCore))
-
+AudioSource.create(donacion, {
+  audioClipUrl: 'audio/gaseosa.mp3',
+  playing: false,
+  loop: false
+})
 
 
 // Vending machine for donations
 
-// const expendedora_clip = new AudioClip('audio/gaseosa.mp3')
-// const expendedora_source = new AudioSource(expendedora_clip)
-// expendedora_source.playing = false
-// expendedora_source.loop = false
-// donacion.addComponent(expendedora_source)
-
-// donacion.addComponent(
-//   new OnPointerDown(
-//     async () => {
-//       const addedValue = eth.toWei(10, 'ether')
-//       const functionSignature = functionTransfer.toPayload([
-//         //fromAddress,
-//         '0x1a1792286a870d6630a80C924B39E37eD6618082',
-//         String(addedValue)
-//       ])
-//       const conf = contracts.mana.matic
-//       console.log(functionSignature)
-//       console.log(conf)
-//       prepareMetaTransaction(functionSignature, conf)
-//         .then((tx) => {
-//           expendedora_source.playOnce()
-//           console.log('Donación Ok ', tx)
-//           donacion_error.visible = false
-//           donacion_ok.visible = true
-//         })
-//         .catch((e) => {
-//           console.log('Error enviando donación', e)
-//           donacion_error.visible = true
-//           donacion_ok.visible = false
-//         })
-//     },
-//     {
-//       button: ActionButton.ANY,
-//       hoverText: 'Donar 10 PolygonMANA'
-//     }
-//   )
-// )
+pointerEventsSystem.onPointerDown(
+	{
+		entity: donacion,
+		opts: { button: InputAction.IA_ANY, hoverText: 'Donar 10 PolygonMANA' },
+	},
+	async ():Promise<void> {
+            const addedValue = eth.toWei(10, 'ether')
+            const functionSignature = functionTransfer.toPayload([
+              //fromAddress,
+              '0x1a1792286a870d6630a80C924B39E37eD6618082',
+              String(addedValue)
+            ])
+            const conf = contracts.mana.matic
+            console.log(functionSignature)
+            console.log(conf)
+            prepareMetaTransaction(functionSignature, conf)
+              .then((tx) => {
+                AudioSource.getMutable(donacion).playing = true
+                console.log('Donación Ok ', tx)
+                // donacion_error.visible = false
+                // donacion_ok.visible = true
+              })
+              .catch((e) => {
+                console.log('Error enviando donación', e)
+                // donacion_error.visible = true
+                // donacion_ok.visible = false
+              })      
+	}
+)
 
 /* Messages */
 
@@ -775,6 +772,7 @@ const mariposaT = {
     z: 2.0
   }
 }
+
 const mariposa = engine.addEntity()
 GltfContainer.create(mariposa, {src:'models/mariposa.gltf'})
 Transform.create(mariposa, blenderTransform(mariposaT, buildingCore))
@@ -797,12 +795,10 @@ for (let n = 0; n < 10; n++) {
 /* Puerta principal */
 
 const mainDoor = engine.addEntity()
-// mainDoor.addComponent(new BoxShape())
+MeshRenderer.setBox(mainDoor)
 Transform.create(mainDoor, {
     position: Vector3.create(16 + 8, 1, 16 + 8)
   })
-
-
 
 const portales = [
   {
@@ -866,11 +862,11 @@ AvatarAttach.create(tmp, {
 	anchorPointId: AvatarAnchorPointType.AAPT_HEAD,
 })
 
-// async function getMensajes() {
-//   return getFactory(contracts.mensajes.matic).then(async (contract) => {
-//     return await contract.getMessages()
-//   })
-// }
+async function getMensajes():Promise<void> {
+  return getFactory(contracts.mensajes.matic).then(async (contract) => {
+    return await contract.getMessages()
+  })
+}
 
 // class AnimSystem implements ISystem {
 //   timePass: number = 0
@@ -1021,14 +1017,14 @@ AvatarAttach.create(tmp, {
 // }
 // engine.addSystem(new AnimSystem())
 
-// async function getFactory(contractConfig: any) {
-//   const requestManager: any = new eth.RequestManager(maticProvider)
+async function getFactory(contractConfig: any):Promise<any> {
+  const requestManager: any = new eth.RequestManager(maticProvider)
 
-//   const factory = new eth.ContractFactory(requestManager, contractConfig.abi)
-//   const contract = await factory.at(contractConfig.address)
+  const factory = new eth.ContractFactory(requestManager, contractConfig.abi)
+  const contract = await factory.at(contractConfig.address)
 
-//   return contract
-// }
+  return contract
+}
 
 /* Electricidad */
 const electricidadPasilloFrames = [
@@ -1242,7 +1238,7 @@ textInput.onTextSubmit = new OnTextSubmit(async (x) => {
 })
 
 /* Refrescar notas */
-function refrescarMensajes(delay: number = 0) {
+function refrescarMensajes(delay: number = 0):void {
   executeTask(async () => {
     await sleep(delay)
     const messages = await getMensajes()

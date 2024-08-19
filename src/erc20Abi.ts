@@ -1,28 +1,7 @@
-export type AbiInputType = {
-  internalType: string
-  name: string
-  type: string
-  indexed?:boolean
-}
+import type * as eth from "eth-connect";
 
-export type AbiOutputType = {
-  internalType: string
-  name: string
-  type: string
-  indexed?:boolean
-}
-
-export type AbiObjectType = {
-  inputs: AbiInputType[]
-  outputs: AbiOutputType[]
-  stateMutability?: string
-  type: 'constructor'|'event'|'function'|'receive',
-  name?: string
-  anonymous?: boolean
-}
-
-
-export const abiManaArray: AbiObjectType[] = [
+export const abiManaArray:
+  eth.AbiItemGeneric[] = [
   {
     inputs: [
       { internalType: 'string', name: 'name_', type: 'string' },
