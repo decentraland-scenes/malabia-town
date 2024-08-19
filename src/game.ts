@@ -1,49 +1,45 @@
-//import { Ray, RaySystem } from "./ray"
+// import { Ray, RaySystem } from "./ray"
+import { Color3, Color4, Quaternion, Vector3 } from '@dcl/sdk/math'
 import {
   AudioSource,
+  AvatarAnchorPointType,
+  AvatarAttach,
   engine,
-  Transform,
-  GltfContainer,
-  Entity,
+  type Entity,
   executeTask,
+  GltfContainer,
+  InputAction,
+  Material,
   MeshRenderer,
+  pointerEventsSystem,
   TextShape,
   Texture,
-  VideoTexture,
+  Transform,
   VideoPlayer,
-  Material,
-  InputAction,
-  pointerEventsSystem,
-  AvatarAttach,
-  AvatarAnchorPointType
+  VideoTexture
 } from '@dcl/sdk/src/ecs'
-import { Color3, Color4, Quaternion, Vector3 } from '@dcl/sdk/math'
-import { movePlayerTo } from '~system/RestrictedActions'
+import { openExternalUrl } from "~system/RestrictedActions"
 import {
   blenderTransform,
   distanceIsLessThan,
   randomInt,
-  randomIntExcluding,
   randomRange,
   sleep
 } from './common'
 import {
-  Electricidad,
-  ElectricidadComponent,
+  createElectricidad,
   ElectricidadSystem
 } from './electricidad'
 
-//import { getUserAccount } from '@decentraland/EthereumController'
-import { getUserData } from '~system/UserIdentity'
+// import { getUserAccount } from '@decentraland/EthereumController'
 // import { getProvider } from '@decentraland/web3-provider'
 // import {
 //   //ContractName,
 //   //getContract,
 //   sendMetaTransaction
 // } from 'decentraland-transactions'
-import * as eth from 'eth-connect'
 
-import { abiManaArray, AbiObjectType } from './erc20Abi'
+import { ElectricidadComponent } from './definitions'
 import abiMensajes from './mensajesAbi'
 import canvas from './ui/canvas'
 // const functionTransfer = new eth.SolidityFunction(
@@ -97,8 +93,8 @@ import canvas from './ui/canvas'
 
 //
 
-const building_core = engine.addEntity()
-Transform.create(building_core, {position: Vector3.create(0, -20, 0)})
+const buildingCore = engine.addEntity()
+Transform.create(buildingCore, {position: Vector3.create(0, -20, 0)})
 
 //
 
@@ -110,14 +106,14 @@ const walls = engine.addEntity()
 GltfContainer.create(walls, {src:'models/walls.gltf'})
 Transform.create(walls, {
     position: Vector3.create(16 + 8, 0, 16 + 8),
-    parent: building_core
+    parent: buildingCore
   })
 
 const dynamic = engine.addEntity()
 GltfContainer.create(dynamic, {src:'models/dynamic.gltf'})
 Transform.create(dynamic, {
     position: Vector3.create(16 + 8, 0, 16 + 8),
-    parent: building_core
+    parent: buildingCore
   })
 
 
@@ -125,7 +121,7 @@ const static_ = engine.addEntity()
 GltfContainer.create(static_, {src:'models/static.gltf'})
 Transform.create(static_, {
     position: Vector3.create(16 + 8, 0, 16 + 8),
-    parent: building_core
+    parent: buildingCore
   })
 
 
@@ -135,7 +131,7 @@ Transform.create(static2, {
     position: Vector3.create(16 + 8, 0, 16 + 8)  })
 
 //
-//static2.setParent(building_core)
+// static2.setParent(buildingCore)
 
 const static3 = engine.addEntity()
 GltfContainer.create(static3, {src:'models/static3.gltf'})
@@ -144,7 +140,7 @@ Transform.create(static3, {
   })
 
 //
-//static3.setParent(building_core)
+// static3.setParent(buildingCore)
 
 const static4 = engine.addEntity()
 GltfContainer.create(static4, {src:'models/static4.gltf'})
@@ -153,10 +149,10 @@ Transform.create(static4,{
   })
 
 //
-//static4.setParent(building_core)
+// static4.setParent(buildingCore)
 
 // Dynamic objects
-const lav_01_t = {
+const lav01T = {
   position: {
     x: -20.1402,
     y: 12.2063,
@@ -175,7 +171,7 @@ const lav_01_t = {
   }
 }
 
-const lav_02_t = {
+const lav02T = {
   position: {
     x: -16.0287,
     y: 9.09817,
@@ -194,7 +190,7 @@ const lav_02_t = {
   }
 }
 
-const lav_03_t = {
+const lav03T = {
   position: {
     x: -11.5584,
     y: 10.781,
@@ -213,7 +209,7 @@ const lav_03_t = {
   }
 }
 
-const rayos_t = {
+const rayosT = {
   position: {
     x: -14.4747,
     y: 13.2058,
@@ -232,27 +228,26 @@ const rayos_t = {
   }
 }
 
-const lavarropas_01 = engine.addEntity()
-GltfContainer.create(lavarropas_01, {src:'models/lavarropas.gltf'})
-Transform.create(lavarropas_01, blenderTransform(lav_01_t))
-Transform.getMutable(lavarropas_01).parent = building_core
+const lavarropas01 = engine.addEntity()
+GltfContainer.create(lavarropas01, {src:'models/lavarropas.gltf'})
+Transform.create(lavarropas01, blenderTransform(lav01T, buildingCore))
 
-const lavarropas_02 = engine.addEntity()
-GltfContainer.create(lavarropas_02, {src:'models/lavarropas.gltf'})
-Transform.create(lavarropas_02, blenderTransform(lav_02_t))
-Transform.getMutable(lavarropas_02).parent = building_core
+const lavarropas02 = engine.addEntity()
+GltfContainer.create(lavarropas02, {src:'models/lavarropas.gltf'})
+Transform.create(lavarropas02, blenderTransform(lav02T, buildingCore))
 
-const lavarropas_03 = engine.addEntity()
-GltfContainer.create(lavarropas_03, {src:'models/lavarropas.gltf'})
-Transform.create(lavarropas_03, blenderTransform(lav_03_t))
-Transform.getMutable(lavarropas_03).parent = building_core
 
-const lavarropas_rayos = engine.addEntity()
-GltfContainer.create(lavarropas_rayos, {src:'models/lavarropas_rayos.gltf'})
-Transform.create(lavarropas_rayos, blenderTransform(rayos_t))
-Transform.getMutable(lavarropas_rayos).parent = building_core
+const lavarropas03 = engine.addEntity()
+GltfContainer.create(lavarropas03, {src:'models/lavarropas.gltf'})
+Transform.create(lavarropas03, blenderTransform(lav03T, buildingCore))
 
-const corazon_t = {
+
+const lavarropasRayos = engine.addEntity()
+GltfContainer.create(lavarropasRayos, {src:'models/lavarropasRayos.gltf'})
+Transform.create(lavarropasRayos, blenderTransform(rayosT, buildingCore))
+
+
+const corazonT = {
   position: {
     x: 4.40177,
     y: -12.1165,
@@ -273,10 +268,10 @@ const corazon_t = {
 
 const corazon = engine.addEntity()
 GltfContainer.create(corazon, {src:'models/corazon.gltf'})
-Transform.create(corazon, blenderTransform(corazon_t))
-Transform.getMutable(corazon).parent = building_core
+Transform.create(corazon, blenderTransform(corazonT, buildingCore))
 
-const inodoros_t = {
+
+const inodorosT = {
   position: {
     x: 15.002,
     y: 11.71,
@@ -297,10 +292,10 @@ const inodoros_t = {
 
 const inodoros = engine.addEntity()
 GltfContainer.create(inodoros, {src:'models/inodoros.gltf'})
-Transform.create(inodoros, blenderTransform(inodoros_t))
-Transform.getMutable(inodoros).parent = building_core
+Transform.create(inodoros, blenderTransform(inodorosT, buildingCore))
 
-const telefono_t = {
+
+const telefonoT = {
   position: {
     x: 19.1859,
     y: -17.98,
@@ -321,10 +316,10 @@ const telefono_t = {
 
 const telefono = engine.addEntity()
 GltfContainer.create(telefono, {src:'models/telefono.gltf'})
-Transform.create(telefono, blenderTransform(telefono_t))
-Transform.getMutable(telefono).parent = building_core
+Transform.create(telefono, blenderTransform(telefonoT, buildingCore))
 
-const audios_telefono = [
+
+const audiosTelefono = [
   'telefono/Audio A.mp3',
   'telefono/Audio B.mp3',
   'telefono/Audio C.mp3',
@@ -364,14 +359,14 @@ pointerEventsSystem.onPointerDown(
 	},
 	function () {
     AudioSource.createOrReplace(telefono, {
-      audioClipUrl: 'audio/' + audios_telefono[randomInt(0, audios_telefono.length)],
+      audioClipUrl: 'audio/' + audiosTelefono[randomInt(0, audiosTelefono.length)],
       playing: true,
     }) 
 	}
 )
 
 
-const pantalla_t = {
+const pantallaT = {
   position: {
     x: -0.602674,
     y: -18.6475,
@@ -392,8 +387,8 @@ const pantalla_t = {
 
 const pantalla = engine.addEntity()
 MeshRenderer.setPlane(pantalla)
-Transform.create(pantalla, blenderTransform(pantalla_t))
-Transform.getMutable(pantalla).parent = building_core
+Transform.create(pantalla, blenderTransform(pantallaT, buildingCore))
+
 
 VideoPlayer.create(pantalla, {
 	src: 'textures/oraculo/video Quinteto de Academia en Malabia.mp4',
@@ -409,16 +404,18 @@ Material.setPbrMaterial(pantalla, {
 	metallic: 0,
 })
 
-
-
 pointerEventsSystem.onPointerDown(
 	{
 		entity: pantalla,
 		opts: { button: InputAction.IA_POINTER, hoverText: 'Play/Pause' },
 	},
 	function () {
-		const videoPlayer = VideoPlayer.getMutable(pantalla)
-		videoPlayer.playing = !videoPlayer.playing
+    const videoPlayer = VideoPlayer.getMutable(pantalla)
+    if (videoPlayer.playing === true) {
+      videoPlayer.playing = false
+    } else {
+      videoPlayer.playing = true
+    }
 	}
 )
 
@@ -426,32 +423,36 @@ const mutableVideoPlayer = VideoPlayer.getMutable(pantalla)
 mutableVideoPlayer.volume = 0.1
 mutableVideoPlayer.playing = false
 
-/*const input = Input.instance
+/* const input = Input.instance
 input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     console.log(Camera.instance.position)
-})*/
+}) */
 
 /* Wearables Anim */
-const wearables_t = {
-  position: {
-    x: -21.087,
-    y: 2.86733,
-    z: 1.94923
-  },
-  rotation: {
-    w: 0.707107,
-    x: 0,
-    y: 0,
-    z: 0.707107
-  },
-  scale: {
-    x: 2.71706,
-    y: 2.71706,
-    z: 2.71706
-  }
-}
+// const wearablesT = {
+//   position: {
+//     x: -21.087,
+//     y: 2.86733,
+//     z: 1.94923
+//   },
+//   rotation: {
+//     w: 0.707107,
+//     x: 0,
+//     y: 0,
+//     z: 0.707107
+//   },
+//   scale: {
+//     x: 2.71706,
+//     y: 2.71706,
+//     z: 2.71706
+//   }
+// }
 
-const wearables_frames = [
+// const hiddenTransform = {
+//   position: Vector3.create(8, -5, 8)
+// }
+
+const wearablesFrames = [
   'models/wearables-001.gltf',
   'models/wearables-002.gltf',
   'models/wearables-003.gltf',
@@ -459,38 +460,35 @@ const wearables_frames = [
   'models/wearables-005.gltf'
 ]
 
-const hidden_transform = {
-  position: Vector3.create(8, -5, 8)
-}
 
-const wearables_entities: Array<Entity> = []
-for (let n = 0; n < wearables_frames.length; n++) {
-  wearables_entities.push(engine.addEntity())
-  GltfContainer.create(wearables_entities[n], {src:wearables_frames[n]})
-  Transform.create(wearables_entities[n], {position:Vector3.create(8,-5,8), parent:building_core})
+const wearablesEntities: Entity[] = []
+for (let n = 0; n < wearablesFrames.length; n++) {
+  wearablesEntities.push(engine.addEntity())
+  GltfContainer.create(wearablesEntities[n], {src:wearablesFrames[n]})
+  Transform.create(wearablesEntities[n], {position:Vector3.create(8,-5,8), parent:buildingCore})
 }
 
 /* Lab Anim */
-const lab_t = {
-  position: {
-    x: -19.274,
-    y: -5.8339,
-    z: -0.02173
-  },
-  rotation: {
-    w: 0,
-    x: 0,
-    y: 0,
-    z: 1.0
-  },
-  scale: {
-    x: 2.36082,
-    y: 2.36082,
-    z: 2.36082
-  }
-}
+// const labT = {
+//   position: {
+//     x: -19.274,
+//     y: -5.8339,
+//     z: -0.02173
+//   },
+//   rotation: {
+//     w: 0,
+//     x: 0,
+//     y: 0,
+//     z: 1.0
+//   },
+//   scale: {
+//     x: 2.36082,
+//     y: 2.36082,
+//     z: 2.36082
+//   }
+// }
 
-const lab_frames = [
+const labFrames = [
   'models/laboratorio-001.gltf',
   'models/laboratorio-002.gltf',
   'models/laboratorio-003.gltf',
@@ -498,13 +496,13 @@ const lab_frames = [
   'models/laboratorio-005.gltf'
 ]
 
-const lab_entities: Array<Entity> = []
-for (let n = 0; n < lab_frames.length; n++) {
-  GltfContainer.create(lab_entities[n], {src:lab_frames[n]})
-  Transform.create(wearables_entities[n], {position:Vector3.create(8,-5,8), parent:building_core})
+const labEntities: Entity[] = []
+for (let n = 0; n < labFrames.length; n++) {
+  GltfContainer.create(labEntities[n], {src:labFrames[n]})
+  Transform.create(wearablesEntities[n], {position:Vector3.create(8,-5,8), parent:buildingCore})
 }
 
-const donacion_t = {
+const donacionT = {
   position: {
     x: 19.1007,
     y: -5.35626,
@@ -535,7 +533,7 @@ const contracts = {
     mumbai: {
       version: '1',
       abi: abiMANA,
-      //address: '0x882Da5967c435eA5cC6b09150d55E8304B838f45',
+      // address: '0x882Da5967c435eA5cC6b09150d55E8304B838f45',
       address: '0x4dA830330048be6380f102a83d3B94ea318bc598', // Test contract
       name: 'Decentraland MANA (PoS)',
       chainId: 80001
@@ -561,8 +559,8 @@ const contracts = {
 
 const donacion = engine.addEntity()
 GltfContainer.create(donacion, {src:'models/expendedora.gltf'})
-Transform.create(donacion, blenderTransform(donacion_t))
-Transform.getMutable(donacion).parent = building_core
+Transform.create(donacion, blenderTransform(donacionT, buildingCore))
+
 
 
 // Vending machine for donations
@@ -635,66 +633,66 @@ Transform.getMutable(donacion).parent = building_core
 // mensaje_error.visible = false
 
 // class messagesSystem implements ISystem {
-//   donacion_ok_time: number = 0
-//   donacion_error_time: number = 0
-//   mensaje_ok_time: number = 0
-//   mensaje_error_time: number = 0
+//   donacion_okTime: number = 0
+//   donacion_errorTime: number = 0
+//   mensaje_okTime: number = 0
+//   mensaje_errorTime: number = 0
 
 //   update(td: number) {
-//     const wait_time = 10
+//     const waitTime = 10
 //     // donacion_ok
-//     if (donacion_ok.visible && this.donacion_ok_time > 0) {
-//       this.donacion_ok_time -= td
-//       if (this.donacion_ok_time <= 0) {
+//     if (donacion_ok.visible && this.donacion_okTime > 0) {
+//       this.donacion_okTime -= td
+//       if (this.donacion_okTime <= 0) {
 //         donacion_ok.visible = false
 //       }
 //     }
-//     if (donacion_ok.visible && this.donacion_ok_time == 0) {
-//       this.donacion_ok_time = wait_time
+//     if (donacion_ok.visible && this.donacion_okTime == 0) {
+//       this.donacion_okTime = waitTime
 //     }
 //     // donacion_error
-//     if (donacion_error.visible && this.donacion_error_time > 0) {
-//       this.donacion_error_time -= td
-//       if (this.donacion_error_time <= 0) {
+//     if (donacion_error.visible && this.donacion_errorTime > 0) {
+//       this.donacion_errorTime -= td
+//       if (this.donacion_errorTime <= 0) {
 //         donacion_error.visible = false
 //       }
 //     }
-//     if (donacion_error.visible && this.donacion_error_time == 0) {
-//       this.donacion_error_time = wait_time
+//     if (donacion_error.visible && this.donacion_errorTime == 0) {
+//       this.donacion_errorTime = waitTime
 //     }
 //     // mensaje_ok
-//     if (mensaje_ok.visible && this.mensaje_ok_time > 0) {
-//       this.mensaje_ok_time -= td
-//       if (this.mensaje_ok_time <= 0) {
+//     if (mensaje_ok.visible && this.mensaje_okTime > 0) {
+//       this.mensaje_okTime -= td
+//       if (this.mensaje_okTime <= 0) {
 //         mensaje_ok.visible = false
 //       }
 //     }
-//     if (mensaje_ok.visible && this.mensaje_ok_time == 0) {
-//       this.mensaje_ok_time = wait_time
+//     if (mensaje_ok.visible && this.mensaje_okTime == 0) {
+//       this.mensaje_okTime = waitTime
 //     }
 //     // mensaje_error
-//     if (mensaje_error.visible && this.mensaje_error_time > 0) {
-//       this.mensaje_error_time -= td
-//       if (this.mensaje_error_time <= 0) {
+//     if (mensaje_error.visible && this.mensaje_errorTime > 0) {
+//       this.mensaje_errorTime -= td
+//       if (this.mensaje_errorTime <= 0) {
 //         mensaje_error.visible = false
 //       }
 //     }
-//     if (mensaje_error.visible && this.mensaje_error_time == 0) {
-//       this.mensaje_error_time = wait_time
+//     if (mensaje_error.visible && this.mensaje_errorTime == 0) {
+//       this.mensaje_errorTime = waitTime
 //     }
 //     //
 //   }
 // }
 // engine.addSystem(new messagesSystem())
 
-/*executeTask(async () => {
+/* executeTask(async () => {
     const userAddress = await getUserAccount()
     if (userAddress) {
 
     }
-})*/
+}) */
 
-const antorchas_t = [
+const antorchasT = [
   {
     position: {
       x: 18.8179,
@@ -751,15 +749,15 @@ const antorchas_t = [
   }
 ]
 
-for (let n = 0; n < antorchas_t.length; n++) {
+for (let n = 0; n < antorchasT.length; n++) {
   const antorcha = engine.addEntity()
   GltfContainer.create(antorcha, {src:'models/antorcha.gltf'})
-  Transform.create(antorcha, blenderTransform(antorchas_t[n]))
-  Transform.getMutable(antorcha).parent = building_core
+  Transform.create(antorcha, blenderTransform(antorchasT[n], buildingCore))
+  
 }
 
 /* Mariposa */
-const mariposa_t = {
+const mariposaT = {
   position: {
     x: -9.68033,
     y: -0.958399,
@@ -779,28 +777,28 @@ const mariposa_t = {
 }
 const mariposa = engine.addEntity()
 GltfContainer.create(mariposa, {src:'models/mariposa.gltf'})
-Transform.create(mariposa, blenderTransform(mariposa_t))
-Transform.getMutable(mariposa).parent = building_core
+Transform.create(mariposa, blenderTransform(mariposaT, buildingCore))
+
 
 /* Mariposas Bosque */
-const mariposas: Array<Entity> = []
+const mariposas: Entity[] = []
 for (let n = 0; n < 10; n++) {
   mariposas.push(engine.addEntity())
   GltfContainer.create(mariposas[n], {src:'models/mariposa.gltf'})
-  Transform.create(wearables_entities[n], {position: Vector3.create(
+  Transform.create(wearablesEntities[n], {position: Vector3.create(
     randomRange(10, 40),
     randomRange(0.5, 2.5),
     randomRange(10, 40)
   ),
   rotation: Quaternion.fromEulerDegrees(0, randomRange(0, 170), 0),
-  scale: Vector3.create(1.5, 1.5, 1.5), parent:building_core}) 
+  scale: Vector3.create(1.5, 1.5, 1.5), parent:buildingCore}) 
 }
 
 /* Puerta principal */
 
-const main_door = engine.addEntity()
-//main_door.addComponent(new BoxShape())
-Transform.create(main_door, {
+const mainDoor = engine.addEntity()
+// mainDoor.addComponent(new BoxShape())
+Transform.create(mainDoor, {
     position: Vector3.create(16 + 8, 1, 16 + 8)
   })
 
@@ -851,7 +849,7 @@ for (let n = 0; n < portales.length; n++) {
     audioClipUrl: 'audio/Electricidad.mp3',
     playing: true,
   }) 
-  Transform.create(electricidad, {position:portales[n].in, parent:building_core})
+  Transform.create(electricidad, {position:portales[n].in, parent:buildingCore})
   const mutableSource = AudioSource.getMutable(electricidad)
   mutableSource.playing = true
   mutableSource.loop = true
@@ -874,228 +872,233 @@ AvatarAttach.create(tmp, {
 //   })
 // }
 
-class AnimSystem implements ISystem {
-  timePass: number = 0
-  frame: number = 0
-  building_visible = false
-  just_teleported = false
-  teleportTime = 0
-  teleporting = false
-  teleportingFrom = 0
-  update(td: number) {
-    if (!this.building_visible) {
-      if (
-        distanceIsLessThan(
-          main_door.getComponent(Transform).position,
-          Camera.instance.position,
-          2
-        )
-      ) {
-        this.building_visible = true
-        this.just_teleported = true
-        building_core.getComponent(Transform).position.y = 0
+// class AnimSystem implements ISystem {
+//   timePass: number = 0
+//   frame: number = 0
+//   building_visible = false
+//   justTeleported = false
+//   teleportTime = 0
+//   teleporting = false
+//   teleportingFrom = 0
+//   update(td: number) {
+//     if (!this.building_visible) {
+//       if (
+//         distanceIsLessThan(
+//           mainDoor.getComponent(Transform).position,
+//           Camera.instance.position,
+//           2
+//         )
+//       ) {
+//         this.building_visible = true
+//         this.justTeleported = true
+//         buildingCore.getComponent(Transform).position.y = 0
         
 
-        main_door.getComponent(Transform).position.y = -20
-        bosque.getComponent(Transform).position.y = -20
-        engine.removeEntity(bosque)
-        engine.removeEntity(electricidad1)
-        engine.removeEntity(portalfx)
-        for (let n = 0; n < mariposas.length; n++) {
-          engine.removeEntity(mariposas[n])
-        }
-        //movePlayerTo({ x: 38, y: 0, z: 46 }, { x: 46, y: 1, z: 46 })
-        movePlayerTo({ x: 34, y: 0, z: 45 }, { x: 46, y: 1, z: 45 })
-        pasillo_source.playOnce()
-      }
-      return
-    } else {
-      if (
-        distanceIsLessThan(
-          Vector3.create(35, 1.75, 45),
-          Camera.instance.position,
-          2
-        )
-      ) {
-        if (!this.just_teleported) {
-          this.building_visible = false
-          building_core.getComponent(Transform).position.y = -20
-          engine.removeEntity(static2)
-          engine.removeEntity(static3)
-          engine.removeEntity(static4)
+//         mainDoor.getComponent(Transform).position.y = -20
+//         bosque.getComponent(Transform).position.y = -20
+//         engine.removeEntity(bosque)
+//         engine.removeEntity(electricidad1)
+//         engine.removeEntity(portalfx)
+//         for (let n = 0; n < mariposas.length; n++) {
+//           engine.removeEntity(mariposas[n])
+//         }
+//         //movePlayerTo({ x: 38, y: 0, z: 46 }, { x: 46, y: 1, z: 46 })
+//         movePlayerTo({ x: 34, y: 0, z: 45 }, { x: 46, y: 1, z: 45 })
+//         pasillo_source.playOnce()
+//       }
+//       return
+//     } else {
+//       if (
+//         distanceIsLessThan(
+//           Vector3.create(35, 1.75, 45),
+//           Camera.instance.position,
+//           2
+//         )
+//       ) {
+//         if (!this.justTeleported) {
+//           this.building_visible = false
+//           buildingCore.getComponent(Transform).position.y = -20
+//           engine.removeEntity(static2)
+//           engine.removeEntity(static3)
+//           engine.removeEntity(static4)
 
-          main_door.getComponent(Transform).position.y = 1
-          bosque.getComponent(Transform).position.y = 0
+//           mainDoor.getComponent(Transform).position.y = 1
+//           bosque.getComponent(Transform).position.y = 0
           
           
-          for (let n = 0; n < mariposas.length; n++) {
+//           for (let n = 0; n < mariposas.length; n++) {
             
-          }
-          movePlayerTo({ x: 16, y: 0, z: 16 }, { x: 16 + 8, y: 2, z: 16 + 8 })
-          pasillo_source.playOnce()
-        }
-      } else {
-        this.just_teleported = false
-      }
-    }
+//           }
+//           movePlayerTo({ x: 16, y: 0, z: 16 }, { x: 16 + 8, y: 2, z: 16 + 8 })
+//           pasillo_source.playOnce()
+//         }
+//       } else {
+//         this.justTeleported = false
+//       }
+//     }
 
-    this.timePass += td
-    if (this.timePass < 0.3) {
-      return
-    }
-    this.timePass = 0
-    for (let n = 0; n < wearables_frames.length; n++) {
-      if (n == this.frame) {
-        //console.log("show", n)
-        wearables_entities[n].getComponent(Transform).position =
-          blenderTransform(wearables_t).position.clone()
-        wearables_entities[n].getComponent(Transform).rotation =
-          blenderTransform(wearables_t).rotation.clone()
-        wearables_entities[n].getComponent(Transform).scale =
-          blenderTransform(wearables_t).scale.clone()
+//     this.timePass += td
+//     if (this.timePass < 0.3) {
+//       return
+//     }
+//     this.timePass = 0
+//     for (let n = 0; n < wearablesFrames.length; n++) {
+//       if (n == this.frame) {
+//         //console.log("show", n)
+//         wearablesEntities[n].getComponent(Transform).position =
+//           blenderTransform(wearablesT).position.clone, buildingCore))
 
-        lab_entities[n].getComponent(Transform).position =
-          blenderTransform(lab_t).position.clone()
-        lab_entities[n].getComponent(Transform).rotation =
-          blenderTransform(lab_t).rotation.clone()
-        lab_entities[n].getComponent(Transform).scale =
-          blenderTransform(lab_t).scale.clone()
-      } else {
-        //console.log("hide", n)
-        wearables_entities[n].getComponent(Transform).position.x =
-          hidden_transform.position.x
-        wearables_entities[n].getComponent(Transform).position.y =
-          hidden_transform.position.y
-        wearables_entities[n].getComponent(Transform).position.z =
-          hidden_transform.position.z
+//           blenderTransform(wearablesT).rotation.clone, buildingCore))
 
-        lab_entities[n].getComponent(Transform).position.x =
-          hidden_transform.position.x
-        lab_entities[n].getComponent(Transform).position.y =
-          hidden_transform.position.y
-        lab_entities[n].getComponent(Transform).position.z =
-          hidden_transform.position.z
-      }
-      //console.log(wearables_entities[this.frame].getComponent(Transform).position)
-    }
+//           blenderTransform(wearablesT).scale.clone()
 
-    this.frame += 1
-    if (this.frame >= wearables_entities.length) {
-      this.frame = 0
-    }
+//         labEntities[n].getComponent(Transform).position =
+//           blenderTransform(labT).position.clone()
+//         labEntities[n].getComponent(Transform).rotation =
+//           blenderTransform(labT).rotation.clone()
+//         labEntities[n].getComponent(Transform).scale =
+//           blenderTransform(labT).scale.clone()
+//       } else {
+//         //console.log("hide", n)
+//         wearablesEntities[n].getComponent(Transform).position.x =
+//           hiddenTransform.position.x
+//         wearablesEntities[n].getComponent(Transform).position.y =
+//           hiddenTransform.position.y
+//         wearablesEntities[n].getComponent(Transform).position.z =
+//           hiddenTransform.position.z
 
-    // Check Portales
+//         labEntities[n].getComponent(Transform).position.x =
+//           hiddenTransform.position.x
+//         labEntities[n].getComponent(Transform).position.y =
+//           hiddenTransform.position.y
+//         labEntities[n].getComponent(Transform).position.z =
+//           hiddenTransform.position.z
+//       }
+//       //console.log(wearablesEntities[this.frame].getComponent(Transform).position)
+//     }
 
-    if (this.teleporting) {
-      this.teleportTime -= 0.5
-      console.log(this.teleportTime)
-      if (this.teleportTime <= 0) {
-        this.teleporting = false
-        //
-        const port =
-          portales[randomIntExcluding(0, portales.length, this.teleportingFrom)]
-        movePlayerTo(port.out[0], port.out[1])
-      }
-    } else {
-      for (let n = 0; n < portales.length; n++) {
-        if (
-          distanceIsLessThan(
-            portales[n].in,
-            Camera.instance.position,
-            portales[n].dist
-          )
-        ) {
-          console.log('on', n)
-          if (n == 3) {
-            // Inodoros
-            // Si no está en la terraza, ignorar
-            if (Camera.instance.position.y < 4) break
-          }
-          this.teleportTime = 1
-          this.teleporting = true
-          this.teleportingFrom = n
-          sourceTeletransporte.playOnce()
-          break
-        }
-      }
-    }
-  }
-}
-engine.addSystem(new AnimSystem())
+//     this.frame += 1
+//     if (this.frame >= wearablesEntities.length) {
+//       this.frame = 0
+//     }
 
-async function getFactory(contractConfig: any) {
-  const requestManager: any = new eth.RequestManager(maticProvider)
+//     // Check Portales
 
-  const factory = new eth.ContractFactory(requestManager, contractConfig.abi)
-  const contract = await factory.at(contractConfig.address)
+//     if (this.teleporting) {
+//       this.teleportTime -= 0.5
+//       console.log(this.teleportTime)
+//       if (this.teleportTime <= 0) {
+//         this.teleporting = false
+//         //
+//         const port =
+//           portales[randomIntExcluding(0, portales.length, this.teleportingFrom)]
+//         movePlayerTo(port.out[0], port.out[1])
+//       }
+//     } else {
+//       for (let n = 0; n < portales.length; n++) {
+//         if (
+//           distanceIsLessThan(
+//             portales[n].in,
+//             Camera.instance.position,
+//             portales[n].dist
+//           )
+//         ) {
+//           console.log('on', n)
+//           if (n == 3) {
+//             // Inodoros
+//             // Si no está en la terraza, ignorar
+//             if (Camera.instance.position.y < 4) break
+//           }
+//           this.teleportTime = 1
+//           this.teleporting = true
+//           this.teleportingFrom = n
+//           sourceTeletransporte.playOnce()
+//           break
+//         }
+//       }
+//     }
+//   }
+// }
+// engine.addSystem(new AnimSystem())
 
-  return contract
-}
+// async function getFactory(contractConfig: any) {
+//   const requestManager: any = new eth.RequestManager(maticProvider)
+
+//   const factory = new eth.ContractFactory(requestManager, contractConfig.abi)
+//   const contract = await factory.at(contractConfig.address)
+
+//   return contract
+// }
 
 /* Electricidad */
 const electricidadPasilloFrames = [
-  new GLTFShape('models/electricidad_pasillo-001.gltf'),
-  new GLTFShape('models/electricidad_pasillo-002.gltf'),
-  new GLTFShape('models/electricidad_pasillo-003.gltf'),
-  new GLTFShape('models/electricidad_pasillo-004.gltf'),
-  new GLTFShape('models/electricidad_pasillo-005.gltf'),
-  new GLTFShape('models/electricidad_pasillo-006.gltf')
+  'models/electricidad_pasillo-001.gltf',
+  'models/electricidad_pasillo-002.gltf',
+  'models/electricidad_pasillo-003.gltf',
+  'models/electricidad_pasillo-004.gltf',
+  'models/electricidad_pasillo-005.gltf',
+  'models/electricidad_pasillo-006.gltf'
 ]
 
 // Puerta principal (Bosque)
-const electricidad1 = new Electricidad(electricidadPasilloFrames)
-electricidad1.Transform.create({
-    position: Vector3.create(16 + 8 + 2, 0.2, 16 + 8 + 3),
-    scale: Vector3.create(3, 10, 3),
-    rotation: Quaternion.Euler(0, 0, 0)
-  })
+const electricidad1 = createElectricidad(electricidadPasilloFrames)
+Transform.create(electricidad1,
+  {
+  position: Vector3.create(16 + 8 + 2, 0.2, 16 + 8 + 3),
+  scale: Vector3.create(3, 10, 3),
+  rotation: Quaternion.fromEulerDegrees(0, 0, 0),
+  parent:buildingCore
+  }
 )
+
 
 // Vulva
-const electricidad2 = new Electricidad(electricidadPasilloFrames)
-electricidad2.Transform.create({
+const electricidad2 = createElectricidad(electricidadPasilloFrames)
+Transform.create(electricidad2,
+  {
     position: Vector3.create(14, 0.1, 14.5),
-    scale: Vector3.create(1, 0.7, 1)
-  })
+    scale: Vector3.create(1, 0.7, 1),
+    parent:buildingCore
+  }
 )
-
-electricidad2.setParent(building_core)
 
 // Inodoros
-const electricidad3 = new Electricidad(electricidadPasilloFrames)
-electricidad3.Transform.create({
-    position: Vector3.create(9, 6.92, 11.54), //10.69
-    scale: Vector3.create(1.5, 2, 1.5)
-  })
+const electricidad3 = createElectricidad(electricidadPasilloFrames)
+Transform.create(electricidad3,
+  {
+    position: Vector3.create(9, 6.92, 11.54),
+    scale: Vector3.create(1.5, 2, 1.5),
+    parent:buildingCore
+  }
 )
 
-electricidad3.setParent(building_core)
 
 // Lavadero
-const electricidad4 = new Electricidad(electricidadPasilloFrames)
-electricidad4.Transform.create({
+const electricidad4 = createElectricidad(electricidadPasilloFrames)
+Transform.create(electricidad4,
+  {
     position: Vector3.create(38.64, 0.05, 11.42),
-    scale: Vector3.create(1, 0.6, 1)
-  })
+    scale: Vector3.create(1, 0.6, 1),
+    parent:buildingCore
+  }
 )
 
-electricidad4.setParent(building_core)
 
 // Pasillo
-const electricidad5 = new Electricidad(electricidadPasilloFrames)
-electricidad5.Transform.create({
+const electricidad5 = createElectricidad(electricidadPasilloFrames)
+Transform.create(electricidad5,
+  {
     position: Vector3.create(46.17, 0.05, 30.97),
-    scale: Vector3.create(1, 0.9, 1)
-  })
+    scale: Vector3.create(1, 0.9, 1),
+    parent:buildingCore
+  }
 )
 
-electricidad5.setParent(building_core)
-
-engine.addSystem(new ElectricidadSystem())
+engine.addSystem(ElectricidadSystem)
 
 /* Agregar nota */
 
-const pizarron_t = {
+const pizarronT = {
   position: {
     x: 13.8285,
     y: -3.56206,
@@ -1116,37 +1119,36 @@ const pizarron_t = {
 
 const pizarron = engine.addEntity()
 GltfContainer.create(pizarron, {src:'models/pizarron.gltf'})
-pizarron.addComponent(blenderTransform(pizarron_t))
+Transform.create(pizarron, blenderTransform(pizarronT, buildingCore))
+const mutablePizarronTransform = Transform.getMutable(pizarron)
 
-pizarron.setParent(building_core)
-pizarron.addComponent(
-  new OnPointerDown(
-    async () => {
-      textInput.visible = true
-    },
-    {
-      button: ActionButton.ANY,
-      hoverText: 'Agrega una nota'
-    }
-  )
+
+pointerEventsSystem.onPointerDown(
+	{
+		entity: pizarron,
+		opts: { button: InputAction.IA_ANY, hoverText: 'Agrega una nota' },
+	},
+	function () {
+    textInput.visible = true
+	}
 )
-class pizarronSystem implements ISystem {
-  update() {
-    if (!textInput.visible) return
+
+function pizarronSystem(dt: number): void {
+    if (textInput.visible === false) return
     if (
       !distanceIsLessThan(
-        pizarron.getComponent(Transform).position,
-        Camera.instance.position,
+        Transform.get(pizarron).position,
+        Transform.get(engine.CameraEntity).position,
         4
       )
     ) {
       textInput.visible = false
     }
   }
-}
-engine.addSystem(new pizarronSystem())
+
+engine.addSystem(pizarronSystem)
 /*
-executeTask(async () => {
+ executeTask(async () => {
     const userAddress = await getUserAccount()
     if (userAddress) {
         pizarron.addComponentOrReplace(
@@ -1159,45 +1161,33 @@ executeTask(async () => {
           })
         )
     }
-})*/
+}) */
 
-const messageTexts: Array<TextShape> = []
+const messageTexts: string[] = []
 let textColors = [
-  new Color3(0.9, 0.1, 0.1),
-  new Color3(0.0, 0.5, 0.0),
-  new Color3(0.1, 0.1, 0.9),
-  new Color3(0.0, 0.5, 0.5),
-  new Color3(0.5, 0.5, 0.0),
-  new Color3(0.9, 0.1, 0.9)
+  Color3.create(0.9, 0.1, 0.1),
+  Color3.create(0.0, 0.5, 0.0),
+  Color3.create(0.1, 0.1, 0.9),
+  Color3.create(0.0, 0.5, 0.5),
+  Color3.create(0.5, 0.5, 0.0),
+  Color3.create(0.9, 0.1, 0.9)
 ]
-textColors = textColors.concat(textColors)
 textColors = textColors.concat(textColors)
 
 for (let n = 0; n < 16; n++) {
   const pizarronTextE = engine.addEntity()
-  messageTexts.push(new TextShape(''})
-
-  messageTexts[n].fontSize = 1
-  messageTexts[n].hTextAlign = 'left'
-  messageTexts[n].vTextAlign = 'top'
-  messageTexts[n].fontWeight = 'strong'
-  //pizarronText.resizeToFit = true
-  //pizarronText.height = 0.1
-  //pizarronText.width = 0.1
-  messageTexts[n].color = textColors[n]
-  pizarronTextE.addComponent(messageTexts[n])
-  pizarronTextE.addComponent(blenderTransform(pizarron_t))
-  pizarronTextE.getComponent(Transform).position.x -= 0.085 // Distancia del pizarron
-  pizarronTextE.getComponent(Transform).position.y += 1.9 - n * 0.1 // Altura
-  pizarronTextE.getComponent(Transform).position.z += 1.5 - randomRange(0, 0.1) //Lado
-  pizarronTextE.getComponent(Transform).rotation = Quaternion.Euler(
-    0,
-    90,
-    -5 + randomRange(0, 10)
-  )
-  pizarronTextE.getComponent(Transform).scale = Vector3.create(0.8, 0.8, 0.8)
-  
-  pizarronTextE.setParent(building_core)
+  messageTexts.push('')
+  TextShape.create(pizarronTextE, {
+    text: messageTexts[n],
+    fontSize: 1,
+    textAlign: 0,
+    textColor: Color4.fromColor3(textColors[n])
+  })
+  Transform.create(pizarronTextE, blenderTransform(pizarronT, buildingCore))
+  const mutableTransformPizarronTextE = Transform.getMutable(pizarronTextE)
+  mutableTransformPizarronTextE.position = Vector3.add(mutablePizarronTransform.position, Vector3.create(-0.085, 1.9 - n * 0.1, 1.5 - randomRange(0, 0.1)))
+  mutablePizarronTransform.rotation = Quaternion.fromEulerDegrees(0, 90, -5 + randomRange(0, 10))
+  mutablePizarronTransform.scale = Vector3.create(0.8, 0.8, 0.8)
 }
 
 const textInput = new UIInputText(canvas)
@@ -1210,28 +1200,28 @@ textInput.placeholder = 'Haz click aquí para escribir una nota'
 textInput.placeholderColor = Color4.White()
 textInput.positionY = '100px'
 textInput.isPointerBlocker = true
-textInput.background = new Color4(0.5, 0.1, 0.2, 0.5)
-textInput.focusedBackground = new Color4(0.5, 0.1, 0.2, 0.8)
+textInput.background = Color4.create(0.5, 0.1, 0.2, 0.5)
+textInput.focusedBackground = Color4.create(0.5, 0.1, 0.2, 0.8)
 textInput.visible = false
 
 textInput.onTextSubmit = new OnTextSubmit(async (x) => {
-  /*const text = new UIText(textInput)
+  /* const text = new UIText(textInput)
   text.value = "<USER-ID> " + x.text
   text.width = "100%"
   text.height = "20px"
   text.vAlign = "top"
-  text.hAlign = "left"*/
+  text.hAlign = "left" */
 
-  //const fromAddress = await getUserAccount()
-  //const addedValue = eth.toWei(10, 'ether')
-  //const spender = contracts.mana.matic.address
+  // const fromAddress = await getUserAccount()
+  // const addedValue = eth.toWei(10, 'ether')
+  // const spender = contracts.mana.matic.address
 
-  //0xa41368620000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000f5b6f626a656374204f626a6563745d0000000000000000000000000000000000
-  //0xa41368620000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000f5b6f626a656374204f626a6563745d0000000000000000000000000000000000
+  // 0xa41368620000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000f5b6f626a656374204f626a6563745d0000000000000000000000000000000000
+  // 0xa41368620000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000f5b6f626a656374204f626a6563745d0000000000000000000000000000000000
 
-  //0xa4136862000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000144573746f20657320756e61206e6f746121e2808b000000000000000000000000
+  // 0xa4136862000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000144573746f20657320756e61206e6f746121e2808b000000000000000000000000
 
-  //0xa4136862000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000114573746f20657320756e61206e6f746121000000000000000000000000000000
+  // 0xa4136862000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000114573746f20657320756e61206e6f746121000000000000000000000000000000
 
   const functionSignature = functionSetGreeting.toPayload([x.text])
   const conf = contracts.mensajes.matic
@@ -1266,7 +1256,7 @@ function refrescarMensajes(delay: number = 0) {
 refrescarMensajes()
 
 /* Broche Instagram */
-const broche_instagram_t = {
+const brocheInstagramT = {
   position: {
     x: -21.0653,
     y: -10.3641,
@@ -1284,22 +1274,22 @@ const broche_instagram_t = {
     z: 1.80515
   }
 }
-const broche_instagram = engine.addEntity()
-GltfContainer.create(broche_instagram, {src:'models/broche_instagram.gltf'})
-broche_instagram.addComponent(blenderTransform(broche_instagram_t))
-
-broche_instagram.setParent(building_core)
-broche_instagram.addComponent(
-  new OnPointerDown(
-    () => {
-      openExternalURL('https://www.instagram.com/malabiatown/')
-    },
-    { button: ActionButton.POINTER, hoverText: 'Nuestro Instagram' }
-  )
+const brocheInstagram = engine.addEntity()
+GltfContainer.create(brocheInstagram, {src:'models/brocheInstagram.gltf'})
+Transform.create(brocheInstagram, (blenderTransform(brocheInstagramT, buildingCore)))
+pointerEventsSystem.onPointerDown(
+	{
+		entity: brocheInstagram,
+		opts: { button: InputAction.IA_POINTER, hoverText: 'Nuestro Instagram' },
+	},
+	function () {
+    openExternalUrl({ url: 'https://www.instagram.com/malabiatown/' })
+	}
 )
 
+
 /* Broche Malabia */
-const broche_malabia_t = {
+const brocheMalabiaT = {
   position: {
     x: -20.3434,
     y: -10.3641,
@@ -1317,22 +1307,22 @@ const broche_malabia_t = {
     z: 1.80515
   }
 }
-const broche_malabia = engine.addEntity()
-GltfContainer.create(broche_malabia, {src:'models/broche_malabia.gltf'})
-broche_malabia.addComponent(blenderTransform(broche_malabia_t))
 
-broche_malabia.setParent(building_core)
-broche_malabia.addComponent(
-  new OnPointerDown(
-    () => {
-      openExternalURL('https://www.malabiatown.org/')
-    },
-    { button: ActionButton.POINTER, hoverText: 'Nuestra web' }
-  )
+const brocheMalabia = engine.addEntity()
+GltfContainer.create(brocheMalabia, { src: 'models/brocheMalabia.gltf' })
+Transform.create(brocheMalabia, blenderTransform(brocheMalabiaT, brocheMalabia))
+pointerEventsSystem.onPointerDown(
+	{
+		entity: brocheMalabia,
+		opts: { button: InputAction.IA_POINTER, hoverText: 'Nuestra web' },
+	},
+	async function ():Promise<void> {
+    await openExternalUrl({ url: 'https://www.malabiatown.org/' })
+	}
 )
 
 /* Cuerno Recepcion */
-const cuerno_t = {
+const cuernoT = {
   position: {
     x: -21.7179,
     y: -10.3455,
@@ -1350,27 +1340,24 @@ const cuerno_t = {
     z: 1.34643
   }
 }
+
 const cuerno = engine.addEntity()
 GltfContainer.create(cuerno, {src:'models/cuerno.gltf'})
-cuerno.addComponent(blenderTransform(cuerno_t))
-
-cuerno.setParent(building_core)
-const cuerno_clip = new AudioClip('audio/cuerno.mp3')
-const cuerno_source = new AudioSource(cuerno_clip)
-cuerno_source.playing = false
-cuerno_source.loop = false
-cuerno.addComponent(cuerno_source)
-cuerno.addComponent(
-  new OnPointerDown(
-    () => {
-      cuerno_source.playOnce()
-    },
-    { button: ActionButton.POINTER, hoverText: 'Tocar' }
-  )
+Transform.create(cuerno, blenderTransform(cuernoT, buildingCore))
+AudioSource.create(cuerno, {audioClipUrl:'audio/cuerno.mp3', playing:false, loop:false})
+pointerEventsSystem.onPointerDown(
+	{
+		entity: cuerno,
+		opts: { button: InputAction.IA_POINTER, hoverText: 'Tocar' },
+	},
+	function () {
+    AudioSource.getMutable(cuerno).playing = true
+	}
 )
 
+
 /* Puerta Cortina */
-const puerta_cortina_t = {
+const puertaCortinaT = {
   position: {
     x: -8.75564,
     y: -15.1667,
@@ -1388,16 +1375,14 @@ const puerta_cortina_t = {
     z: 1.0
   }
 }
-const puerta_cortina = engine.addEntity()
-const puerta_cortina_model = new GLTFShape('models/puerta_cortina.gltf')
-puerta_cortina_model.isPointerBlocker = false
-puerta_cortina.addComponent(puerta_cortina_model)
-puerta_cortina.addComponent(blenderTransform(puerta_cortina_t))
+const puertaCortina = engine.addEntity()
+GltfContainer.create(puertaCortina, {src:'models/puertaCortina.gltf'})
+// TODO puertaCortina_model.isPointerBlocker = false
+Transform.create(puertaCortina, blenderTransform(puertaCortinaT, buildingCore))
 
-puerta_cortina.setParent(building_core)
 
 /* Caldero */
-const caldero_t = {
+const calderoT = {
   position: {
     x: -10.7177,
     y: -14.646,
@@ -1417,38 +1402,32 @@ const caldero_t = {
 }
 const caldero = engine.addEntity()
 GltfContainer.create(caldero, {src:'models/caldero.gltf'})
-caldero.addComponent(blenderTransform(caldero_t))
-
-caldero.setParent(building_core)
-const caldero_clip = new AudioClip('audio/caldero.mp3')
-const caldero_source = new AudioSource(caldero_clip)
-caldero_source.playing = true
-caldero_source.loop = true
-caldero.addComponent(caldero_source)
-//
-caldero.addComponent(
-  new OnPointerDown(
-    () => {
-      calderoRandom()
-    },
-    { button: ActionButton.POINTER, hoverText: 'Sabiduría del caldero' }
-  )
+Transform.create(caldero, blenderTransform(calderoT, buildingCore))
+AudioSource.create(caldero, {audioClipUrl:'audio/caldero.mp3', playing:true, loop:true})
+pointerEventsSystem.onPointerDown(
+	{
+		entity: caldero,
+		opts: { button: InputAction.IA_POINTER, hoverText: 'Sabiduría del caldero' },
+	},
+	function () {
+    calderoRandom()
+	}
 )
 
 /* Fogonazo Anim */
-const fogonazo_frames = [
-  new GLTFShape('models/fogonazo-001.gltf'),
-  new GLTFShape('models/fogonazo-002.gltf'),
-  new GLTFShape('models/fogonazo-003.gltf'),
-  new GLTFShape('models/fogonazo-004.gltf'),
-  new GLTFShape('models/fogonazo-005.gltf'),
-  new GLTFShape('models/fogonazo-006.gltf'),
-  new GLTFShape('models/fogonazo-007.gltf'),
-  new GLTFShape('models/fogonazo-008.gltf'),
-  new GLTFShape('models/fogonazo-009.gltf'),
-  new GLTFShape('models/fogonazo-010.gltf')
+const fogonazoFrames = [
+  'models/fogonazo-001.gltf',
+  'models/fogonazo-002.gltf',
+  'models/fogonazo-003.gltf',
+  'models/fogonazo-004.gltf',
+  'models/fogonazo-005.gltf',
+  'models/fogonazo-006.gltf',
+  'models/fogonazo-007.gltf',
+  'models/fogonazo-008.gltf',
+  'models/fogonazo-009.gltf',
+  'models/fogonazo-010.gltf'
 ]
-const fogonazo_t = {
+const fogonazoT = {
   position: {
     x: -10.7177,
     y: -14.646,
@@ -1466,20 +1445,14 @@ const fogonazo_t = {
     z: 2.7992
   }
 }
-const fogonazo = new Electricidad(fogonazo_frames)
-fogonazo.getComponent(ElectricidadComponent).playing = false
-fogonazo.getComponent(ElectricidadComponent).looping = false
-fogonazo.addComponent(blenderTransform(fogonazo_t))
-
-fogonazo.setParent(building_core)
-const fogonazo_clip = new AudioClip('audio/fogonazo.mp3')
-const fogonazo_source = new AudioSource(fogonazo_clip)
-fogonazo_source.playing = false
-fogonazo_source.loop = false
-fogonazo.addComponent(fogonazo_source)
+const fogonazo = createElectricidad(fogonazoFrames)
+ElectricidadComponent.getMutable(fogonazo).playing = false
+ElectricidadComponent.getMutable(fogonazo).looping = false
+Transform.create(fogonazo,blenderTransform(fogonazoT, buildingCore))
+AudioSource.create(fogonazo, {audioClipUrl:'audio/fogonazo.mp3', playing:false, loop:false})
 
 /* Marco caldero */
-const marco_caldero_t = {
+const marcoCalderoT = {
   position: {
     x: -10.9323,
     y: -14.4948,
@@ -1497,35 +1470,31 @@ const marco_caldero_t = {
     z: 0.8
   }
 }
-const marco_caldero = engine.addEntity()
-GltfContainer.create(marco_caldero, {src:'models/marco_caldero.gltf'})
-const marco_transform = blenderTransform(marco_caldero_t)
-marco_caldero.addComponent(marco_transform)
+const marcoCaldero = engine.addEntity()
+GltfContainer.create(marcoCaldero, {src:'models/marcoCaldero.gltf'})
+Transform.create(marcoCaldero,blenderTransform(marcoCalderoT, buildingCore))
 
-marco_caldero.setParent(building_core)
+const canvasCaldero = engine.addEntity()
+MeshRenderer.setPlane(canvasCaldero)
+Transform.create(canvasCaldero, blenderTransform(marcoCalderoT, buildingCore))
+const mutableCanvasTransform = Transform.getMutable(canvasCaldero)
+mutableCanvasTransform.position = Vector3.add(mutableCanvasTransform.position, Vector3.create(-0.01, 0.77, 0))
+mutableCanvasTransform.scale = Vector3.create(1.5, 1.5, 0)
+Material.setPbrMaterial(canvasCaldero,
+  {
+    texture: {
+      tex: {
+        $case: "texture",
+        texture: {
+          src: 'textures/rays.png'
+          // TODO Wraping mode??
+        }
+      }
+    }
+  }
+)
 
-const canvas_caldero = engine.addEntity()
-canvas_caldero.addComponent(new PlaneShape())
-const canvas_caldero_transform = blenderTransform(marco_caldero_t)
-canvas_caldero_transform.position.x -= 0.01
-canvas_caldero_transform.position.y += 0.77
-canvas_caldero_transform.scale = Vector3.create(1.5, 1.5, 0)
-canvas_caldero.addComponent(canvas_caldero_transform)
-const caldero_mat = new BasicMaterial()
-const texture = new Texture(`textures/rays.png`)
-caldero_mat.texture = texture
-
-canvas_caldero.addComponent(caldero_mat)
-
-canvas_caldero.setParent(building_core)
-/*canvas_caldero.addComponent(
-  new OnPointerDown(() => {
-      calderoRandom()
-  },
-  { button: ActionButton.POINTER, hoverText: "Sabiduría del caldero"})
-)*/
-
-function calderoRandom() {
+function calderoRandom():void {
   const obras = [
     'textures/oraculo/ Daniela Sciata  @danisciata .jpg',
     'textures/oraculo/DSC_5473.jpg',
@@ -1554,7 +1523,7 @@ function calderoRandom() {
     'textures/oraculo/IMG_20180829_225647_142.jpg',
     'textures/oraculo/IMG_20181101_203711_885.jpg',
     'textures/oraculo/IMG_20190404_193342_728.jpg',
-    'textures/oraculo/WP_20160126_003 (2).jpg',
+    'textures/oraculo/WP_20160126003 (2).jpg',
     'textures/oraculo/20200621_130659.jpg',
     'textures/oraculo/20200706_133025.jpg',
     'textures/oraculo/IMG_20170531_120753_541.jpg',
@@ -1563,47 +1532,48 @@ function calderoRandom() {
     'textures/oraculo/IMG_20180911_221100_823.jpg',
     'textures/oraculo/Picsart2016-15-4--22-43-40.jpg'
   ]
-  const texture_url = obras[randomInt(0, obras.length - 1)]
-  if (texture_url.endsWith('.mp4')) {
+  const textureUrl = obras[randomInt(0, obras.length - 1)]
+  if (textureUrl.endsWith('.mp4')) {
     if (
-      texture_url == 'textures/oraculo/Lucia 01.mp4' ||
-      texture_url == 'textures/oraculo/Lucia 02.mp4'
+      textureUrl === 'textures/oraculo/Lucia 01.mp4' ||
+      textureUrl === 'textures/oraculo/Lucia 02.mp4'
     ) {
-      canvas_caldero.getComponent(Transform).scale = Vector3.create(0.8, 1.5, 0)
+      Transform.getMutable(canvasCaldero).scale = Vector3.create(0.8, 1.5, 0)
     } else {
-      canvas_caldero.getComponent(Transform).scale = Vector3.create(1.5, 0.9, 0)
+      Transform.getMutable(canvasCaldero).scale = Vector3.create(1.5, 0.9, 0)
     }
-    canvas_caldero.getComponent(Transform).rotation = Quaternion.Euler(0, 90, 0)
-    const myVideoClip = new VideoClip(texture_url)
+    Transform.getMutable(canvasCaldero).rotation = Quaternion.fromEulerDegrees(0, 90, 0)
+    const myVideoClip = new VideoClip(textureUrl)
     const myVideoTexture = new VideoTexture(myVideoClip)
     myVideoTexture.playing = true
     myVideoTexture.volume = 0.1
-    caldero_mat.texture = myVideoTexture
+    calderoMat.texture = myVideoTexture
   } else {
-    canvas_caldero.getComponent(Transform).scale = Vector3.create(1.5, 1.5, 0)
-    canvas_caldero.getComponent(Transform).rotation = Quaternion.Euler(
+    Transform.getMutable(canvasCaldero).scale = Vector3.create(1.5, 1.5, 0)
+    Transform.getMutable(canvasCaldero).rotation = Quaternion.fromEulerDegrees(
       0,
       90,
       180
     )
-    const texture = new Texture(texture_url)
-    caldero_mat.texture = texture
+    const texture = new Texture(textureUrl)
+    calderoMat.texture = texture
   }
-  fogonazo_source.playOnce()
-  fogonazo.getComponent(ElectricidadComponent).playOnce()
+  AudioSource.getMutable(fogonazo).playing = true
+  ElectricidadComponent.getMutable(fogonazo).playing = true
 }
+
 calderoRandom()
 
 /* Malabia Upload Anim */
-const malabia_upload_frames = [
-  new GLTFShape('models/malabia_uploads-001.gltf'),
-  new GLTFShape('models/malabia_uploads-002.gltf'),
-  new GLTFShape('models/malabia_uploads-003.gltf'),
-  new GLTFShape('models/malabia_uploads-004.gltf'),
-  new GLTFShape('models/malabia_uploads-005.gltf'),
-  new GLTFShape('models/malabia_uploads-006.gltf')
+const malabiaUploadFrames = [
+  'models/malabiaUploads-001.gltf',
+  'models/malabiaUploads-002.gltf',
+  'models/malabiaUploads-003.gltf',
+  'models/malabiaUploads-004.gltf',
+  'models/malabiaUploads-005.gltf',
+  'models/malabiaUploads-006.gltf'
 ]
-const malabia_upload_t:  = {
+const malabiaUploadT = {
   position: {
     x: -20.6295,
     y: -8.31086,
@@ -1621,21 +1591,20 @@ const malabia_upload_t:  = {
     z: 1.52028
   }
 }
-const malabia_upload = new Electricidad(malabia_upload_frames)
-malabia_upload.addComponent(blenderTransform(malabia_upload_t))
+const malabiaUpload = createElectricidad(malabiaUploadFrames)
+Transform.create(malabiaUpload, blenderTransform(malabiaUploadT, buildingCore))
 
-malabia_upload.setParent(building_core)
 
 /* Alfombra Anim */
-const alfombrafx_frames = [
-  new GLTFShape('models/alfombra-001.gltf'),
-  new GLTFShape('models/alfombra-002.gltf'),
-  new GLTFShape('models/alfombra-003.gltf'),
-  new GLTFShape('models/alfombra-004.gltf'),
-  new GLTFShape('models/alfombra-005.gltf'),
-  new GLTFShape('models/alfombra-006.gltf')
+const alfombrafxFrames = [
+ 'models/alfombra-001.gltf',
+ 'models/alfombra-002.gltf',
+ 'models/alfombra-003.gltf',
+ 'models/alfombra-004.gltf',
+ 'models/alfombra-005.gltf',
+ 'models/alfombra-006.gltf'
 ]
-const malabiafx_t = {
+const malabiafxT = {
   position: {
     x: 12.8499,
     y: -12.2241,
@@ -1653,38 +1622,37 @@ const malabiafx_t = {
     z: 1.0
   }
 }
-const alfombrafx = new Electricidad(alfombrafx_frames)
-alfombrafx.addComponent(blenderTransform(malabiafx_t))
+const alfombrafx = createElectricidad(alfombrafxFrames)
+Transform.create(alfombrafx, blenderTransform(malabiafxT, buildingCore) )
 
-alfombrafx.setParent(building_core)
 
 /* Planta Anim */
-const plantafx_frames = [
-  new GLTFShape('models/planta-001.gltf'),
-  new GLTFShape('models/planta-002.gltf'),
-  new GLTFShape('models/planta-003.gltf'),
-  new GLTFShape('models/planta-004.gltf'),
-  new GLTFShape('models/planta-005.gltf'),
-  new GLTFShape('models/planta-006.gltf')
+const plantafxFrames = [
+  'models/planta-001.gltf',
+  'models/planta-002.gltf',
+  'models/planta-003.gltf',
+  'models/planta-004.gltf',
+  'models/planta-005.gltf',
+  'models/planta-006.gltf'
 ]
-const plantafx = new Electricidad(plantafx_frames)
-plantafx.Transform.create({
-    position: Vector3.create(16 + 8, 0, 16 + 8)
-  })
+const plantafx = createElectricidad(plantafxFrames)
+Transform.create(plantafx,
+  {
+    position: Vector3.create(16 + 8, 0, 16 + 8),
+    parent: buildingCore
+  }
 )
 
-plantafx.setParent(building_core)
-
 /* Caballo Anim */
-const caballofx_frames = [
-  new GLTFShape('models/caballo-001.gltf'),
-  new GLTFShape('models/caballo-002.gltf'),
-  new GLTFShape('models/caballo-003.gltf'),
-  new GLTFShape('models/caballo-004.gltf'),
-  new GLTFShape('models/caballo-005.gltf'),
-  new GLTFShape('models/caballo-006.gltf')
+const caballofxFrames = [
+  'models/caballo-001.gltf',
+  'models/caballo-002.gltf',
+  'models/caballo-003.gltf',
+  'models/caballo-004.gltf',
+  'models/caballo-005.gltf',
+  'models/caballo-006.gltf'
 ]
-const caballofx_t = {
+const caballofxT = {
   position: {
     x: 13.955,
     y: 5.47284,
@@ -1702,21 +1670,19 @@ const caballofx_t = {
     z: 2.0
   }
 }
-const caballofx = new Electricidad(caballofx_frames)
-caballofx.addComponent(blenderTransform(caballofx_t))
-
-caballofx.setParent(building_core)
+const caballofx = createElectricidad(caballofxFrames)
+Transform.create(caballofx, blenderTransform(caballofxT, buildingCore))
 
 /* Caballo Anim */
-const tunelfx_frames = [
-  new GLTFShape('models/tunel-001.gltf'),
-  new GLTFShape('models/tunel-002.gltf'),
-  new GLTFShape('models/tunel-003.gltf'),
-  new GLTFShape('models/tunel-004.gltf'),
-  new GLTFShape('models/tunel-005.gltf'),
-  new GLTFShape('models/tunel-006.gltf')
+const tunelfxFrames = [
+  'models/tunel-001.gltf',
+  'models/tunel-002.gltf',
+  'models/tunel-003.gltf',
+  'models/tunel-004.gltf',
+  'models/tunel-005.gltf',
+  'models/tunel-006.gltf'
 ]
-const tunelfx_t = {
+const tunelfxT = {
   position: {
     x: -10.5159,
     y: -21.4218,
@@ -1734,44 +1700,38 @@ const tunelfx_t = {
     z: 1.0
   }
 }
-const tunelfx = new Electricidad(tunelfx_frames)
-tunelfx.addComponent(blenderTransform(tunelfx_t))
+const tunelfx = createElectricidad(tunelfxFrames)
+Transform.create(tunelfx, blenderTransform(tunelfxT, buildingCore))
+AudioSource.create(tunelfx, {audioClipUrl:'audio/magia.mp3', playing:false, loop:false})
 
-tunelfx.setParent(building_core)
-
-const pasillo_clip = new AudioClip('audio/magia.mp3')
-const pasillo_source = new AudioSource(pasillo_clip)
-pasillo_source.playing = false
-pasillo_source.loop = false
-tunelfx.addComponent(pasillo_source)
 
 /* Portal Anim */
-const portalfx_frames = [
-  new GLTFShape('models/portal-001.gltf'),
-  new GLTFShape('models/portal-002.gltf'),
-  new GLTFShape('models/portal-003.gltf'),
-  new GLTFShape('models/portal-004.gltf'),
-  new GLTFShape('models/portal-005.gltf'),
-  new GLTFShape('models/portal-006.gltf')
+const portalfxFrames = [
+  'models/portal-001.gltf',
+  'models/portal-002.gltf',
+  'models/portal-003.gltf',
+  'models/portal-004.gltf',
+  'models/portal-005.gltf',
+  'models/portal-006.gltf'
 ]
-const portalfx = new Electricidad(portalfx_frames)
-portalfx.Transform.create({
+const portalfx = createElectricidad(portalfxFrames)
+Transform.create(portalfx, {
     position: Vector3.create(16 + 8, 0, 16 + 8)
   })
-)
 
-//portalfx.setParent(building_core)
+
+// portalfx.setParent(buildingCore)
 
 /* Terraza Anim */
-const terrazafx_frames = [
-  new GLTFShape('models/terraza_luz-001.gltf'),
-  new GLTFShape('models/terraza_luz-002.gltf'),
-  new GLTFShape('models/terraza_luz-003.gltf'),
-  new GLTFShape('models/terraza_luz-004.gltf'),
-  new GLTFShape('models/terraza_luz-005.gltf'),
-  new GLTFShape('models/terraza_luz-006.gltf')
+const terrazafxFrames = [
+  'models/terraza_luz-001.gltf',
+  'models/terraza_luz-002.gltf',
+  'models/terraza_luz-003.gltf',
+  'models/terraza_luz-004.gltf',
+  'models/terraza_luz-005.gltf',
+  'models/terraza_luz-006.gltf'
 ]
-const terrazafx_t = {
+const terrazafxT = {
   position: {
     x: -17.8215,
     y: -13.9625,
@@ -1789,14 +1749,13 @@ const terrazafx_t = {
     z: 1.51739
   }
 }
-const terrazafx = new Electricidad(terrazafx_frames)
-terrazafx.addComponent(blenderTransform(terrazafx_t))
+const terrazafx = createElectricidad(terrazafxFrames)
+Transform.create(terrazafx, blenderTransform(terrazafxT, buildingCore))
 
-terrazafx.setParent(building_core)
 
 /* Vela Anim */
 
-const vela_t = {
+const velaT = {
   position: {
     x: -16.2303,
     y: 4.13286,
@@ -1816,18 +1775,17 @@ const vela_t = {
 }
 const velafx = engine.addEntity()
 GltfContainer.create(velafx, {src:'models/vela.gltf'})
-velafx.addComponent(blenderTransform(vela_t))
+Transform.create(velafx, blenderTransform(velaT, buildingCore))
 
-velafx.setParent(building_core)
 
 /* Exit Anim */
-const exit_frames = [
-  new GLTFShape('models/exit-001.gltf'),
-  new GLTFShape('models/exit-002.gltf'),
-  new GLTFShape('models/exit-003.gltf'),
-  new GLTFShape('models/exit-004.gltf')
+const exitFrames = [
+  'models/exit-001.gltf',
+  'models/exit-002.gltf',
+  'models/exit-003.gltf',
+  'models/exit-004.gltf'
 ]
-const exit1_t = {
+const exit1T = {
   position: {
     x: -14.6847,
     y: -8.28745,
@@ -1845,11 +1803,10 @@ const exit1_t = {
     z: 2.71864
   }
 }
-const exit1 = new Electricidad(exit_frames)
-exit1.addComponent(blenderTransform(exit1_t))
+const exit1 = createElectricidad(exitFrames)
+Transform.create(exit1, blenderTransform(exit1T, buildingCore))
 
-exit1.setParent(building_core)
-const exit2_t = {
+const exit2T = {
   position: {
     x: -14.6847,
     y: -8.02379,
@@ -1867,7 +1824,5 @@ const exit2_t = {
     z: 2.71864
   }
 }
-const exit2 = new Electricidad(exit_frames)
-exit2.addComponent(blenderTransform(exit2_t))
-
-exit2.setParent(building_core)
+const exit2 = createElectricidad(exitFrames)
+Transform.create(exit2, blenderTransform(exit2T, buildingCore))

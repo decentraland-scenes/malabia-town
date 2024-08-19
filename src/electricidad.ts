@@ -2,7 +2,7 @@ import { engine, type Entity, GltfContainer, Transform } from "@dcl/sdk/ecs"
 import { ElectricidadComponent } from "./definitions"
 
 
-export function createElectricidad(electricidadPasilloFrames:string[]): void{
+export function createElectricidad(electricidadPasilloFrames:string[]): Entity{
   const electricidad = engine.addEntity()
   ElectricidadComponent.create(electricidad)
   const MutableElectricidadComponent = ElectricidadComponent.getMutable(electricidad)
@@ -13,6 +13,7 @@ export function createElectricidad(electricidadPasilloFrames:string[]): void{
     GltfContainer.create(MutableElectricidadComponent.entity_frames[n], {src:electricidadPasilloFrames[n]})
     Transform.create(MutableElectricidadComponent.entity_frames[n], {parent:electricidad})
   }
+  return electricidad
 }
 
 export function ElectricidadSystem(dt: number): void {

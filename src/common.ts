@@ -225,7 +225,7 @@ export function gravityToVelocity(
   return force * invMass * dt
 }
 
-export function blenderTransform(blenderT: BlenderTransform): BlenderTransform {
+export function blenderTransform(blenderT: BlenderTransform, parent?:Entity): BlenderTransform {
   const position = Vector3.create(
     blenderT.position.x * -1 + 24,
     blenderT.position.z,
@@ -240,6 +240,14 @@ export function blenderTransform(blenderT: BlenderTransform): BlenderTransform {
 
   const scale = Vector3.create(blenderT.scale.x, blenderT.scale.z, blenderT.scale.y)
 
+  if (parent !== undefined) {
+    return {
+      position,
+      rotation,
+      scale,
+      parent
+    }
+  }
   return {
     position,
     rotation,
