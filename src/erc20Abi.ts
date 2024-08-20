@@ -1,13 +1,12 @@
-import type * as eth from "eth-connect";
+import type * as eth from 'eth-connect'
 
-export const abiManaArray:
-  eth.AbiItemGeneric[] = [
+export const abiManaArray: eth.AbiItemGeneric[] = [
   {
     inputs: [
       { internalType: 'string', name: 'name_', type: 'string' },
       { internalType: 'string', name: 'symbol_', type: 'string' }
     ],
-    outputs:[],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'constructor'
   },
@@ -33,7 +32,7 @@ export const abiManaArray:
         type: 'uint256'
       }
     ],
-    outputs:[],
+    outputs: [],
     name: 'Approval',
     type: 'event'
   },
@@ -59,7 +58,7 @@ export const abiManaArray:
         type: 'bytes'
       }
     ],
-    outputs:[],
+    outputs: [],
     name: 'MetaTransactionExecuted',
     type: 'event'
   },
@@ -80,7 +79,7 @@ export const abiManaArray:
         type: 'uint256'
       }
     ],
-    outputs:[],
+    outputs: [],
     name: 'Transfer',
     type: 'event'
   },
@@ -236,7 +235,8 @@ export const abiManaArray:
     type: 'function'
   },
   {
-    stateMutability: 'payable', type: 'receive',
+    stateMutability: 'payable',
+    type: 'receive',
     inputs: [],
     outputs: []
   },

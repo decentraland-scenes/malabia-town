@@ -1,6 +1,6 @@
-import type * as eth from "eth-connect";
+import type * as eth from 'eth-connect'
 
-export const abiMensajes: eth.AbiItemGeneric[]= [
+export const abiMensajes: eth.AbiItemGeneric[] = [
   {
     inputs: [],
     stateMutability: 'nonpayable',

@@ -1,10 +1,14 @@
 // Get distance
 
 import * as utils from '@dcl-sdk/utils'
-import { type BlenderTransform } from "./definitions"
-import { Quaternion, Vector3 } from "@dcl/sdk/math"
-import { type ComponentDefinition, type Entity, Transform, engine } from "@dcl/sdk/ecs"
-
+import { type BlenderTransform } from './definitions'
+import { Quaternion, Vector3 } from '@dcl/sdk/math'
+import {
+  // type ComponentDefinition,
+  type Entity,
+  Transform
+  // engine
+} from '@dcl/sdk/ecs'
 
 /*
 Note:
@@ -19,7 +23,11 @@ export function distance(pos1: Vector3, pos2: Vector3): number {
   return a * a + b * b + c * c
 }
 
-export function distanceIsLessThan(pos1: Vector3, pos2: Vector3, dist: number): boolean {
+export function distanceIsLessThan(
+  pos1: Vector3,
+  pos2: Vector3,
+  dist: number
+): boolean {
   return distance(pos1, pos2) < dist * dist * dist
 }
 
@@ -68,7 +76,10 @@ export type Frame = {
   time: number
   value: number
 }
-export function interpolateAnimation(keyframes:Frame[], currentTime:number): number {
+export function interpolateAnimation(
+  keyframes: Frame[],
+  currentTime: number
+): number {
   let initialKeyframe = 0
   let finalKeyframe = 0
   for (let k = 0; k < keyframes.length; k++) {
@@ -92,7 +103,11 @@ export function interpolateAnimation(keyframes:Frame[], currentTime:number): num
   )
 }
 
-export const fetchRetry = async (url: string, options:object, n: number): Promise<Response | undefined> => {
+export const fetchRetry = async (
+  url: string,
+  options: object,
+  n: number
+): Promise<Response | undefined> => {
   for (let i = 0; i < n; i++) {
     try {
       return await fetch(url, options)
@@ -103,60 +118,71 @@ export const fetchRetry = async (url: string, options:object, n: number): Promis
   }
 }
 
-export function isInsideSquare(x:number, y:number, lowX:number, highX:number, lowY:number, highY:number): boolean {
+export function isInsideSquare(
+  x: number,
+  y: number,
+  lowX: number,
+  highX: number,
+  lowY: number,
+  highY: number
+): boolean {
   if (x < lowX || x > highX || y < lowY || y > highY) {
     return false
   }
   return true
 }
 
-export function dot(v1:Vector3, v2:Vector3): number {
+export function dot(v1: Vector3, v2: Vector3): number {
   return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z
 }
 
 export function getGlobalPosition(entity: Entity): Vector3 {
   const entityTransfrom = Transform.getOrNull(entity)
-  const entityPosition = (entityTransfrom != null)
-    ? Vector3.clone(entityTransfrom.position)
-    : Vector3.Zero()
-  const parentEntity = (entityTransfrom != null)
-  ? entityTransfrom.parent
-  : null
+  const entityPosition =
+    entityTransfrom != null
+      ? Vector3.clone(entityTransfrom.position)
+      : Vector3.Zero()
+  // const parentEntity = (entityTransfrom != null)
+  // ? entityTransfrom.parent
+  // : null
 
-  if (parentEntity != null) {
-    const parentEntityTransform = Transform.getOrNull(parentEntity)
-    const parentRotation = (parentEntityTransform !== null)
-      ? Quaternion.create(parentEntityTransform.rotation.x, parentEntityTransform.rotation.y, parentEntityTransform.rotation.z, parentEntityTransform.rotation.w)
-      : Quaternion.Identity
-    const resultPosition =  Vector3.add(getGlobalPosition(parentEntity), Vector3.rotate(entityPosition, parentRotation))
-    return resultPosition
-  }
+  // if (parentEntity != null) {
+  //   const parentEntityTransform = Transform.getOrNull(parentEntity)
+  //   const parentRotation = (parentEntityTransform !== null)
+  //     ? Quaternion.create(parentEntityTransform.rotation.x, parentEntityTransform.rotation.y, parentEntityTransform.rotation.z, parentEntityTransform.rotation.w)
+  //     : Quaternion.Identity
+  //   const resultPosition =  Vector3.add(getGlobalPosition(parentEntity), Vector3.rotate(entityPosition, parentRotation))
+  //   return resultPosition
+  // }
 
   return entityPosition
 }
 
 export function planeRayIntersection(
-  rayVector:Vector3,
-  rayPoint:Vector3,
-  planePoint:Vector3,
-  planeNormal:Vector3
+  rayVector: Vector3,
+  rayPoint: Vector3,
+  planePoint: Vector3,
+  planeNormal: Vector3
 ): Vector3 {
   const diff = Vector3.subtract(rayPoint, planePoint)
   const prod1 = Vector3.dot(diff, planeNormal)
   const prod2 = Vector3.dot(rayVector, planeNormal)
   const prod3 = prod1 / prod2
-  const intersection = Vector3.subtract(rayPoint, Vector3.scale(rayVector, prod3))
+  const intersection = Vector3.subtract(
+    rayPoint,
+    Vector3.scale(rayVector, prod3)
+  )
   return intersection
 }
 
-export function getUniqueEntityByComponent(component: ComponentDefinition<any>) : string | undefined {
-  const inputs = engine.getEntitiesWith(component)
-  for (const key in engine.getEntitiesWith(component)) {
-    if (inputs.hasOwnProperty(key)) {
-      return inputs[key].getComponent(component)
-    }
-  }
-}
+// export function getUniqueEntityByComponent(component: ComponentDefinition<any>) : string | undefined {
+//   const inputs = engine.getEntitiesWith(component)
+//   for (const key in engine.getEntitiesWith(component)) {
+//     if (Object.prototype.hasOwnProperty.call(inputs, key)) {
+//       return inputs[key].getComponent(component)
+//     }
+//   }
+// }
 
 export function tiles(
   x: number,
@@ -164,7 +190,7 @@ export function tiles(
   nx: number,
   ny: number,
   mirror: boolean = false
-) : number[] {
+): number[] {
   const height = 1 / x
   const width = 1 / y
   let uv
@@ -225,7 +251,10 @@ export function gravityToVelocity(
   return force * invMass * dt
 }
 
-export function blenderTransform(blenderT: BlenderTransform, parent?:Entity): BlenderTransform {
+export function blenderTransform(
+  blenderT: BlenderTransform,
+  parent?: Entity
+): BlenderTransform {
   const position = Vector3.create(
     blenderT.position.x * -1 + 24,
     blenderT.position.z,
@@ -238,7 +267,11 @@ export function blenderTransform(blenderT: BlenderTransform, parent?:Entity): Bl
     blenderT.rotation.w * -1 // W Invert
   )
 
-  const scale = Vector3.create(blenderT.scale.x, blenderT.scale.z, blenderT.scale.y)
+  const scale = Vector3.create(
+    blenderT.scale.x,
+    blenderT.scale.z,
+    blenderT.scale.y
+  )
 
   if (parent !== undefined) {
     return {
@@ -256,5 +289,5 @@ export function blenderTransform(blenderT: BlenderTransform, parent?:Entity): Bl
 }
 
 export async function sleep(ms: number): Promise<void> {
-  await new Promise((resolve) => utils.timers.setTimeout(()=>resolve, ms));
+  await new Promise((resolve) => utils.timers.setTimeout(() => resolve, ms))
 }

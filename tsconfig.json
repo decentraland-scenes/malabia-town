@@ -1,25 +1,8 @@
 {
   "compilerOptions": {
-    "ignoreDeprecations": "5.0",
-    // "outFile": "./bin/game.js",
-    "jsx": "react",
     "allowJs": true,
-    "strict": true,
-    "paths": {
-      "decentraland-transactions": [
-        "node_modules/decentraland-transactions/decentraland-transactions.d.ts",
-        "node_modules\\decentraland-transactions\\decentraland-transactions.d.ts"
-      ],
-      "eth-connect": [
-        "node_modules/eth-connect/eth-connect.d.ts",
-        "node_modules\\eth-connect\\eth-connect.d.ts"
-      ]
-    },
-    "baseUrl": "."
+    "strict": true
   },
-  "include": [
-    "src/**/*.ts", "src/**/*.tsx"
-  ],
-  "extends": "@dcl/sdk/types/tsconfig.ecs7.json",
-  "compileOnSave": false
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "extends": "@dcl/sdk/types/tsconfig.ecs7.json"
 }
