@@ -800,14 +800,13 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   //   })
   // }
 
-  // let timePass: number = 0
   let frame: number = 0
-  let buildingVisible = false
-  let justTeleported = false
-  let teleportTime = 0
-  let teleporting = false
-  let teleportingFrom = 0
-
+  let buildingVisible: boolean = false
+  let justTeleported: boolean = false
+  let teleportTime: number = 0
+  let teleporting: boolean = false
+  let teleportingFrom: number = 0
+  let timePass: number = 0
   function AnimSystem(dt: number): void {
     if (!buildingVisible) {
       if (
@@ -821,7 +820,10 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
         justTeleported = true
         Transform.getMutable(buildingCore).position.y = 0
         Transform.getMutable(mainDoor).position.y = -20
-        Transform.getMutable(bosque).position.y = -20
+        const mutableBosqueT = Transform.getMutableOrNull(bosque)
+        if (mutableBosqueT !== null) {
+          mutableBosqueT.position.y = -20
+        }
         engine.removeEntity(bosque)
         engine.removeEntity(electricidad1)
         engine.removeEntity(portalfx)
@@ -850,8 +852,10 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
           engine.removeEntity(static4)
 
           Transform.getMutable(mainDoor).position.y = 1
-          Transform.getMutable(bosque).position.y = 0
-
+          const mutableBosqueT = Transform.getMutableOrNull(bosque)
+        if (mutableBosqueT !== null) {
+          mutableBosqueT.position.y = 0
+        }
           for (let n = 0; n < mariposas.length; n++) {
             mariposas.push(engine.addEntity())
           }
@@ -859,7 +863,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
             newRelativePosition: Vector3.create(16, 0, 16),
             cameraTarget: Vector3.create(16 + 8, 2, 16 + 8)
           })
-
+          AudioSource.getMutable(tunelfx).playing = true
           // pasillo_source.playOnce()
         }
       } else {
@@ -867,11 +871,11 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
       }
     }
 
-    // this.timePass += td
-    // if (this.timePass < 0.3) {
-    //   return
-    // }
-    // this.timePass = 0
+    timePass += dt
+    if (timePass < 0.3) {
+      return
+    }
+    timePass = 0
     for (let n = 0; n < wearablesFrames.length; n++) {
       if (n === frame) {
         // console.log("show", n)
@@ -1048,6 +1052,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   }
 
   const pizarron = engine.addEntity()
+  MeshCollider.setBox(pizarron)
   GltfContainer.create(pizarron, { src: 'models/pizarron.gltf' })
   Transform.create(pizarron, blenderTransform(pizarronT, buildingCore))
   const mutablePizarronTransform = Transform.getMutable(pizarron)
@@ -1115,7 +1120,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     title: 'Agregar nota en el pizarrón:',
     placeholder: 'Escribe tu nota aquí...',
     acceptLabel: 'Dejar nota',
-    onAccept: (value: string): void => {}
+    onAccept: (value: string): void => {enviarMensajePrompt.hide()}
     //   async (value: string) => {
     //     const functionSignature = functionSetGreeting.toPayload([value])
     //     const conf = contracts.mensajes.matic

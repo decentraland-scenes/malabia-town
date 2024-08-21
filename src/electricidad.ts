@@ -30,8 +30,14 @@ export function createElectricidad(
   }
   return electricidad
 }
-
+let timePass: number = 0
 export function ElectricidadSystem(dt: number): void {
+  timePass += dt
+        if (timePass < 0.1) {
+            return
+        } else {
+          timePass = 0
+        }
   for (const [elect] of engine.getEntitiesWith(ElectricidadComponent)) {
     const mutableElectComponent = ElectricidadComponent.getMutable(elect)
     if (!mutableElectComponent.playing) {
