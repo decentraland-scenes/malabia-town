@@ -21,7 +21,13 @@ import {
 } from '@dcl/sdk/src/ecs'
 // import * as eth from "eth-connect"
 // import { openExternalUrl } from "~system/RestrictedActions"
-import { blenderTransform, distanceIsLessThan, randomInt, randomRange } from './common'
+import {
+  blenderTransform,
+  distanceIsLessThan,
+  randomInt,
+  randomIntExcluding,
+  randomRange
+} from './common'
 import { createElectricidad, ElectricidadSystem } from './electricidad'
 
 // import { getUserAccount } from '@decentraland/EthereumController'
@@ -92,57 +98,56 @@ export function main(): void {
   Transform.create(buildingCore, { position: Vector3.create(0, -20, 0) })
 
   const bosque = engine.addEntity()
-    GltfContainer.create(bosque, {
-        src: 'models/bosque.gltf',
-   })
+  GltfContainer.create(bosque, {
+    src: 'models/bosque.gltf'
+  })
   Transform.create(bosque, { position: Vector3.create(16 + 8, 0, 16 + 8) })
 
   const walls = engine.addEntity()
-  GltfContainer.create(walls, {src:'models/walls.gltf'})
+  GltfContainer.create(walls, { src: 'models/walls.gltf' })
   Transform.create(walls, {
-      position: Vector3.create(16 + 8, 0, 16 + 8),
-      parent: buildingCore
-    })
-  
+    position: Vector3.create(16 + 8, 0, 16 + 8),
+    parent: buildingCore
+  })
+
   const dynamic = engine.addEntity()
-  GltfContainer.create(dynamic, {src:'models/dynamic.gltf'})
+  GltfContainer.create(dynamic, { src: 'models/dynamic.gltf' })
   Transform.create(dynamic, {
-      position: Vector3.create(16 + 8, 0, 16 + 8),
-      parent: buildingCore
-    })
-  
-  
+    position: Vector3.create(16 + 8, 0, 16 + 8),
+    parent: buildingCore
+  })
+
   const static_ = engine.addEntity()
-  GltfContainer.create(static_, {src:'models/static.gltf'})
+  GltfContainer.create(static_, { src: 'models/static.gltf' })
   Transform.create(static_, {
-      position: Vector3.create(16 + 8, 0, 16 + 8),
-      parent: buildingCore
-    })
-  
-  
+    position: Vector3.create(16 + 8, 0, 16 + 8),
+    parent: buildingCore
+  })
+
   const static2 = engine.addEntity()
-  GltfContainer.create(static2, {src:'models/static2.gltf'})
+  GltfContainer.create(static2, { src: 'models/static2.gltf' })
   Transform.create(static2, {
-      position: Vector3.create(16 + 8, 0, 16 + 8)  })
-  
+    position: Vector3.create(16 + 8, 0, 16 + 8)
+  })
+
   //
   // static2.setParent(buildingCore)
-  
+
   const static3 = engine.addEntity()
-  GltfContainer.create(static3, {src:'models/static3.gltf'})
+  GltfContainer.create(static3, { src: 'models/static3.gltf' })
   Transform.create(static3, {
-      position: Vector3.create(16 + 8, 0, 16 + 8)
-    })
-  
+    position: Vector3.create(16 + 8, 0, 16 + 8)
+  })
+
   //
   // static3.setParent(buildingCore)
-  
+
   const static4 = engine.addEntity()
-  GltfContainer.create(static4, {src:'models/static4.gltf'})
-  Transform.create(static4,{
-      position: Vector3.create(16 + 8, 0, 16 + 8)
-    })
-  
+  GltfContainer.create(static4, { src: 'models/static4.gltf' })
+  Transform.create(static4, {
+    position: Vector3.create(16 + 8, 0, 16 + 8)
+  })
+
   //
   // static4.setParent(buildingCore)
 
@@ -224,18 +229,24 @@ export function main(): void {
   }
 
   const lavarropas01 = engine.addEntity()
-  GltfContainer.create(lavarropas01, { src: 'models/lavarropas.gltf',
-    visibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS })
+  GltfContainer.create(lavarropas01, {
+    src: 'models/lavarropas.gltf',
+    visibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS
+  })
   Transform.create(lavarropas01, blenderTransform(lav01T, buildingCore))
 
   const lavarropas02 = engine.addEntity()
-  GltfContainer.create(lavarropas02, { src: 'models/lavarropas.gltf',
-    visibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS })
+  GltfContainer.create(lavarropas02, {
+    src: 'models/lavarropas.gltf',
+    visibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS
+  })
   Transform.create(lavarropas02, blenderTransform(lav02T, buildingCore))
 
   const lavarropas03 = engine.addEntity()
-  GltfContainer.create(lavarropas03, { src: 'models/lavarropas.gltf',
-    visibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS })
+  GltfContainer.create(lavarropas03, {
+    src: 'models/lavarropas.gltf',
+    visibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS
+  })
   Transform.create(lavarropas03, blenderTransform(lav03T, buildingCore))
 
   const lavarropasRayos = engine.addEntity()
@@ -378,8 +389,8 @@ export function main(): void {
   }
 
   const pantalla = engine.addEntity()
-    MeshRenderer.setPlane(pantalla)
-    MeshCollider.setPlane(pantalla)
+  MeshRenderer.setPlane(pantalla)
+  MeshCollider.setPlane(pantalla)
   Transform.create(pantalla, blenderTransform(pantallaT, buildingCore))
 
   VideoPlayer.create(pantalla, {
@@ -789,159 +800,158 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   //   })
   // }
 
-  let timePass: number = 0
+  // let timePass: number = 0
   let frame: number = 0
-  let building_visible = false
+  let buildingVisible = false
   let justTeleported = false
   let teleportTime = 0
   let teleporting = false
   let teleportingFrom = 0
+
   function AnimSystem(dt: number): void {
-   
-      if (!building_visible) {
-        if (
-          distanceIsLessThan(
-            Transform.get(mainDoor).position,
-            Transform.get(engine.CameraEntity).position,
-            2
-          )
-        ) {
-          building_visible = true
-          justTeleported = true
-          Transform.getMutable(buildingCore).position.y = 0
-          Transform.getMutable(mainDoor).position.y = -20
-          Transform.getMutable(bosque).position.y = -20
-          engine.removeEntity(bosque)
-          engine.removeEntity(electricidad1)
-          engine.removeEntity(portalfx)
+    if (!buildingVisible) {
+      if (
+        distanceIsLessThan(
+          Transform.get(mainDoor).position,
+          Transform.get(engine.CameraEntity).position,
+          2
+        )
+      ) {
+        buildingVisible = true
+        justTeleported = true
+        Transform.getMutable(buildingCore).position.y = 0
+        Transform.getMutable(mainDoor).position.y = -20
+        Transform.getMutable(bosque).position.y = -20
+        engine.removeEntity(bosque)
+        engine.removeEntity(electricidad1)
+        engine.removeEntity(portalfx)
+        for (let n = 0; n < mariposas.length; n++) {
+          engine.removeEntity(mariposas[n])
+        }
+        void movePlayerTo({
+          newRelativePosition: Vector3.create(34, 0, 45),
+          cameraTarget: Vector3.create(46, 1, 45)
+        })
+      }
+      return
+    } else {
+      if (
+        distanceIsLessThan(
+          Vector3.create(35, 1.75, 45),
+          Transform.get(engine.CameraEntity).position,
+          2
+        )
+      ) {
+        if (!justTeleported) {
+          buildingVisible = false
+          Transform.getMutable(buildingCore).position.y = -20
+          engine.removeEntity(static2)
+          engine.removeEntity(static3)
+          engine.removeEntity(static4)
+
+          Transform.getMutable(mainDoor).position.y = 1
+          Transform.getMutable(bosque).position.y = 0
+
           for (let n = 0; n < mariposas.length; n++) {
-            engine.removeEntity(mariposas[n])
+            mariposas.push(engine.addEntity())
           }
-            movePlayerTo({ newRelativePosition: Vector3.create(34, 0, 45), cameraTarget: Vector3.create(46, 1, 45) })
-}
-        return
-      } else {
-        if (
-          distanceIsLessThan(
-            Vector3.create(35, 1.75, 45),
-            Transform.get(engine.CameraEntity).position,
-            2
-          )
-        ) {
-          if (!justTeleported) {
-            building_visible = false
-            Transform.getMutable(buildingCore).position.y = -20
-            engine.removeEntity(static2)
-            engine.removeEntity(static3)
-            engine.removeEntity(static4)
+          void movePlayerTo({
+            newRelativePosition: Vector3.create(16, 0, 16),
+            cameraTarget: Vector3.create(16 + 8, 2, 16 + 8)
+          })
 
-            Transform.getMutable(mainDoor).position.y = 1
-            Transform.getMutable(bosque).position.y = 0
-
-            for (let n = 0; n < mariposas.length; n++) {
-                const mariposa = engine.addEntity()
-            }
-            movePlayerTo({ newRelativePosition: Vector3.create(16, 0, 16), cameraTarget: Vector3.create(16+8, 2, 16+8) })
-
-            //pasillo_source.playOnce()
-          }
-        } else {
-          justTeleported = false
-        }
-      }
-
-      this.timePass += td
-      if (this.timePass < 0.3) {
-        return
-      }
-      this.timePass = 0
-      for (let n = 0; n < wearablesFrames.length; n++) {
-        if (n == this.frame) {
-          //console.log("show", n)
-          wearablesEntities[n].getComponent(Transform).position =
-            blenderTransform(wearablesT).position.clone, buildingCore))
-
-            blenderTransform(wearablesT).rotation.clone, buildingCore))
-
-            blenderTransform(wearablesT).scale.clone()
-
-          labEntities[n].getComponent(Transform).position =
-            blenderTransform(labT).position.clone()
-          labEntities[n].getComponent(Transform).rotation =
-            blenderTransform(labT).rotation.clone()
-          labEntities[n].getComponent(Transform).scale =
-            blenderTransform(labT).scale.clone()
-        } else {
-          //console.log("hide", n)
-          wearablesEntities[n].getComponent(Transform).position.x =
-            hiddenTransform.position.x
-          wearablesEntities[n].getComponent(Transform).position.y =
-            hiddenTransform.position.y
-          wearablesEntities[n].getComponent(Transform).position.z =
-            hiddenTransform.position.z
-
-          labEntities[n].getComponent(Transform).position.x =
-            hiddenTransform.position.x
-          labEntities[n].getComponent(Transform).position.y =
-            hiddenTransform.position.y
-          labEntities[n].getComponent(Transform).position.z =
-            hiddenTransform.position.z
-        }
-        //console.log(wearablesEntities[this.frame].getComponent(Transform).position)
-      }
-
-      this.frame += 1
-      if (this.frame >= wearablesEntities.length) {
-        this.frame = 0
-      }
-
-      // Check Portales
-
-      if (this.teleporting) {
-        this.teleportTime -= 0.5
-        console.log(this.teleportTime)
-        if (this.teleportTime <= 0) {
-          this.teleporting = false
-          //
-          const port =
-            portales[randomIntExcluding(0, portales.length, this.teleportingFrom)]
-          movePlayerTo(port.out[0], port.out[1])
+          // pasillo_source.playOnce()
         }
       } else {
-        for (let n = 0; n < portales.length; n++) {
-          if (
-            distanceIsLessThan(
-              portales[n].in,
-              Camera.instance.position,
-              portales[n].dist
-            )
-          ) {
-            console.log('on', n)
-            if (n == 3) {
-              // Inodoros
-              // Si no está en la terraza, ignorar
-              if (Camera.instance.position.y < 4) break
-            }
-            this.teleportTime = 1
-            this.teleporting = true
-            this.teleportingFrom = n
-            sourceTeletransporte.playOnce()
-            break
-          }
-        }
+        justTeleported = false
       }
     }
 
+    // this.timePass += td
+    // if (this.timePass < 0.3) {
+    //   return
+    // }
+    // this.timePass = 0
+    for (let n = 0; n < wearablesFrames.length; n++) {
+      if (n === frame) {
+        // console.log("show", n)
+        Transform.createOrReplace(
+          wearablesEntities[n],
+          blenderTransform(wearablesT, buildingCore)
+        )
+        Transform.createOrReplace(
+          labEntities[n],
+          blenderTransform(labT, buildingCore)
+        )
+      } else {
+        // console.log("hide", n)
+        Transform.createOrReplace(wearablesEntities[n], {
+          position: hiddenTransform.position,
+          parent: buildingCore
+        })
+        Transform.createOrReplace(labEntities[n], {
+          position: hiddenTransform.position,
+          parent: buildingCore
+        })
+      }
+      // console.log(wearablesEntities[this.frame].getComponent(Transform).position)
+    }
+
+    frame += 1
+    if (frame >= wearablesEntities.length) {
+      frame = 0
+    }
+
+    // Check Portales
+
+    if (teleporting) {
+      teleportTime -= 0.5
+      console.log(teleportTime)
+      if (teleportTime <= 0) {
+        teleporting = false
+
+        const port =
+          portales[randomIntExcluding(0, portales.length, teleportingFrom)]
+        void movePlayerTo({
+          newRelativePosition: port.out[0],
+          cameraTarget: port.out[1]
+        })
+      }
+    } else {
+      for (let n = 0; n < portales.length; n++) {
+        if (
+          distanceIsLessThan(
+            portales[n].in,
+            Transform.get(engine.CameraEntity).position,
+            portales[n].dist
+          )
+        ) {
+          console.log('on', n)
+          if (n === 3) {
+            // Inodoros
+            // Si no está en la terraza, ignorar
+            if (Transform.get(engine.CameraEntity).position.y < 4) break
+          }
+          teleportTime = 1
+          teleporting = true
+          teleportingFrom = n
+          AudioSource.getMutable(tmp).playing = true
+          break
+        }
+      }
+    }
+  }
+
   engine.addSystem(AnimSystem)
 
-//   async function getFactory(contractConfig: any):Promise<any> {
-//     const requestManager: any = new eth.RequestManager(maticProvider)
+  //   async function getFactory(contractConfig: any):Promise<any> {
+  //     const requestManager: any = new eth.RequestManager(maticProvider)
 
-//     const factory = new eth.ContractFactory(requestManager, contractConfig.abi)
-//     const contract = await factory.at(contractConfig.address)
+  //     const factory = new eth.ContractFactory(requestManager, contractConfig.abi)
+  //     const contract = await factory.at(contractConfig.address)
 
-//     return contract
-//   }
+  //     return contract
+  //   }
 
   /* Electricidad */
   const electricidadPasilloFrames = [
@@ -954,7 +964,11 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   ]
 
   // Puerta principal (Bosque)
-  const electricidad1 = createElectricidad(electricidadPasilloFrames, true, true)
+  const electricidad1 = createElectricidad(
+    electricidadPasilloFrames,
+    true,
+    true
+  )
   Transform.create(electricidad1, {
     position: Vector3.create(16 + 8 + 2, 0.2, 16 + 8 + 3),
     scale: Vector3.create(3, 10, 3),
@@ -963,7 +977,11 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   })
 
   // Vulva
-  const electricidad2 = createElectricidad(electricidadPasilloFrames, true, true)
+  const electricidad2 = createElectricidad(
+    electricidadPasilloFrames,
+    true,
+    true
+  )
   Transform.create(electricidad2, {
     position: Vector3.create(14, 0.1, 14.5),
     scale: Vector3.create(1, 0.7, 1),
@@ -971,7 +989,11 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   })
 
   // Inodoros
-  const electricidad3 = createElectricidad(electricidadPasilloFrames, true, true)
+  const electricidad3 = createElectricidad(
+    electricidadPasilloFrames,
+    true,
+    true
+  )
   Transform.create(electricidad3, {
     position: Vector3.create(9, 6.92, 11.54),
     scale: Vector3.create(1.5, 2, 1.5),
@@ -979,7 +1001,11 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   })
 
   // Lavadero
-  const electricidad4 = createElectricidad(electricidadPasilloFrames, true, true)
+  const electricidad4 = createElectricidad(
+    electricidadPasilloFrames,
+    true,
+    true
+  )
   Transform.create(electricidad4, {
     position: Vector3.create(38.64, 0.05, 11.42),
     scale: Vector3.create(1, 0.6, 1),
@@ -987,7 +1013,11 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   })
 
   // Pasillo
-  const electricidad5 = createElectricidad(electricidadPasilloFrames, true, true)
+  const electricidad5 = createElectricidad(
+    electricidadPasilloFrames,
+    true,
+    true
+  )
   Transform.create(electricidad5, {
     position: Vector3.create(46.17, 0.05, 30.97),
     scale: Vector3.create(1, 0.9, 1),
@@ -1023,27 +1053,27 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   const mutablePizarronTransform = Transform.getMutable(pizarron)
 
   pointerEventsSystem.onPointerDown(
-  	{
-  		entity: pizarron,
-  		opts: { button: InputAction.IA_POINTER, hoverText: 'Agrega una nota' },
-  	},
-  	function () {
+    {
+      entity: pizarron,
+      opts: { button: InputAction.IA_POINTER, hoverText: 'Agrega una nota' }
+    },
+    function () {
       enviarMensajePrompt.show()
-  	}
+    }
   )
 
   function pizarronSystem(dt: number): void {
-      if (enviarMensajePrompt.isVisible()) return
-      if (
-        !distanceIsLessThan(
-          Transform.get(pizarron).position,
-          Transform.get(engine.CameraEntity).position,
-          4
-        )
-      ) {
-        enviarMensajePrompt.hide()
-      }
+    if (enviarMensajePrompt.isVisible()) return
+    if (
+      !distanceIsLessThan(
+        Transform.get(pizarron).position,
+        Transform.get(engine.CameraEntity).position,
+        4
+      )
+    ) {
+      enviarMensajePrompt.hide()
     }
+  }
 
   engine.addSystem(pizarronSystem)
 
@@ -1082,10 +1112,10 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   }
 
   const enviarMensajePrompt = ui.createComponent(ui.FillInPrompt, {
-      title: 'Agregar nota en el pizarrón:',
-      placeholder: 'Escribe tu nota aquí...',
-      acceptLabel: 'Dejar nota',
-      onAccept: (value:string): void => { }
+    title: 'Agregar nota en el pizarrón:',
+    placeholder: 'Escribe tu nota aquí...',
+    acceptLabel: 'Dejar nota',
+    onAccept: (value: string): void => {}
     //   async (value: string) => {
     //     const functionSignature = functionSetGreeting.toPayload([value])
     //     const conf = contracts.mensajes.matic
@@ -1105,7 +1135,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     //         mensajeError.show()
     //       })
     //   }
-
   })
 
   /* Refrescar notas */
@@ -1195,7 +1224,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
 
   /* Cuerno Recepcion */
   const cuernoT = {
-    position: {  
+    position: {
       x: -21.7179,
       y: -10.3455,
       z: 1.50615
@@ -1214,15 +1243,17 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   }
 
   const cuerno = engine.addEntity()
-  GltfContainer.create(cuerno, { src: 'models/cuerno.gltf', invisibleMeshesCollisionMask:ColliderLayer.CL_POINTER })
-    Transform.create(cuerno, blenderTransform(cuernoT, buildingCore))
-    MeshCollider.setBox(cuerno)
-    AudioSource.createOrReplace(cuerno, {
-        audioClipUrl:
-          'audio/cuerno.mp3',
-        playing: false,
-        loop: false
-      })
+  GltfContainer.create(cuerno, {
+    src: 'models/cuerno.gltf',
+    invisibleMeshesCollisionMask: ColliderLayer.CL_POINTER
+  })
+  Transform.create(cuerno, blenderTransform(cuernoT, buildingCore))
+  MeshCollider.setBox(cuerno)
+  AudioSource.createOrReplace(cuerno, {
+    audioClipUrl: 'audio/cuerno.mp3',
+    playing: false,
+    loop: false
+  })
 
   pointerEventsSystem.onPointerDown(
     {
@@ -1387,93 +1418,86 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     }
   })
 
-    function calderoRandom(): void {
-    
-        VideoPlayer.deleteFrom(canvasCaldero)
-        Material.deleteFrom(canvasCaldero)
+  function calderoRandom(): void {
+    VideoPlayer.deleteFrom(canvasCaldero)
+    Material.deleteFrom(canvasCaldero)
 
-        const obras = [
-            'textures/oraculo/ Daniela Sciata  @danisciata .jpg',
-            'textures/oraculo/DSC_5473.jpg',
-            'textures/oraculo/DSC_4994.jpg',
-            'textures/oraculo/DSC_5567 (1).jpg',
-            'textures/oraculo/WhatsApp Image 2021-05-04 at 12.28.19.jpg',
-            'textures/oraculo/WhatsApp Image 2021-05-03 at 06.20.12.jpg',
-            'textures/oraculo/WhatsApp Image 2021-05-03 at 06.23.33.jpg',
-            'textures/oraculo/WhatsApp Image 2021-05-03 at 06.25.15.jpg',
-            'textures/oraculo/WhatsApp Image 2021-05-03 at 06.28.50.jpg',
-            'textures/oraculo/video Quinteto de Academia en Malabia.mp4',
-            'textures/oraculo/Lucia 01.mp4',
-            'textures/oraculo/lucia.jpg',
-            'textures/oraculo/Lucia 02.mp4',
-            'textures/oraculo/lucia02.jpg',
-            'textures/oraculo/Juana Varela.jpg',
-            'textures/oraculo/@juanavarela_.jpg',
-            'textures/oraculo/Karen Magali Romero.jpg',
-            //
-            'textures/oraculo/IMG-20181010-WA0015~2.jpg',
-            'textures/oraculo/IMG_20170227_131716_232.jpg',
-            'textures/oraculo/IMG_20170227_225534_708.jpg',
-            'textures/oraculo/IMG_20170217_210709_332.jpg',
-            'textures/oraculo/IMG_20180227_125637_478.jpg',
-            'textures/oraculo/IMG_20180822_123205_370.jpg',
-            'textures/oraculo/IMG_20180829_225647_142.jpg',
-            'textures/oraculo/IMG_20181101_203711_885.jpg',
-            'textures/oraculo/IMG_20190404_193342_728.jpg',
-            'textures/oraculo/WP_20160126003 (2).jpg',
-            'textures/oraculo/20200621_130659.jpg',
-            'textures/oraculo/20200706_133025.jpg',
-            'textures/oraculo/IMG_20170531_120753_541.jpg',
-            'textures/oraculo/IMG_20180617_215709_HDR.jpg',
-            'textures/oraculo/IMG_20180814_185543_HDR.jpg',
-            'textures/oraculo/IMG_20180911_221100_823.jpg',
-            'textures/oraculo/Picsart2016-15-4--22-43-40.jpg'
-        ]
-        const textureUrl = obras[randomInt(0, obras.length - 1)]
-        console.log(textureUrl)
-        if (textureUrl.endsWith('.mp4')) {
-            if (
-                textureUrl === 'textures/oraculo/Lucia 01.mp4' ||
-                textureUrl === 'textures/oraculo/Lucia 02.mp4'
-            ) {
-                Transform.getMutable(canvasCaldero).scale = Vector3.create(0.8, 1.5, 0)
-            } else {
-                Transform.getMutable(canvasCaldero).scale = Vector3.create(1.5, 0.9, 0)
-            }
-            Transform.getMutable(canvasCaldero).rotation = Quaternion.fromEulerDegrees(0, 90, 0)
-          
+    const obras = [
+      'textures/oraculo/ Daniela Sciata  @danisciata .jpg',
+      'textures/oraculo/DSC_5473.jpg',
+      'textures/oraculo/DSC_4994.jpg',
+      'textures/oraculo/DSC_5567 (1).jpg',
+      'textures/oraculo/WhatsApp Image 2021-05-04 at 12.28.19.jpg',
+      'textures/oraculo/WhatsApp Image 2021-05-03 at 06.20.12.jpg',
+      'textures/oraculo/WhatsApp Image 2021-05-03 at 06.23.33.jpg',
+      'textures/oraculo/WhatsApp Image 2021-05-03 at 06.25.15.jpg',
+      'textures/oraculo/WhatsApp Image 2021-05-03 at 06.28.50.jpg',
+      'textures/oraculo/video Quinteto de Academia en Malabia.mp4',
+      'textures/oraculo/Lucia 01.mp4',
+      'textures/oraculo/lucia.jpg',
+      'textures/oraculo/Lucia 02.mp4',
+      'textures/oraculo/lucia02.jpg',
+      'textures/oraculo/Juana Varela.jpg',
+      'textures/oraculo/@juanavarela_.jpg',
+      'textures/oraculo/Karen Magali Romero.jpg',
+      //
+      'textures/oraculo/IMG-20181010-WA0015~2.jpg',
+      'textures/oraculo/IMG_20170227_131716_232.jpg',
+      'textures/oraculo/IMG_20170227_225534_708.jpg',
+      'textures/oraculo/IMG_20170217_210709_332.jpg',
+      'textures/oraculo/IMG_20180227_125637_478.jpg',
+      'textures/oraculo/IMG_20180822_123205_370.jpg',
+      'textures/oraculo/IMG_20180829_225647_142.jpg',
+      'textures/oraculo/IMG_20181101_203711_885.jpg',
+      'textures/oraculo/IMG_20190404_193342_728.jpg',
+      'textures/oraculo/WP_20160126003 (2).jpg',
+      'textures/oraculo/20200621_130659.jpg',
+      'textures/oraculo/20200706_133025.jpg',
+      'textures/oraculo/IMG_20170531_120753_541.jpg',
+      'textures/oraculo/IMG_20180617_215709_HDR.jpg',
+      'textures/oraculo/IMG_20180814_185543_HDR.jpg',
+      'textures/oraculo/IMG_20180911_221100_823.jpg',
+      'textures/oraculo/Picsart2016-15-4--22-43-40.jpg'
+    ]
+    const textureUrl = obras[randomInt(0, obras.length - 1)]
+    console.log(textureUrl)
+    if (textureUrl.endsWith('.mp4')) {
+      if (
+        textureUrl === 'textures/oraculo/Lucia 01.mp4' ||
+        textureUrl === 'textures/oraculo/Lucia 02.mp4'
+      ) {
+        Transform.getMutable(canvasCaldero).scale = Vector3.create(0.8, 1.5, 0)
+      } else {
+        Transform.getMutable(canvasCaldero).scale = Vector3.create(1.5, 0.9, 0)
+      }
+      Transform.getMutable(canvasCaldero).rotation =
+        Quaternion.fromEulerDegrees(0, 90, 0)
 
+      VideoPlayer.create(canvasCaldero, {
+        src: textureUrl,
+        playing: true
+      })
 
-            VideoPlayer.create(canvasCaldero, {
-                src: textureUrl,
-                playing: true
-            })
-        
-            const videoTexture = Material.Texture.Video({ videoPlayerEntity: canvasCaldero })
-        
-            Material.setBasicMaterial(canvasCaldero, {
-                texture: videoTexture,
-            })
+      const videoTexture = Material.Texture.Video({
+        videoPlayerEntity: canvasCaldero
+      })
 
-
-        } else {
-            Transform.getMutable(canvasCaldero).scale = Vector3.create(1.5, 1.5, 0)
-            Transform.getMutable(canvasCaldero).rotation = Quaternion.fromEulerDegrees(
-                0,
-                90,
-                180
-            )
-            Material.setBasicMaterial(canvasCaldero,
-                {
-                    texture: Material.Texture.Common({
-                        src: textureUrl,
-                    }
-                    )
-                })
-            AudioSource.getMutable(fogonazo).playing = true
-            ElectricidadComponent.getMutable(fogonazo).playing = true
-        }
+      Material.setBasicMaterial(canvasCaldero, {
+        texture: videoTexture
+      })
+    } else {
+      Transform.getMutable(canvasCaldero).scale = Vector3.create(1.5, 1.5, 0)
+      Transform.getMutable(canvasCaldero).rotation =
+        Quaternion.fromEulerDegrees(0, 90, 180)
+      Material.setBasicMaterial(canvasCaldero, {
+        texture: Material.Texture.Common({
+          src: textureUrl
+        })
+      })
+      AudioSource.getMutable(fogonazo).playing = true
+      ElectricidadComponent.getMutable(fogonazo).playing = true
     }
+  }
 
   calderoRandom()
 
