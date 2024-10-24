@@ -327,3 +327,330 @@ export const labFrames = [
   'models/laboratorio-004.gltf',
   'models/laboratorio-005.gltf'
 ]
+
+export const wearablesT = {
+  position: {
+    x: -21.087,
+    y: 2.86733,
+    z: 1.94923
+  },
+  rotation: {
+    w: 0.707107,
+    x: 0,
+    y: 0,
+    z: 0.707107
+  },
+  scale: {
+    x: 2.71706,
+    y: 2.71706,
+    z: 2.71706
+  }
+}
+
+export const donacionT = {
+  position: {
+    x: 19.1007,
+    y: -5.35626,
+    z: -0.045355
+  },
+  rotation: {
+    w: 0.707107,
+    x: 0,
+    y: 0,
+    z: -0.707107
+  },
+  scale: {
+    x: 1.6604,
+    y: 1.6604,
+    z: 1.6604
+  }
+}
+
+export const pizarronT = {
+  position: {
+    x: 13.8285,
+    y: -3.56206,
+    z: 0.921038
+  },
+  rotation: {
+    w: 0.707107,
+    x: 0,
+    y: 0,
+    z: 0.707107
+  },
+  scale: {
+    x: 2.0,
+    y: 2.0,
+    z: 2.0
+  }
+}
+export const brocheInstagramT = {
+  position: {
+    x: -21.0653,
+    y: -10.3641,
+    z: 1.48237
+  },
+  rotation: {
+    w: 0.983209,
+    x: 0,
+    y: 0,
+    z: 0.182481
+  },
+  scale: {
+    x: 1.80515,
+    y: 1.80515,
+    z: 1.80515
+  }
+}
+export const brocheMalabiaT = {
+  position: {
+    x: -20.3434,
+    y: -10.3641,
+    z: 1.475
+  },
+  rotation: {
+    w: 0.977948,
+    x: 0,
+    y: 0,
+    z: -0.208849
+  },
+  scale: {
+    x: 1.80515,
+    y: 1.80515,
+    z: 1.80515
+  }
+}
+export const cuernoT = {
+  position: {
+    x: -21.7179,
+    y: -10.3455,
+    z: 1.50615
+  },
+  rotation: {
+    w: 0.911454,
+    x: 0,
+    y: 0,
+    z: 0.411401
+  },
+  scale: {
+    x: 1.34643,
+    y: 1.34643,
+    z: 1.34643
+  }
+}
+export const puertaCortinaT = {
+  position: {
+    x: -8.75564,
+    y: -15.1667,
+    z: 0.040757
+  },
+  rotation: {
+    w: 1.0,
+    x: 0,
+    y: 0,
+    z: 0
+  },
+  scale: {
+    x: 1.0,
+    y: 1.0,
+    z: 1.0
+  }
+}
+export const calderoT = {
+  position: {
+    x: -10.7177,
+    y: -14.646,
+    z: 0.015462
+  },
+  rotation: {
+    w: 0.707107,
+    x: 0,
+    y: 0,
+    z: 0.707107
+  },
+  scale: {
+    x: 1.0,
+    y: 1.0,
+    z: 1.0
+  }
+}
+export const fogonazoT = {
+  position: {
+    x: -10.7177,
+    y: -14.646,
+    z: 0.893286
+  },
+  rotation: {
+    w: 0.707107,
+    x: 0,
+    y: 0,
+    z: 0.707107
+  },
+  scale: {
+    x: 2.7992,
+    y: 2.7992,
+    z: 2.7992
+  }
+}
+export const marcoCalderoT = {
+  position: {
+    x: -10.9323,
+    y: -14.4948,
+    z: 1.18818
+  },
+  rotation: {
+    w: 0.707107,
+    x: 0,
+    y: 0,
+    z: 0.707107
+  },
+  scale: {
+    x: 0.8,
+    y: 0.8,
+    z: 0.8
+  }
+}
+export const malabiaUploadT = {
+  position: {
+    x: -20.6295,
+    y: -8.31086,
+    z: 1.67004
+  },
+  rotation: {
+    w: 1.0,
+    x: 0,
+    y: 0,
+    z: 0
+  },
+  scale: {
+    x: 1.52028,
+    y: 1.52028,
+    z: 1.52028
+  }
+}
+export const malabiafxT = {
+  position: {
+    x: 12.8499,
+    y: -12.2241,
+    z: 0.015869
+  },
+  rotation: {
+    w: 0.990095,
+    x: 0.0,
+    y: 0.140401,
+    z: 0.0
+  },
+  scale: {
+    x: 1.0,
+    y: 1.0,
+    z: 1.0
+  }
+}
+export const caballofxT = {
+  position: {
+    x: 13.955,
+    y: 5.47284,
+    z: 3.05836
+  },
+  rotation: {
+    w: 1.0,
+    x: 0.0,
+    y: 0.0,
+    z: 0.0
+  },
+  scale: {
+    x: 2.0,
+    y: 2.0,
+    z: 2.0
+  }
+}
+export const tunelfxT = {
+  position: {
+    x: -10.5159,
+    y: -21.4218,
+    z: -0.081034
+  },
+  rotation: {
+    w: -0.707107,
+    x: 0.0,
+    y: 0.0,
+    z: 0.707107
+  },
+  scale: {
+    x: 1.0,
+    y: 1.0,
+    z: 1.0
+  }
+}
+export const terrazafxT = {
+  position: {
+    x: -17.8215,
+    y: -13.9625,
+    z: 5.20759
+  },
+  rotation: {
+    w: 0.625469,
+    x: 0.0,
+    y: 0.0,
+    z: 0.780249
+  },
+  scale: {
+    x: 1.51739,
+    y: 1.51739,
+    z: 1.51739
+  }
+}
+export const velaT = {
+  position: {
+    x: -16.2303,
+    y: 4.13286,
+    z: 0.907689
+  },
+  rotation: {
+    w: 0.707107,
+    x: 0.0,
+    y: 0.0,
+    z: 0.707107
+  },
+  scale: {
+    x: 2.73191,
+    y: 2.73191,
+    z: 2.73191
+  }
+}
+export const exit1T = {
+  position: {
+    x: -14.6847,
+    y: -8.28745,
+    z: 2.61304
+  },
+  rotation: {
+    w: 1.0,
+    x: 0.0,
+    y: 0.0,
+    z: 0.0
+  },
+  scale: {
+    x: 2.71864,
+    y: 2.71864,
+    z: 2.71864
+  }
+}
+export const exit2T = {
+  position: {
+    x: -14.6847,
+    y: -8.02379,
+    z: 2.61304
+  },
+  rotation: {
+    w: 0.0,
+    x: 0.0,
+    y: 0.0,
+    z: 1.0
+  },
+  scale: {
+    x: 2.71864,
+    y: 2.71864,
+    z: 2.71864
+  }
+}

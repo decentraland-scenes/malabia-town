@@ -42,6 +42,7 @@ import { ReactEcsRenderer } from '@dcl/sdk/react-ecs'
 // import { getPlayer } from '@dcl/sdk/src/players'
 import { ElectricidadComponent } from './definitions'
 import { movePlayerTo, openExternalUrl } from '~system/RestrictedActions'
+import { lav01T, lav02T, lav03T, rayosT, corazonT, inodorosT, telefonoT, pantallaT, donacionT, mariposaT, wearablesT, labT, pizarronT, brocheInstagramT, brocheMalabiaT, cuernoT, puertaCortinaT, calderoT, fogonazoT, marcoCalderoT, malabiaUploadT, malabiafxT, caballofxT, tunelfxT, terrazafxT, velaT, exit1T, exit2T } from './creatorFunctions'
 // import { abiManaArray } from './erc20Abi'
 // import { abiMensajes } from './mensajesAbi'
 
@@ -110,12 +111,12 @@ export function main(): void {
     parent: buildingCore
   })
 
-  const dynamic = engine.addEntity()
-  GltfContainer.create(dynamic, { src: 'models/dynamic.gltf' })
-  Transform.create(dynamic, {
-    position: Vector3.create(16 + 8, 0, 16 + 8),
-    parent: buildingCore
-  })
+  // const dynamic = engine.addEntity()
+  // GltfContainer.create(dynamic, { src: 'models/dynamic.gltf' })
+  // Transform.create(dynamic, {
+  //   position: Vector3.create(16 + 8, 0, 16 + 8),
+  //   parent: buildingCore
+  // })
 
   const static_ = engine.addEntity()
   GltfContainer.create(static_, { src: 'models/static.gltf' })
@@ -127,7 +128,8 @@ export function main(): void {
   const static2 = engine.addEntity()
   GltfContainer.create(static2, { src: 'models/static2.gltf' })
   Transform.create(static2, {
-    position: Vector3.create(16 + 8, 0, 16 + 8)
+    position: Vector3.create(16 + 8, 0, 16 + 8),
+    parent: buildingCore
   })
 
   //
@@ -136,7 +138,8 @@ export function main(): void {
   const static3 = engine.addEntity()
   GltfContainer.create(static3, { src: 'models/static3.gltf' })
   Transform.create(static3, {
-    position: Vector3.create(16 + 8, 0, 16 + 8)
+    position: Vector3.create(16 + 8, 0, 16 + 8),
+    parent: buildingCore
   })
 
   //
@@ -145,88 +148,21 @@ export function main(): void {
   const static4 = engine.addEntity()
   GltfContainer.create(static4, { src: 'models/static4.gltf' })
   Transform.create(static4, {
-    position: Vector3.create(16 + 8, 0, 16 + 8)
+    position: Vector3.create(16 + 8, 0, 16 + 8),
+    parent: buildingCore
   })
 
   //
   // static4.setParent(buildingCore)
 
   // Dynamic objects
-  const lav01T = {
-    position: {
-      x: -20.1402,
-      y: 12.2063,
-      z: 1.7013
-    },
-    rotation: {
-      w: 0.742287,
-      x: 0.122795,
-      y: 0.114263,
-      z: 0.64875
-    },
-    scale: {
-      x: 3,
-      y: 3,
-      z: 3
-    }
-  }
+  
 
-  const lav02T = {
-    position: {
-      x: -16.0287,
-      y: 9.09817,
-      z: 2.25433
-    },
-    rotation: {
-      w: -0.0,
-      x: 0.0,
-      y: 0.165196,
-      z: 0.986261
-    },
-    scale: {
-      x: 3,
-      y: 3,
-      z: 3
-    }
-  }
+  
 
-  const lav03T = {
-    position: {
-      x: -11.5584,
-      y: 10.781,
-      z: 2.62601
-    },
-    rotation: {
-      w: 0.356573,
-      x: -0.05164,
-      y: -0.099501,
-      z: -0.927517
-    },
-    scale: {
-      x: 3,
-      y: 3,
-      z: 3
-    }
-  }
+  
 
-  const rayosT = {
-    position: {
-      x: -14.4747,
-      y: 13.2058,
-      z: -0.45502
-    },
-    rotation: {
-      w: 1.0,
-      x: 0.0,
-      y: 0.0,
-      z: 0.0
-    },
-    scale: {
-      x: 1.3212,
-      y: 1.3212,
-      z: 1.3212
-    }
-  }
+  
 
   const lavarropas01 = engine.addEntity()
   GltfContainer.create(lavarropas01, {
@@ -253,70 +189,19 @@ export function main(): void {
   GltfContainer.create(lavarropasRayos, { src: 'models/lavarropasRayos.gltf' })
   Transform.create(lavarropasRayos, blenderTransform(rayosT, buildingCore))
 
-  const corazonT = {
-    position: {
-      x: 4.40177,
-      y: -12.1165,
-      z: -0.025851
-    },
-    rotation: {
-      w: 0.829947,
-      x: 0,
-      y: 0,
-      z: -0.557842
-    },
-    scale: {
-      x: 2.2603,
-      y: 2.2603,
-      z: 2.2603
-    }
-  }
+  
 
   const corazon = engine.addEntity()
   GltfContainer.create(corazon, { src: 'models/corazon.gltf' })
   Transform.create(corazon, blenderTransform(corazonT, buildingCore))
 
-  const inodorosT = {
-    position: {
-      x: 15.002,
-      y: 11.71,
-      z: 5.15977
-    },
-    rotation: {
-      w: 0.893105,
-      x: 0,
-      y: 0,
-      z: -0.449849
-    },
-    scale: {
-      x: 1,
-      y: 1,
-      z: 1
-    }
-  }
+  
 
   const inodoros = engine.addEntity()
   GltfContainer.create(inodoros, { src: 'models/inodoros.gltf' })
   Transform.create(inodoros, blenderTransform(inodorosT, buildingCore))
 
-  const telefonoT = {
-    position: {
-      x: 19.1859,
-      y: -17.98,
-      z: -0.012038
-    },
-    rotation: {
-      w: 0.702508,
-      x: 0,
-      y: 0,
-      z: -0.711676
-    },
-    scale: {
-      x: 1.55412,
-      y: 1.55412,
-      z: 1.55412
-    }
-  }
+  
 
   const telefono = engine.addEntity()
   GltfContainer.create(telefono, { src: 'models/telefono.gltf' })
@@ -369,24 +254,7 @@ export function main(): void {
     }
   )
 
-  const pantallaT = {
-    position: {
-      x: -0.602674,
-      y: -18.6475,
-      z: 2.23974
-    },
-    rotation: {
-      w: 0,
-      x: 0,
-      y: 0,
-      z: 1
-    },
-    scale: {
-      x: 5.32,
-      y: 2.0,
-      z: 3.3
-    }
-  }
+  
 
   const pantalla = engine.addEntity()
   MeshRenderer.setPlane(pantalla)
@@ -432,24 +300,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
 }) */
 
   /* Wearables Anim */
-  const wearablesT = {
-    position: {
-      x: -21.087,
-      y: 2.86733,
-      z: 1.94923
-    },
-    rotation: {
-      w: 0.707107,
-      x: 0,
-      y: 0,
-      z: 0.707107
-    },
-    scale: {
-      x: 2.71706,
-      y: 2.71706,
-      z: 2.71706
-    }
-  }
+  
 
   const hiddenTransform = {
     position: Vector3.create(8, -5, 8)
@@ -474,24 +325,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   }
 
   /* Lab Anim */
-  const labT = {
-    position: {
-      x: -19.274,
-      y: -5.8339,
-      z: -0.02173
-    },
-    rotation: {
-      w: 0,
-      x: 0,
-      y: 0,
-      z: 1.0
-    },
-    scale: {
-      x: 2.36082,
-      y: 2.36082,
-      z: 2.36082
-    }
-  }
+  
 
   const labFrames = [
     'models/laboratorio-001.gltf',
@@ -513,24 +347,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     })
   }
 
-  const donacionT = {
-    position: {
-      x: 19.1007,
-      y: -5.35626,
-      z: -0.045355
-    },
-    rotation: {
-      w: 0.707107,
-      x: 0,
-      y: 0,
-      z: -0.707107
-    },
-    scale: {
-      x: 1.6604,
-      y: 1.6604,
-      z: 1.6604
-    }
-  }
+  
 
   // const contracts = {
   //   mana: {
@@ -679,24 +496,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   }
 
   /* Mariposa */
-  const mariposaT = {
-    position: {
-      x: -9.68033,
-      y: -0.958399,
-      z: 2.27608
-    },
-    rotation: {
-      w: 1.0,
-      x: 0,
-      y: 0,
-      z: 0
-    },
-    scale: {
-      x: 2.0,
-      y: 2.0,
-      z: 2.0
-    }
-  }
+  
 
   const mariposa = engine.addEntity()
   GltfContainer.create(mariposa, { src: 'models/mariposa.gltf' })
@@ -722,7 +522,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   /* Puerta principal */
 
   const mainDoor = engine.addEntity()
-  MeshRenderer.setBox(mainDoor)
+  // MeshRenderer.setBox(mainDoor)
   Transform.create(mainDoor, {
     position: Vector3.create(16 + 8, 1, 16 + 8)
   })
@@ -974,10 +774,11 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     true
   )
   Transform.create(electricidad1, {
-    position: Vector3.create(16 + 8 + 2, 0.2, 16 + 8 + 3),
+    // position: Vector3.create(16 + 8 + 2, 0.2, 16 + 8 + 3),
+    position: Vector3.create(1.2, 0.2, 1.2),
     scale: Vector3.create(3, 10, 3),
     rotation: Quaternion.fromEulerDegrees(0, 0, 0),
-    parent: buildingCore
+    parent: bosque
   })
 
   // Vulva
@@ -1032,24 +833,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
 
   /* Agregar nota */
 
-  const pizarronT = {
-    position: {
-      x: 13.8285,
-      y: -3.56206,
-      z: 0.921038
-    },
-    rotation: {
-      w: 0.707107,
-      x: 0,
-      y: 0,
-      z: 0.707107
-    },
-    scale: {
-      x: 2.0,
-      y: 2.0,
-      z: 2.0
-    }
-  }
+  
 
   const pizarron = engine.addEntity()
   MeshCollider.setBox(pizarron)
@@ -1157,24 +941,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   // refrescarMensajes()
 
   /* Broche Instagram */
-  const brocheInstagramT = {
-    position: {
-      x: -21.0653,
-      y: -10.3641,
-      z: 1.48237
-    },
-    rotation: {
-      w: 0.983209,
-      x: 0,
-      y: 0,
-      z: 0.182481
-    },
-    scale: {
-      x: 1.80515,
-      y: 1.80515,
-      z: 1.80515
-    }
-  }
+  
   const brocheInstagram = engine.addEntity()
   GltfContainer.create(brocheInstagram, { src: 'models/brocheInstagram.gltf' })
   Transform.create(
@@ -1192,24 +959,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   )
 
   /* Broche Malabia */
-  const brocheMalabiaT = {
-    position: {
-      x: -20.3434,
-      y: -10.3641,
-      z: 1.475
-    },
-    rotation: {
-      w: 0.977948,
-      x: 0,
-      y: 0,
-      z: -0.208849
-    },
-    scale: {
-      x: 1.80515,
-      y: 1.80515,
-      z: 1.80515
-    }
-  }
+  
 
   const brocheMalabia = engine.addEntity()
   GltfContainer.create(brocheMalabia, { src: 'models/brocheMalabia.gltf' })
@@ -1228,24 +978,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   )
 
   /* Cuerno Recepcion */
-  const cuernoT = {
-    position: {
-      x: -21.7179,
-      y: -10.3455,
-      z: 1.50615
-    },
-    rotation: {
-      w: 0.911454,
-      x: 0,
-      y: 0,
-      z: 0.411401
-    },
-    scale: {
-      x: 1.34643,
-      y: 1.34643,
-      z: 1.34643
-    }
-  }
+  
 
   const cuerno = engine.addEntity()
   GltfContainer.create(cuerno, {
@@ -1271,24 +1004,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   )
 
   /* Puerta Cortina */
-  const puertaCortinaT = {
-    position: {
-      x: -8.75564,
-      y: -15.1667,
-      z: 0.040757
-    },
-    rotation: {
-      w: 1.0,
-      x: 0,
-      y: 0,
-      z: 0
-    },
-    scale: {
-      x: 1.0,
-      y: 1.0,
-      z: 1.0
-    }
-  }
+  
   const puertaCortina = engine.addEntity()
   GltfContainer.create(puertaCortina, { src: 'models/puertaCortina.gltf' })
   MeshCollider.setPlane(puertaCortina, ColliderLayer.CL_PHYSICS)
@@ -1298,24 +1014,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   )
 
   /* Caldero */
-  const calderoT = {
-    position: {
-      x: -10.7177,
-      y: -14.646,
-      z: 0.015462
-    },
-    rotation: {
-      w: 0.707107,
-      x: 0,
-      y: 0,
-      z: 0.707107
-    },
-    scale: {
-      x: 1.0,
-      y: 1.0,
-      z: 1.0
-    }
-  }
+  
   const caldero = engine.addEntity()
   GltfContainer.create(caldero, { src: 'models/caldero.gltf' })
   Transform.create(caldero, blenderTransform(calderoT, buildingCore))
@@ -1351,24 +1050,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/fogonazo-009.gltf',
     'models/fogonazo-010.gltf'
   ]
-  const fogonazoT = {
-    position: {
-      x: -10.7177,
-      y: -14.646,
-      z: 0.893286
-    },
-    rotation: {
-      w: 0.707107,
-      x: 0,
-      y: 0,
-      z: 0.707107
-    },
-    scale: {
-      x: 2.7992,
-      y: 2.7992,
-      z: 2.7992
-    }
-  }
+  
   const fogonazo = createElectricidad(fogonazoFrames)
   ElectricidadComponent.getMutable(fogonazo).playing = true
   ElectricidadComponent.getMutable(fogonazo).looping = false
@@ -1380,24 +1062,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   })
 
   /* Marco caldero */
-  const marcoCalderoT = {
-    position: {
-      x: -10.9323,
-      y: -14.4948,
-      z: 1.18818
-    },
-    rotation: {
-      w: 0.707107,
-      x: 0,
-      y: 0,
-      z: 0.707107
-    },
-    scale: {
-      x: 0.8,
-      y: 0.8,
-      z: 0.8
-    }
-  }
+  
   const marcoCaldero = engine.addEntity()
   GltfContainer.create(marcoCaldero, { src: 'models/marcoCaldero.gltf' })
   Transform.create(marcoCaldero, blenderTransform(marcoCalderoT, buildingCore))
@@ -1515,24 +1180,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/malabiaUploads-005.gltf',
     'models/malabiaUploads-006.gltf'
   ]
-  const malabiaUploadT = {
-    position: {
-      x: -20.6295,
-      y: -8.31086,
-      z: 1.67004
-    },
-    rotation: {
-      w: 1.0,
-      x: 0,
-      y: 0,
-      z: 0
-    },
-    scale: {
-      x: 1.52028,
-      y: 1.52028,
-      z: 1.52028
-    }
-  }
+  
   const malabiaUpload = createElectricidad(malabiaUploadFrames, true, true)
   Transform.create(
     malabiaUpload,
@@ -1548,24 +1196,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/alfombra-005.gltf',
     'models/alfombra-006.gltf'
   ]
-  const malabiafxT = {
-    position: {
-      x: 12.8499,
-      y: -12.2241,
-      z: 0.015869
-    },
-    rotation: {
-      w: 0.990095,
-      x: 0.0,
-      y: 0.140401,
-      z: 0.0
-    },
-    scale: {
-      x: 1.0,
-      y: 1.0,
-      z: 1.0
-    }
-  }
+  
   const alfombrafx = createElectricidad(alfombrafxFrames, true, true)
   Transform.create(alfombrafx, blenderTransform(malabiafxT, buildingCore))
 
@@ -1593,24 +1224,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/caballo-005.gltf',
     'models/caballo-006.gltf'
   ]
-  const caballofxT = {
-    position: {
-      x: 13.955,
-      y: 5.47284,
-      z: 3.05836
-    },
-    rotation: {
-      w: 1.0,
-      x: 0.0,
-      y: 0.0,
-      z: 0.0
-    },
-    scale: {
-      x: 2.0,
-      y: 2.0,
-      z: 2.0
-    }
-  }
+  
   const caballofx = createElectricidad(caballofxFrames, true, true)
   Transform.create(caballofx, blenderTransform(caballofxT, buildingCore))
 
@@ -1623,24 +1237,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/tunel-005.gltf',
     'models/tunel-006.gltf'
   ]
-  const tunelfxT = {
-    position: {
-      x: -10.5159,
-      y: -21.4218,
-      z: -0.081034
-    },
-    rotation: {
-      w: -0.707107,
-      x: 0.0,
-      y: 0.0,
-      z: 0.707107
-    },
-    scale: {
-      x: 1.0,
-      y: 1.0,
-      z: 1.0
-    }
-  }
+  
   const tunelfx = createElectricidad(tunelfxFrames, true, true)
   Transform.create(tunelfx, blenderTransform(tunelfxT, buildingCore))
   AudioSource.create(tunelfx, {
@@ -1674,47 +1271,13 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/terraza_luz-005.gltf',
     'models/terraza_luz-006.gltf'
   ]
-  const terrazafxT = {
-    position: {
-      x: -17.8215,
-      y: -13.9625,
-      z: 5.20759
-    },
-    rotation: {
-      w: 0.625469,
-      x: 0.0,
-      y: 0.0,
-      z: 0.780249
-    },
-    scale: {
-      x: 1.51739,
-      y: 1.51739,
-      z: 1.51739
-    }
-  }
+  
   const terrazafx = createElectricidad(terrazafxFrames, true, true)
   Transform.create(terrazafx, blenderTransform(terrazafxT, buildingCore))
 
   /* Vela Anim */
 
-  const velaT = {
-    position: {
-      x: -16.2303,
-      y: 4.13286,
-      z: 0.907689
-    },
-    rotation: {
-      w: 0.707107,
-      x: 0.0,
-      y: 0.0,
-      z: 0.707107
-    },
-    scale: {
-      x: 2.73191,
-      y: 2.73191,
-      z: 2.73191
-    }
-  }
+  
   const velafx = engine.addEntity()
   GltfContainer.create(velafx, { src: 'models/vela.gltf' })
   Transform.create(velafx, blenderTransform(velaT, buildingCore))
@@ -1726,45 +1289,11 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/exit-003.gltf',
     'models/exit-004.gltf'
   ]
-  const exit1T = {
-    position: {
-      x: -14.6847,
-      y: -8.28745,
-      z: 2.61304
-    },
-    rotation: {
-      w: 1.0,
-      x: 0.0,
-      y: 0.0,
-      z: 0.0
-    },
-    scale: {
-      x: 2.71864,
-      y: 2.71864,
-      z: 2.71864
-    }
-  }
+  
   const exit1 = createElectricidad(exitFrames, true, true)
   Transform.create(exit1, blenderTransform(exit1T, buildingCore))
 
-  const exit2T = {
-    position: {
-      x: -14.6847,
-      y: -8.02379,
-      z: 2.61304
-    },
-    rotation: {
-      w: 0.0,
-      x: 0.0,
-      y: 0.0,
-      z: 1.0
-    },
-    scale: {
-      x: 2.71864,
-      y: 2.71864,
-      z: 2.71864
-    }
-  }
+  
   const exit2 = createElectricidad(exitFrames)
   Transform.create(exit2, blenderTransform(exit2T, buildingCore))
 }
