@@ -96,7 +96,7 @@ export function main(): void {
   //
 
   const buildingCore = engine.addEntity()
-  Transform.create(buildingCore, { position: Vector3.create(0, -20, 0) })
+  Transform.create(buildingCore, { position: Vector3.create(0, -100, 0) })
 
   const bosque = engine.addEntity()
   GltfContainer.create(bosque, {
@@ -111,12 +111,12 @@ export function main(): void {
     parent: buildingCore
   })
 
-  // const dynamic = engine.addEntity()
-  // GltfContainer.create(dynamic, { src: 'models/dynamic.gltf' })
-  // Transform.create(dynamic, {
-  //   position: Vector3.create(16 + 8, 0, 16 + 8),
-  //   parent: buildingCore
-  // })
+  const dynamic = engine.addEntity()
+  GltfContainer.create(dynamic, { src: 'models/dynamic.gltf' })
+  Transform.create(dynamic, {
+    position: Vector3.create(16 + 8, 0, 16 + 8),
+    parent: buildingCore
+  })
 
   const static_ = engine.addEntity()
   GltfContainer.create(static_, { src: 'models/static.gltf' })
@@ -524,7 +524,8 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   const mainDoor = engine.addEntity()
   // MeshRenderer.setBox(mainDoor)
   Transform.create(mainDoor, {
-    position: Vector3.create(16 + 8, 1, 16 + 8)
+    position: Vector3.create(16 + 8, 1, 16 + 8),
+    parent: bosque
   })
 
   const portales = [
@@ -619,10 +620,10 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
         buildingVisible = true
         justTeleported = true
         Transform.getMutable(buildingCore).position.y = 0
-        Transform.getMutable(mainDoor).position.y = -20
+        // Transform.getMutable(mainDoor).position.y = -100
         const mutableBosqueT = Transform.getMutableOrNull(bosque)
         if (mutableBosqueT !== null) {
-          mutableBosqueT.position.y = -20
+          mutableBosqueT.position.y = -100
         }
         engine.removeEntity(bosque)
         engine.removeEntity(electricidad1)
@@ -646,12 +647,12 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
       ) {
         if (!justTeleported) {
           buildingVisible = false
-          Transform.getMutable(buildingCore).position.y = -20
+          Transform.getMutable(buildingCore).position.y = -100
           engine.removeEntity(static2)
           engine.removeEntity(static3)
           engine.removeEntity(static4)
 
-          Transform.getMutable(mainDoor).position.y = 1
+          // Transform.getMutable(mainDoor).position.y = 1
           const mutableBosqueT = Transform.getMutableOrNull(bosque)
         if (mutableBosqueT !== null) {
           mutableBosqueT.position.y = 0
@@ -829,7 +830,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     parent: buildingCore
   })
 
-  engine.addSystem(ElectricidadSystem)
+  // engine.addSystem(ElectricidadSystem)
 
   /* Agregar nota */
 
@@ -1006,8 +1007,8 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   /* Puerta Cortina */
   
   const puertaCortina = engine.addEntity()
-  GltfContainer.create(puertaCortina, { src: 'models/puertaCortina.gltf' })
-  MeshCollider.setPlane(puertaCortina, ColliderLayer.CL_PHYSICS)
+  GltfContainer.create(puertaCortina, { src: 'models/puerta_cortina.gltf' })
+  // MeshCollider.setPlane(puertaCortina, ColliderLayer.CL_NONE)
   Transform.create(
     puertaCortina,
     blenderTransform(puertaCortinaT, buildingCore)
@@ -1257,7 +1258,8 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   ]
   const portalfx = createElectricidad(portalfxFrames, true, true)
   Transform.create(portalfx, {
-    position: Vector3.create(16 + 8, 0, 16 + 8)
+    position: Vector3.create(-16, 0, -16),
+    parent:mainDoor
   })
 
   // portalfx.setParent(buildingCore)
