@@ -31,7 +31,7 @@
         },
         {
             "mesh" : 3,
-            "name" : "Expendedora_Collider"
+            "name" : "Expendedora_collider"
         }
     ],
     "materials" : [
@@ -133,7 +133,7 @@
             ]
         },
         {
-            "name" : "Expendedora_Collider",
+            "name" : "Expendedora_collider",
             "primitives" : [
                 {
                     "attributes" : {

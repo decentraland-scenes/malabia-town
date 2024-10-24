@@ -21,7 +21,7 @@
         },
         {
             "mesh" : 1,
-            "name" : "Puerta_Cortina_Collider"
+            "name" : "Puerta_Cortina_collider"
         }
     ],
     "materials" : [
@@ -52,7 +52,7 @@
             ]
         },
         {
-            "name" : "Puerta_Cortina_Collider",
+            "name" : "Puerta_Cortina_collider",
             "primitives" : [
                 {
                     "attributes" : {

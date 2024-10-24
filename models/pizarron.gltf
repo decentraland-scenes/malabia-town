@@ -21,7 +21,7 @@
         },
         {
             "mesh" : 1,
-            "name" : "Pizarron_Collider"
+            "name" : "Pizarron_collider"
         }
     ],
     "materials" : [
@@ -54,7 +54,7 @@
             ]
         },
         {
-            "name" : "Pizarron_Collider",
+            "name" : "Pizarron_collider",
             "primitives" : [
                 {
                     "attributes" : {

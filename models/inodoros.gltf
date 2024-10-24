@@ -29,7 +29,7 @@
         },
         {
             "mesh" : 2,
-            "name" : "Inodoros_Collider"
+            "name" : "Inodoros_collider"
         },
         {
             "name" : "Inod_FX.001",
@@ -704,7 +704,7 @@
             ]
         },
         {
-            "name" : "Inodoros_Collider",
+            "name" : "Inodoros_collider",
             "primitives" : [
                 {
                     "attributes" : {

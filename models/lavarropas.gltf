@@ -65,7 +65,7 @@
         },
         {
             "mesh" : 2,
-            "name" : "Lavarropas_Collider"
+            "name" : "Lavarropas_collider"
         }
     ],
     "animations" : [
@@ -203,7 +203,7 @@
             ]
         },
         {
-            "name" : "Lavarropas_Collider",
+            "name" : "Lavarropas_collider",
             "primitives" : [
                 {
                     "attributes" : {

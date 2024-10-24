@@ -88,7 +88,7 @@
         },
         {
             "mesh" : 3,
-            "name" : "Plantitas_Collider"
+            "name" : "Plantitas_collider"
         },
         {
             "children" : [
@@ -121,7 +121,7 @@
         },
         {
             "mesh" : 5,
-            "name" : "Gato_Collider"
+            "name" : "Gato_collider"
         },
         {
             "children" : [
@@ -156,7 +156,7 @@
         },
         {
             "mesh" : 8,
-            "name" : "Malibiesto_Collider"
+            "name" : "Malibiesto_collider"
         },
         {
             "children" : [
@@ -188,7 +188,7 @@
         },
         {
             "mesh" : 10,
-            "name" : "Recepcion_Collider"
+            "name" : "Recepcion_collider"
         },
         {
             "children" : [
@@ -255,11 +255,11 @@
         },
         {
             "mesh" : 13,
-            "name" : "Escalera_Barandas_Collider"
+            "name" : "Escalera_Barandas_collider"
         },
         {
             "mesh" : 14,
-            "name" : "Escalera_Rampa_Collider"
+            "name" : "Escalera_Rampa_collider"
         },
         {
             "children" : [
@@ -286,7 +286,7 @@
         },
         {
             "mesh" : 16,
-            "name" : "Dado_Collider"
+            "name" : "Dado_collider"
         },
         {
             "children" : [
@@ -369,7 +369,7 @@
         },
         {
             "mesh" : 20,
-            "name" : "Sofa_Collider"
+            "name" : "Sofa_collider"
         },
         {
             "children" : [
@@ -445,7 +445,7 @@
         },
         {
             "mesh" : 26,
-            "name" : "Lampara_Collider"
+            "name" : "Lampara_collider"
         },
         {
             "children" : [
@@ -475,7 +475,7 @@
         },
         {
             "mesh" : 29,
-            "name" : "Astronauta_Collider"
+            "name" : "Astronauta_collider"
         },
         {
             "children" : [
@@ -511,7 +511,7 @@
         },
         {
             "mesh" : 32,
-            "name" : "Carnivora_Collider"
+            "name" : "Carnivora_collider"
         },
         {
             "children" : [
@@ -543,7 +543,7 @@
         },
         {
             "mesh" : 34,
-            "name" : "Cohete_Collider"
+            "name" : "Cohete_collider"
         },
         {
             "children" : [
@@ -581,7 +581,7 @@
         },
         {
             "mesh" : 37,
-            "name" : "Puerta_Collider"
+            "name" : "Puerta_collider"
         },
         {
             "children" : [
@@ -613,7 +613,7 @@
         },
         {
             "mesh" : 37,
-            "name" : "Puerta_Collider"
+            "name" : "Puerta_collider"
         },
         {
             "children" : [
@@ -1658,7 +1658,7 @@
         },
         {
             "mesh" : 83,
-            "name" : "Planta_Mutante_Collider",
+            "name" : "Planta_Mutante_collider",
             "rotation" : [
                 0,
                 0.0607898123562336,
@@ -6452,7 +6452,7 @@
         },
         {
             "mesh" : 165,
-            "name" : "Candelabro_Collider"
+            "name" : "Candelabro_collider"
         },
         {
             "children" : [
@@ -6483,7 +6483,7 @@
         },
         {
             "mesh" : 167,
-            "name" : "Dispenser_Collider"
+            "name" : "Dispenser_collider"
         },
         {
             "mesh" : 168,
@@ -6519,7 +6519,7 @@
         },
         {
             "mesh" : 170,
-            "name" : "Tarta_Collider"
+            "name" : "Tarta_collider"
         },
         {
             "children" : [
@@ -6544,7 +6544,7 @@
         },
         {
             "mesh" : 165,
-            "name" : "Candelabro_Collider"
+            "name" : "Candelabro_collider"
         },
         {
             "children" : [
@@ -6579,7 +6579,7 @@
         },
         {
             "mesh" : 173,
-            "name" : "Armario_Comedor_Collider"
+            "name" : "Armario_Comedor_collider"
         },
         {
             "children" : [
@@ -6629,7 +6629,7 @@
         },
         {
             "mesh" : 176,
-            "name" : "Botellas_Collider",
+            "name" : "Botellas_collider",
             "scale" : [
                 0.1520908623933792,
                 0.18399672210216522,
@@ -6666,7 +6666,7 @@
         },
         {
             "mesh" : 178,
-            "name" : "Estatua_Caballo_Collider"
+            "name" : "Estatua_Caballo_collider"
         },
         {
             "children" : [
@@ -6703,7 +6703,7 @@
         },
         {
             "mesh" : 183,
-            "name" : "Florero_Collider"
+            "name" : "Florero_collider"
         },
         {
             "children" : [
@@ -6749,7 +6749,7 @@
         },
         {
             "mesh" : 183,
-            "name" : "Florero_Collider"
+            "name" : "Florero_collider"
         },
         {
             "children" : [
@@ -6824,7 +6824,7 @@
         },
         {
             "mesh" : 189,
-            "name" : "Platos_Collider.001",
+            "name" : "Platos_collider.001",
             "translation" : [
                 -0.09065548330545425,
                 0,
@@ -6833,7 +6833,7 @@
         },
         {
             "mesh" : 190,
-            "name" : "Platos_Collider.002",
+            "name" : "Platos_collider.002",
             "translation" : [
                 0.2327841818332672,
                 0,
@@ -6933,7 +6933,7 @@
         },
         {
             "mesh" : 198,
-            "name" : "Lab_Collider_01",
+            "name" : "Lab_collider_01",
             "translation" : [
                 -0.7470021843910217,
                 0,
@@ -6942,7 +6942,7 @@
         },
         {
             "mesh" : 199,
-            "name" : "Lab_Collider_02",
+            "name" : "Lab_collider_02",
             "translation" : [
                 0.030988097190856934,
                 0.6710461974143982,
@@ -7008,7 +7008,7 @@
         },
         {
             "mesh" : 202,
-            "name" : "Mesa_Larga_Collider",
+            "name" : "Mesa_Larga_collider",
             "scale" : [
                 0.6217437386512756,
                 0.2884692847728729,
@@ -7038,7 +7038,7 @@
         },
         {
             "mesh" : 204,
-            "name" : "Repisa_Comedor_Collider"
+            "name" : "Repisa_Comedor_collider"
         },
         {
             "children" : [
@@ -7111,7 +7111,7 @@
         },
         {
             "mesh" : 210,
-            "name" : "Atelier_Mesa_Collider",
+            "name" : "Atelier_Mesa_collider",
             "translation" : [
                 0,
                 0,
@@ -7120,7 +7120,7 @@
         },
         {
             "mesh" : 211,
-            "name" : "Atelier_Banquito_Collider",
+            "name" : "Atelier_Banquito_collider",
             "translation" : [
                 -0.09714437276124954,
                 0,
@@ -7160,7 +7160,7 @@
         },
         {
             "mesh" : 213,
-            "name" : "Alfombra_Voladora_Collider"
+            "name" : "Alfombra_Voladora_collider"
         },
         {
             "children" : [
@@ -7190,7 +7190,7 @@
         },
         {
             "mesh" : 216,
-            "name" : "Vulva_Collider",
+            "name" : "Vulva_collider",
             "scale" : [
                 0.5967500805854797,
                 0.9495638012886047,
@@ -7361,7 +7361,7 @@
         },
         {
             "mesh" : 227,
-            "name" : "Sala_Musica_Collider"
+            "name" : "Sala_Musica_collider"
         },
         {
             "children" : [
@@ -7400,7 +7400,7 @@
         },
         {
             "mesh" : 229,
-            "name" : "Santo_Collider"
+            "name" : "Santo_collider"
         },
         {
             "children" : [
@@ -7447,11 +7447,11 @@
         },
         {
             "mesh" : 235,
-            "name" : "Estanque_Collider.001"
+            "name" : "Estanque_collider.001"
         },
         {
             "mesh" : 236,
-            "name" : "Estanque_Collider.002",
+            "name" : "Estanque_collider.002",
             "translation" : [
                 -0.7042831778526306,
                 0,
@@ -7496,7 +7496,7 @@
         },
         {
             "mesh" : 239,
-            "name" : "Fuente_Patio_Collider",
+            "name" : "Fuente_Patio_collider",
             "scale" : [
                 0.4659183919429779,
                 0.39892542362213135,
@@ -7565,7 +7565,7 @@
         },
         {
             "mesh" : 3,
-            "name" : "Plantitas_Collider"
+            "name" : "Plantitas_collider"
         },
         {
             "children" : [
@@ -7598,7 +7598,7 @@
         },
         {
             "mesh" : 241,
-            "name" : "Planta_Collider"
+            "name" : "Planta_collider"
         },
         {
             "children" : [
@@ -7678,11 +7678,11 @@
         },
         {
             "mesh" : 247,
-            "name" : "Jardin_Collider_01"
+            "name" : "Jardin_collider_01"
         },
         {
             "mesh" : 248,
-            "name" : "Jardin_Collider_02"
+            "name" : "Jardin_collider_02"
         },
         {
             "children" : [
@@ -8274,7 +8274,7 @@
             ]
         },
         {
-            "name" : "Plantitas_Collider",
+            "name" : "Plantitas_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -8301,7 +8301,7 @@
             ]
         },
         {
-            "name" : "Gato_Collider",
+            "name" : "Gato_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -8343,7 +8343,7 @@
             ]
         },
         {
-            "name" : "Malibiesto_Collider",
+            "name" : "Malibiesto_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -8370,7 +8370,7 @@
             ]
         },
         {
-            "name" : "Recepcion_Collider",
+            "name" : "Recepcion_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -8411,7 +8411,7 @@
             ]
         },
         {
-            "name" : "Escalera_Barandas_Collider",
+            "name" : "Escalera_Barandas_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -8424,7 +8424,7 @@
             ]
         },
         {
-            "name" : "Escalera_Rampa_Collider",
+            "name" : "Escalera_Rampa_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -8451,7 +8451,7 @@
             ]
         },
         {
-            "name" : "Dado_Collider",
+            "name" : "Dado_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -8506,7 +8506,7 @@
             ]
         },
         {
-            "name" : "Sofa_Collider",
+            "name" : "Sofa_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -8589,7 +8589,7 @@
             ]
         },
         {
-            "name" : "Lampara_Collider",
+            "name" : "Lampara_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -8642,7 +8642,7 @@
             ]
         },
         {
-            "name" : "Astronauta_Collider",
+            "name" : "Astronauta_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -8684,7 +8684,7 @@
             ]
         },
         {
-            "name" : "Carnivora_Collider",
+            "name" : "Carnivora_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -8711,7 +8711,7 @@
             ]
         },
         {
-            "name" : "Cohete_Collider",
+            "name" : "Cohete_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -8752,7 +8752,7 @@
             ]
         },
         {
-            "name" : "Puerta_Collider",
+            "name" : "Puerta_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -9415,7 +9415,7 @@
             ]
         },
         {
-            "name" : "Planta_Mutante_Collider",
+            "name" : "Planta_Mutante_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -10577,7 +10577,7 @@
             ]
         },
         {
-            "name" : "Candelabro_Collider",
+            "name" : "Candelabro_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -10604,7 +10604,7 @@
             ]
         },
         {
-            "name" : "Dispenser_Collider",
+            "name" : "Dispenser_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -10645,7 +10645,7 @@
             ]
         },
         {
-            "name" : "Tarta_Collider",
+            "name" : "Tarta_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -10686,7 +10686,7 @@
             ]
         },
         {
-            "name" : "Armario_Comedor_Collider",
+            "name" : "Armario_Comedor_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -10727,7 +10727,7 @@
             ]
         },
         {
-            "name" : "Botellas_Collider",
+            "name" : "Botellas_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -10754,7 +10754,7 @@
             ]
         },
         {
-            "name" : "Estatua_Caballo_Collider",
+            "name" : "Estatua_Caballo_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -10824,7 +10824,7 @@
             ]
         },
         {
-            "name" : "Florero_Collider",
+            "name" : "Florero_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -10907,7 +10907,7 @@
             ]
         },
         {
-            "name" : "Platos_Collider.001",
+            "name" : "Platos_collider.001",
             "primitives" : [
                 {
                     "attributes" : {
@@ -10920,7 +10920,7 @@
             ]
         },
         {
-            "name" : "Platos_Collider.002",
+            "name" : "Platos_collider.002",
             "primitives" : [
                 {
                     "attributes" : {
@@ -11036,7 +11036,7 @@
             ]
         },
         {
-            "name" : "Lab_Collider_01",
+            "name" : "Lab_collider_01",
             "primitives" : [
                 {
                     "attributes" : {
@@ -11049,7 +11049,7 @@
             ]
         },
         {
-            "name" : "Lab_Collider_02",
+            "name" : "Lab_collider_02",
             "primitives" : [
                 {
                     "attributes" : {
@@ -11090,7 +11090,7 @@
             ]
         },
         {
-            "name" : "Mesa_Larga_Collider",
+            "name" : "Mesa_Larga_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -11117,7 +11117,7 @@
             ]
         },
         {
-            "name" : "Repisa_Comedor_Collider",
+            "name" : "Repisa_Comedor_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -11242,7 +11242,7 @@
             ]
         },
         {
-            "name" : "Atelier_Mesa_Collider",
+            "name" : "Atelier_Mesa_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -11255,7 +11255,7 @@
             ]
         },
         {
-            "name" : "Atelier_Banquito_Collider",
+            "name" : "Atelier_Banquito_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -11282,7 +11282,7 @@
             ]
         },
         {
-            "name" : "Alfombra_Voladora_Collider",
+            "name" : "Alfombra_Voladora_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -11485,7 +11485,7 @@
             ]
         },
         {
-            "name" : "Sala_Musica_Collider",
+            "name" : "Sala_Musica_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -11512,7 +11512,7 @@
             ]
         },
         {
-            "name" : "Santo_Collider",
+            "name" : "Santo_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -11603,7 +11603,7 @@
             ]
         },
         {
-            "name" : "Estanque_Collider.001",
+            "name" : "Estanque_collider.001",
             "primitives" : [
                 {
                     "attributes" : {
@@ -11616,7 +11616,7 @@
             ]
         },
         {
-            "name" : "Estanque_Collider.002",
+            "name" : "Estanque_collider.002",
             "primitives" : [
                 {
                     "attributes" : {
@@ -11659,7 +11659,7 @@
             ]
         },
         {
-            "name" : "Fuente_Patio_Collider",
+            "name" : "Fuente_Patio_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -11686,7 +11686,7 @@
             ]
         },
         {
-            "name" : "Planta_Collider",
+            "name" : "Planta_collider",
             "primitives" : [
                 {
                     "attributes" : {
@@ -11768,7 +11768,7 @@
             ]
         },
         {
-            "name" : "Jardin_Collider_01",
+            "name" : "Jardin_collider_01",
             "primitives" : [
                 {
                     "attributes" : {
@@ -11781,7 +11781,7 @@
             ]
         },
         {
-            "name" : "Jardin_Collider_02",
+            "name" : "Jardin_collider_02",
             "primitives" : [
                 {
                     "attributes" : {

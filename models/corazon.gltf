@@ -112,11 +112,11 @@
         },
         {
             "mesh" : 2,
-            "name" : "Corazon_Collider_01"
+            "name" : "Corazon_collider_01"
         },
         {
             "mesh" : 3,
-            "name" : "Corazon_Collider_02",
+            "name" : "Corazon_collider_02",
             "translation" : [
                 -1.283884048461914,
                 0,
@@ -335,7 +335,7 @@
             ]
         },
         {
-            "name" : "Corazon_Collider_01",
+            "name" : "Corazon_collider_01",
             "primitives" : [
                 {
                     "attributes" : {
@@ -348,7 +348,7 @@
             ]
         },
         {
-            "name" : "Corazon_Collider_02",
+            "name" : "Corazon_collider_02",
             "primitives" : [
                 {
                     "attributes" : {

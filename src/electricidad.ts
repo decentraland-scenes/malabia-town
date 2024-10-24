@@ -30,6 +30,9 @@ export function createElectricidad(
   }
   return electricidad
 }
+
+
+
 let timePass: number = 0
 export function ElectricidadSystem(dt: number): void {
   timePass += dt
