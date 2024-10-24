@@ -1,7 +1,7 @@
 import { type Entity, ColliderLayer, engine, GltfContainer, Transform } from "@dcl/sdk/ecs"
 import { blenderTransform, randomRange } from "./common"
 import { type BlenderTransform } from "./definitions"
-import { createElectricidad } from "./electricidad"
+import { createModelsAnimation } from "./modelsAnimation"
 import { Vector3, Quaternion } from "@dcl/sdk/math"
 
 export type createEntitySrc = string | string[]
@@ -15,7 +15,7 @@ export function createEntity(parent: Entity, transform: BlenderTransform, src?: 
           GltfContainer.getMutable(entity).visibleMeshesCollisionMask = ColliderLayer.CL_PHYSICS
         }
     } else {
-      entity = createElectricidad(src, true, true)
+      entity = createModelsAnimation(src, true, true)
     }
     Transform.create(entity, blenderTransform(transform, parent))
   }

@@ -8,7 +8,7 @@ export type BlenderTransform = {
   parent?: Entity
 }
 
-export const ElectricidadComponent = engine.defineComponent('electricidad', {
+export const AnimationModelsComponent = engine.defineComponent('animationModelsComponent', {
   entity_frames: Schemas.Array(Schemas.Entity),
   frame: Schemas.Int,
   base_transform: Schemas.Map({

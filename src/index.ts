@@ -28,7 +28,7 @@ import {
   randomIntExcluding,
   randomRange
 } from './common'
-import { createElectricidad, ElectricidadSystem } from './electricidad'
+import { createModelsAnimation, AnimationModelsSystem } from './modelsAnimation'
 
 // import { getUserAccount } from '@decentraland/EthereumController'
 // import { getProvider } from '@decentraland/web3-provider'
@@ -40,7 +40,7 @@ import { createElectricidad, ElectricidadSystem } from './electricidad'
 
 import { ReactEcsRenderer } from '@dcl/sdk/react-ecs'
 // import { getPlayer } from '@dcl/sdk/src/players'
-import { ElectricidadComponent } from './definitions'
+import { AnimationModelsComponent } from './definitions'
 import { movePlayerTo, openExternalUrl } from '~system/RestrictedActions'
 import { lav01T, lav02T, lav03T, rayosT, corazonT, inodorosT, telefonoT, pantallaT, donacionT, mariposaT, wearablesT, labT, pizarronT, brocheInstagramT, brocheMalabiaT, cuernoT, puertaCortinaT, calderoT, fogonazoT, marcoCalderoT, malabiaUploadT, malabiafxT, caballofxT, tunelfxT, terrazafxT, velaT, exit1T, exit2T } from './creatorFunctions'
 // import { abiManaArray } from './erc20Abi'
@@ -186,7 +186,7 @@ export function main(): void {
   Transform.create(lavarropas03, blenderTransform(lav03T, buildingCore))
 
   const lavarropasRayos = engine.addEntity()
-  GltfContainer.create(lavarropasRayos, { src: 'models/lavarropasRayos.gltf' })
+  GltfContainer.create(lavarropasRayos, { src: 'models/lavarropas_rayos.gltf' })
   Transform.create(lavarropasRayos, blenderTransform(rayosT, buildingCore))
 
   
@@ -769,7 +769,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   ]
 
   // Puerta principal (Bosque)
-  const electricidad1 = createElectricidad(
+  const electricidad1 = createModelsAnimation(
     electricidadPasilloFrames,
     true,
     true
@@ -783,7 +783,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   })
 
   // Vulva
-  const electricidad2 = createElectricidad(
+  const electricidad2 = createModelsAnimation(
     electricidadPasilloFrames,
     true,
     true
@@ -795,7 +795,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   })
 
   // Inodoros
-  const electricidad3 = createElectricidad(
+  const electricidad3 = createModelsAnimation(
     electricidadPasilloFrames,
     true,
     true
@@ -807,7 +807,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   })
 
   // Lavadero
-  const electricidad4 = createElectricidad(
+  const electricidad4 = createModelsAnimation(
     electricidadPasilloFrames,
     true,
     true
@@ -819,7 +819,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   })
 
   // Pasillo
-  const electricidad5 = createElectricidad(
+  const electricidad5 = createModelsAnimation(
     electricidadPasilloFrames,
     true,
     true
@@ -830,7 +830,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     parent: buildingCore
   })
 
-  // engine.addSystem(ElectricidadSystem)
+  engine.addSystem(AnimationModelsSystem)
 
   /* Agregar nota */
 
@@ -944,11 +944,12 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   /* Broche Instagram */
   
   const brocheInstagram = engine.addEntity()
-  GltfContainer.create(brocheInstagram, { src: 'models/brocheInstagram.gltf' })
+  GltfContainer.create(brocheInstagram, { src: 'models/broche_instagram.gltf' })
   Transform.create(
     brocheInstagram,
     blenderTransform(brocheInstagramT, buildingCore)
   )
+  MeshCollider.setBox(brocheInstagram)
   pointerEventsSystem.onPointerDown(
     {
       entity: brocheInstagram,
@@ -963,11 +964,13 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   
 
   const brocheMalabia = engine.addEntity()
-  GltfContainer.create(brocheMalabia, { src: 'models/brocheMalabia.gltf' })
+  GltfContainer.create(brocheMalabia, { src: 'models/broche_malabia.gltf' })
   Transform.create(
     brocheMalabia,
-    blenderTransform(brocheMalabiaT, brocheMalabia)
+    blenderTransform(brocheMalabiaT, buildingCore)
   )
+  MeshCollider.setBox(brocheMalabia)
+
   pointerEventsSystem.onPointerDown(
     {
       entity: brocheMalabia,
@@ -1052,9 +1055,9 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/fogonazo-010.gltf'
   ]
   
-  const fogonazo = createElectricidad(fogonazoFrames)
-  ElectricidadComponent.getMutable(fogonazo).playing = true
-  ElectricidadComponent.getMutable(fogonazo).looping = false
+  const fogonazo = createModelsAnimation(fogonazoFrames)
+  AnimationModelsComponent.getMutable(fogonazo).playing = true
+  AnimationModelsComponent.getMutable(fogonazo).looping = false
   Transform.create(fogonazo, blenderTransform(fogonazoT, buildingCore))
   AudioSource.create(fogonazo, {
     audioClipUrl: 'audio/fogonazo.mp3',
@@ -1065,7 +1068,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   /* Marco caldero */
   
   const marcoCaldero = engine.addEntity()
-  GltfContainer.create(marcoCaldero, { src: 'models/marcoCaldero.gltf' })
+  GltfContainer.create(marcoCaldero, { src: 'models/marco_caldero.gltf' })
   Transform.create(marcoCaldero, blenderTransform(marcoCalderoT, buildingCore))
 
   const canvasCaldero = engine.addEntity()
@@ -1166,7 +1169,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
         })
       })
       AudioSource.getMutable(fogonazo).playing = true
-      ElectricidadComponent.getMutable(fogonazo).playing = true
+      AnimationModelsComponent.getMutable(fogonazo).playing = true
     }
   }
 
@@ -1182,7 +1185,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/malabiaUploads-006.gltf'
   ]
   
-  const malabiaUpload = createElectricidad(malabiaUploadFrames, true, true)
+  const malabiaUpload = createModelsAnimation(malabiaUploadFrames, true, true)
   Transform.create(
     malabiaUpload,
     blenderTransform(malabiaUploadT, buildingCore)
@@ -1198,7 +1201,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/alfombra-006.gltf'
   ]
   
-  const alfombrafx = createElectricidad(alfombrafxFrames, true, true)
+  const alfombrafx = createModelsAnimation(alfombrafxFrames, true, true)
   Transform.create(alfombrafx, blenderTransform(malabiafxT, buildingCore))
 
   /* Planta Anim */
@@ -1210,7 +1213,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/planta-005.gltf',
     'models/planta-006.gltf'
   ]
-  const plantafx = createElectricidad(plantafxFrames, true, true)
+  const plantafx = createModelsAnimation(plantafxFrames, true, true)
   Transform.create(plantafx, {
     position: Vector3.create(16 + 8, 0, 16 + 8),
     parent: buildingCore
@@ -1226,7 +1229,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/caballo-006.gltf'
   ]
   
-  const caballofx = createElectricidad(caballofxFrames, true, true)
+  const caballofx = createModelsAnimation(caballofxFrames, true, true)
   Transform.create(caballofx, blenderTransform(caballofxT, buildingCore))
 
   /* Caballo Anim */
@@ -1239,7 +1242,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/tunel-006.gltf'
   ]
   
-  const tunelfx = createElectricidad(tunelfxFrames, true, true)
+  const tunelfx = createModelsAnimation(tunelfxFrames, true, true)
   Transform.create(tunelfx, blenderTransform(tunelfxT, buildingCore))
   AudioSource.create(tunelfx, {
     audioClipUrl: 'audio/magia.mp3',
@@ -1256,13 +1259,12 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/portal-005.gltf',
     'models/portal-006.gltf'
   ]
-  const portalfx = createElectricidad(portalfxFrames, true, true)
+  const portalfx = createModelsAnimation(portalfxFrames, true, true)
   Transform.create(portalfx, {
-    position: Vector3.create(-16, 0, -16),
-    parent:mainDoor
+    position: Vector3.create(0, 0, 0),
+    parent: bosque
   })
 
-  // portalfx.setParent(buildingCore)
 
   /* Terraza Anim */
   const terrazafxFrames = [
@@ -1274,7 +1276,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/terraza_luz-006.gltf'
   ]
   
-  const terrazafx = createElectricidad(terrazafxFrames, true, true)
+  const terrazafx = createModelsAnimation(terrazafxFrames, true, true)
   Transform.create(terrazafx, blenderTransform(terrazafxT, buildingCore))
 
   /* Vela Anim */
@@ -1292,10 +1294,10 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/exit-004.gltf'
   ]
   
-  const exit1 = createElectricidad(exitFrames, true, true)
+  const exit1 = createModelsAnimation(exitFrames, true, true)
   Transform.create(exit1, blenderTransform(exit1T, buildingCore))
 
   
-  const exit2 = createElectricidad(exitFrames)
+  const exit2 = createModelsAnimation(exitFrames)
   Transform.create(exit2, blenderTransform(exit2T, buildingCore))
 }
