@@ -607,9 +607,7 @@
             ]
         },
         {
-            "children" : [
-                51
-            ],
+            
             "mesh" : 36,
             "name" : "Puerta"
         },
