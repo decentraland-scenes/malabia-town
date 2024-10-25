@@ -42,7 +42,36 @@ import { ReactEcsRenderer } from '@dcl/sdk/react-ecs'
 // import { getPlayer } from '@dcl/sdk/src/players'
 import { AnimationModelsComponent } from './definitions'
 import { movePlayerTo, openExternalUrl } from '~system/RestrictedActions'
-import { lav01T, lav02T, lav03T, rayosT, corazonT, inodorosT, telefonoT, pantallaT, donacionT, mariposaT, wearablesT, labT, pizarronT, brocheInstagramT, brocheMalabiaT, cuernoT, puertaCortinaT, calderoT, fogonazoT, marcoCalderoT, malabiaUploadT, malabiafxT, caballofxT, tunelfxT, terrazafxT, velaT, exit1T, exit2T } from './creatorFunctions'
+import {
+  lav01T,
+  lav02T,
+  lav03T,
+  rayosT,
+  corazonT,
+  inodorosT,
+  telefonoT,
+  pantallaT,
+  donacionT,
+  mariposaT,
+  wearablesT,
+  labT,
+  pizarronT,
+  brocheInstagramT,
+  brocheMalabiaT,
+  cuernoT,
+  // puertaCortinaT,
+  calderoT,
+  fogonazoT,
+  marcoCalderoT,
+  malabiaUploadT,
+  malabiafxT,
+  caballofxT,
+  tunelfxT,
+  terrazafxT,
+  velaT,
+  exit1T,
+  exit2T
+} from './creatorFunctions'
 // import { abiManaArray } from './erc20Abi'
 // import { abiMensajes } from './mensajesAbi'
 
@@ -132,8 +161,7 @@ export function main(): void {
     parent: buildingCore
   })
 
-  //
-  // static2.setParent(buildingCore)
+  
 
   const static3 = engine.addEntity()
   GltfContainer.create(static3, { src: 'models/static3.gltf' })
@@ -142,8 +170,7 @@ export function main(): void {
     parent: buildingCore
   })
 
-  //
-  // static3.setParent(buildingCore)
+  
 
   const static4 = engine.addEntity()
   GltfContainer.create(static4, { src: 'models/static4.gltf' })
@@ -153,16 +180,8 @@ export function main(): void {
   })
 
   //
-  // static4.setParent(buildingCore)
 
   // Dynamic objects
-  
-
-  
-
-  
-
-  
 
   const lavarropas01 = engine.addEntity()
   GltfContainer.create(lavarropas01, {
@@ -189,19 +208,13 @@ export function main(): void {
   GltfContainer.create(lavarropasRayos, { src: 'models/lavarropas_rayos.gltf' })
   Transform.create(lavarropasRayos, blenderTransform(rayosT, buildingCore))
 
-  
-
   const corazon = engine.addEntity()
   GltfContainer.create(corazon, { src: 'models/corazon.gltf' })
   Transform.create(corazon, blenderTransform(corazonT, buildingCore))
 
-  
-
   const inodoros = engine.addEntity()
   GltfContainer.create(inodoros, { src: 'models/inodoros.gltf' })
   Transform.create(inodoros, blenderTransform(inodorosT, buildingCore))
-
-  
 
   const telefono = engine.addEntity()
   GltfContainer.create(telefono, { src: 'models/telefono.gltf' })
@@ -249,13 +262,11 @@ export function main(): void {
       AudioSource.createOrReplace(telefono, {
         audioClipUrl:
           'audio/' + audiosTelefono[randomInt(0, audiosTelefono.length)],
-        playing: true,
+        playing: true
         // global:false
       })
     }
   )
-
-  
 
   const pantalla = engine.addEntity()
   MeshRenderer.setPlane(pantalla)
@@ -301,7 +312,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
 }) */
 
   /* Wearables Anim */
-  
 
   const hiddenTransform = {
     position: Vector3.create(8, -5, 8)
@@ -326,7 +336,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   }
 
   /* Lab Anim */
-  
 
   const labFrames = [
     'models/laboratorio-001.gltf',
@@ -347,8 +356,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
       parent: buildingCore
     })
   }
-
-  
 
   // const contracts = {
   //   mana: {
@@ -392,7 +399,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   AudioSource.create(donacion, {
     audioClipUrl: 'audio/gaseosa.mp3',
     playing: false,
-    loop: false,
+    loop: false
     // global:false
   })
 
@@ -498,7 +505,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   }
 
   /* Mariposa */
-  
 
   const mariposa = engine.addEntity()
   GltfContainer.create(mariposa, { src: 'models/mariposa.gltf' })
@@ -573,7 +579,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     const electricidad = engine.addEntity()
     AudioSource.createOrReplace(electricidad, {
       audioClipUrl: 'audio/Electricidad.mp3',
-      playing: true,
+      playing: true
       // global:false
     })
     Transform.create(electricidad, {
@@ -591,7 +597,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     audioClipUrl: 'audio/Teletransporte.mp3',
     playing: true,
     loop: false,
-    volume: 0.6,
+    volume: 0.6
     // global:false
   })
   Transform.create(tmp, { position: Vector3.create(0, 0, 0.5) })
@@ -646,15 +652,15 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
         if (!justTeleported) {
           buildingVisible = false
           Transform.getMutable(buildingCore).position.y = -500
-          engine.removeEntity(static2)
-          engine.removeEntity(static3)
-          engine.removeEntity(static4)
+          // engine.removeEntity(static2)
+          // engine.removeEntity(static3)
+          // engine.removeEntity(static4)
 
           // Transform.getMutable(mainDoor).position.y = 1
           const mutableBosqueT = Transform.getMutableOrNull(bosque)
-        if (mutableBosqueT !== null) {
-          mutableBosqueT.position.y = 0
-        }
+          if (mutableBosqueT !== null) {
+            mutableBosqueT.position.y = 0
+          }
           void movePlayerTo({
             newRelativePosition: Vector3.create(16, 0, 16),
             cameraTarget: Vector3.create(16 + 8, 2, 16 + 8)
@@ -829,8 +835,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
 
   /* Agregar nota */
 
-  
-
   const pizarron = engine.addEntity()
   MeshCollider.setBox(pizarron)
   GltfContainer.create(pizarron, { src: 'models/pizarron.gltf' })
@@ -888,19 +892,21 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
       mutablePizarronTransform.position,
       Vector3.create(-0.085, 1.9 - n * 0.1, 1.5 - randomRange(0, 0.1))
     )
-    mutablePizarronTransform.rotation = Quaternion.fromEulerDegrees(
-      0,
-      90,
-      -5 + randomRange(0, 10)
-    )
-    mutablePizarronTransform.scale = Vector3.create(0.8, 0.8, 0.8)
+    // mutablePizarronTransform.rotation = Quaternion.fromEulerDegrees(
+    //   0,
+    //   90,
+    //   -5 + randomRange(0, 10)
+    // )
+    // mutablePizarronTransform.scale = Vector3.create(0.8, 0.8, 0.8)
   }
 
   const enviarMensajePrompt = ui.createComponent(ui.FillInPrompt, {
     title: 'Agregar nota en el pizarrón:',
     placeholder: 'Escribe tu nota aquí...',
     acceptLabel: 'Dejar nota',
-    onAccept: (value: string): void => {enviarMensajePrompt.hide()}
+    onAccept: (value: string): void => {
+      enviarMensajePrompt.hide()
+    }
     //   async (value: string) => {
     //     const functionSignature = functionSetGreeting.toPayload([value])
     //     const conf = contracts.mensajes.matic
@@ -937,7 +943,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   // refrescarMensajes()
 
   /* Broche Instagram */
-  
+
   const brocheInstagram = engine.addEntity()
   GltfContainer.create(brocheInstagram, { src: 'models/broche_instagram.gltf' })
   Transform.create(
@@ -956,7 +962,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   )
 
   /* Broche Malabia */
-  
 
   const brocheMalabia = engine.addEntity()
   GltfContainer.create(brocheMalabia, { src: 'models/broche_malabia.gltf' })
@@ -977,7 +982,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   )
 
   /* Cuerno Recepcion */
-  
 
   const cuerno = engine.addEntity()
   GltfContainer.create(cuerno, {
@@ -989,7 +993,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   AudioSource.createOrReplace(cuerno, {
     audioClipUrl: 'audio/cuerno.mp3',
     playing: false,
-    loop: false,
+    loop: false
     // global:false
   })
 
@@ -1004,7 +1008,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   )
 
   /* Puerta Cortina */
-  
+
   // const puertaCortina = engine.addEntity()
   // GltfContainer.create(puertaCortina, { src: 'models/puerta_cortina.gltf' })
   // // MeshCollider.setPlane(puertaCortina, ColliderLayer.CL_NONE)
@@ -1014,14 +1018,14 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   // )
 
   /* Caldero */
-  
+
   const caldero = engine.addEntity()
   GltfContainer.create(caldero, { src: 'models/caldero.gltf' })
   Transform.create(caldero, blenderTransform(calderoT, buildingCore))
   AudioSource.create(caldero, {
     audioClipUrl: 'audio/caldero.mp3',
     playing: true,
-    loop: true,
+    loop: true
     // global:false
   })
   MeshCollider.setBox(caldero)
@@ -1051,7 +1055,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/fogonazo-009.gltf',
     'models/fogonazo-010.gltf'
   ]
-  
+
   const fogonazo = createModelsAnimation(fogonazoFrames)
   AnimationModelsComponent.getMutable(fogonazo).playing = true
   AnimationModelsComponent.getMutable(fogonazo).looping = false
@@ -1059,12 +1063,12 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   AudioSource.create(fogonazo, {
     audioClipUrl: 'audio/fogonazo.mp3',
     playing: false,
-    loop: false,
+    loop: false
     // global:false
   })
 
   /* Marco caldero */
-  
+
   const marcoCaldero = engine.addEntity()
   GltfContainer.create(marcoCaldero, { src: 'models/marco_caldero.gltf' })
   Transform.create(marcoCaldero, blenderTransform(marcoCalderoT, buildingCore))
@@ -1166,8 +1170,8 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     } else {
       Transform.getMutable(canvasCaldero).scale = Vector3.create(1.5, 1.5, 0)
       Transform.getMutable(canvasCaldero).rotation =
-      // Quaternion.fromEulerDegrees(0, 90, 180)
-      Quaternion.fromEulerDegrees(0, 90, 0)
+        // Quaternion.fromEulerDegrees(0, 90, 180)
+        Quaternion.fromEulerDegrees(0, 90, 0)
 
       Material.setBasicMaterial(canvasCaldero, {
         texture: Material.Texture.Common({
@@ -1190,7 +1194,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/malabiaUploads-005.gltf',
     'models/malabiaUploads-006.gltf'
   ]
-  
+
   const malabiaUpload = createModelsAnimation(malabiaUploadFrames, true, true)
   Transform.create(
     malabiaUpload,
@@ -1206,7 +1210,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/alfombra-005.gltf',
     'models/alfombra-006.gltf'
   ]
-  
+
   const alfombrafx = createModelsAnimation(alfombrafxFrames, true, true)
   Transform.create(alfombrafx, blenderTransform(malabiafxT, buildingCore))
 
@@ -1234,7 +1238,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/caballo-005.gltf',
     'models/caballo-006.gltf'
   ]
-  
+
   const caballofx = createModelsAnimation(caballofxFrames, true, true)
   Transform.create(caballofx, blenderTransform(caballofxT, buildingCore))
 
@@ -1247,10 +1251,9 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/tunel-005.gltf',
     'models/tunel-006.gltf'
   ]
-  
+
   const tunelfx = createModelsAnimation(tunelfxFrames, true, true)
   Transform.create(tunelfx, blenderTransform(tunelfxT, buildingCore))
-
 
   /* Portal Anim */
   const portalfxFrames = [
@@ -1267,7 +1270,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     parent: bosque
   })
 
-
   /* Terraza Anim */
   const terrazafxFrames = [
     'models/terraza_luz-001.gltf',
@@ -1277,13 +1279,12 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/terraza_luz-005.gltf',
     'models/terraza_luz-006.gltf'
   ]
-  
+
   const terrazafx = createModelsAnimation(terrazafxFrames, true, true)
   Transform.create(terrazafx, blenderTransform(terrazafxT, buildingCore))
 
   /* Vela Anim */
 
-  
   const velafx = engine.addEntity()
   GltfContainer.create(velafx, { src: 'models/vela.gltf' })
   Transform.create(velafx, blenderTransform(velaT, buildingCore))
@@ -1295,11 +1296,10 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     'models/exit-003.gltf',
     'models/exit-004.gltf'
   ]
-  
+
   const exit1 = createModelsAnimation(exitFrames, true, true)
   Transform.create(exit1, blenderTransform(exit1T, buildingCore))
 
-  
   const exit2 = createModelsAnimation(exitFrames)
   Transform.create(exit2, blenderTransform(exit2T, buildingCore))
 }

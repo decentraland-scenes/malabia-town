@@ -8,19 +8,22 @@ export type BlenderTransform = {
   parent?: Entity
 }
 
-export const AnimationModelsComponent = engine.defineComponent('animationModelsComponent', {
-  entity_frames: Schemas.Array(Schemas.Entity),
-  frame: Schemas.Int,
-  base_transform: Schemas.Map({
-    position: Schemas.Vector3,
-    scale: Schemas.Vector3,
-    parent: Schemas.Entity,
-    rotation: Schemas.Quaternion
-  }),
-  gltf_frames: Schemas.Array(Schemas.String),
-  looping: Schemas.Boolean,
-  playing: Schemas.Boolean
-})
+export const AnimationModelsComponent = engine.defineComponent(
+  'animationModelsComponent',
+  {
+    entity_frames: Schemas.Array(Schemas.Entity),
+    frame: Schemas.Int,
+    base_transform: Schemas.Map({
+      position: Schemas.Vector3,
+      scale: Schemas.Vector3,
+      parent: Schemas.Entity,
+      rotation: Schemas.Quaternion
+    }),
+    gltf_frames: Schemas.Array(Schemas.String),
+    looping: Schemas.Boolean,
+    playing: Schemas.Boolean
+  }
+)
 
 export const RayComponent = engine.defineComponent('rayvolt', {
   plane: Schemas.Array(Schemas.Int)

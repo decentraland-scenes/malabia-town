@@ -1,19 +1,31 @@
-import { type Entity, ColliderLayer, engine, GltfContainer, Transform } from "@dcl/sdk/ecs"
-import { blenderTransform, randomRange } from "./common"
-import { type BlenderTransform } from "./definitions"
-import { createModelsAnimation } from "./modelsAnimation"
-import { Vector3, Quaternion } from "@dcl/sdk/math"
+import {
+  type Entity,
+  ColliderLayer,
+  engine,
+  GltfContainer,
+  Transform
+} from '@dcl/sdk/ecs'
+import { blenderTransform, randomRange } from './common'
+import { type BlenderTransform } from './definitions'
+import { createModelsAnimation } from './modelsAnimation'
+import { Vector3, Quaternion } from '@dcl/sdk/math'
 
 export type createEntitySrc = string | string[]
-export function createEntity(parent: Entity, transform: BlenderTransform, src?: createEntitySrc, collider?:boolean): Entity {
+export function createEntity(
+  parent: Entity,
+  transform: BlenderTransform,
+  src?: createEntitySrc,
+  collider?: boolean
+): Entity {
   let entity: Entity
   entity = engine.addEntity()
   if (src !== undefined) {
     if (typeof src === 'string') {
-        GltfContainer.create(entity, { src })
-        if (collider === true) {
-          GltfContainer.getMutable(entity).visibleMeshesCollisionMask = ColliderLayer.CL_PHYSICS
-        }
+      GltfContainer.create(entity, { src })
+      if (collider === true) {
+        GltfContainer.getMutable(entity).visibleMeshesCollisionMask =
+          ColliderLayer.CL_PHYSICS
+      }
     } else {
       entity = createModelsAnimation(src, true, true)
     }
@@ -290,7 +302,7 @@ export const mariposaRandomT = {
     randomRange(10, 40)
   ),
   rotation: Quaternion.fromEulerDegrees(0, randomRange(0, 170), 0),
-  scale: Vector3.create(1.5, 1.5, 1.5),
+  scale: Vector3.create(1.5, 1.5, 1.5)
 }
 
 export const wearablesFrames = [
@@ -379,9 +391,9 @@ export const pizarronT = {
     z: 0.707107
   },
   scale: {
-    x: 2.0,
-    y: 2.0,
-    z: 2.0
+    x: 1.8,
+    y: 1.8,
+    z: 1.8
   }
 }
 export const brocheInstagramT = {

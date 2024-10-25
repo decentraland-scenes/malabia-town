@@ -11,7 +11,7 @@ export function createModelsAnimation(
     gltf_frames: modelsSrcs
   })
   const MutableAnimationModelsComponent =
-  AnimationModelsComponent.getMutable(animation)
+    AnimationModelsComponent.getMutable(animation)
   if (playing !== undefined) {
     MutableAnimationModelsComponent.playing = playing
   }
@@ -31,20 +31,23 @@ export function createModelsAnimation(
   return animation
 }
 
-
-
 let timePass: number = 0
 export function AnimationModelsSystem(dt: number): void {
   timePass += dt
-        if (timePass < 0.1) {
-            return
-        } else {
-          timePass = 0
-        }
+  if (timePass < 0.1) {
+    return
+  } else {
+    timePass = 0
+  }
   for (const [elect] of engine.getEntitiesWith(AnimationModelsComponent)) {
-    const mutableAnimationModelsComponent = AnimationModelsComponent.getMutable(elect)
+    const mutableAnimationModelsComponent =
+      AnimationModelsComponent.getMutable(elect)
     if (!mutableAnimationModelsComponent.playing) {
-      for (let n = 0; n < mutableAnimationModelsComponent.entity_frames.length; n++) {
+      for (
+        let n = 0;
+        n < mutableAnimationModelsComponent.entity_frames.length;
+        n++
+      ) {
         const frameTransform = Transform.getMutable(
           mutableAnimationModelsComponent.entity_frames[n]
         )
@@ -52,7 +55,11 @@ export function AnimationModelsSystem(dt: number): void {
       }
       continue
     }
-    for (let n = 0; n < mutableAnimationModelsComponent.entity_frames.length; n++) {
+    for (
+      let n = 0;
+      n < mutableAnimationModelsComponent.entity_frames.length;
+      n++
+    ) {
       const frameTransform = Transform.getMutable(
         mutableAnimationModelsComponent.entity_frames[n]
       )
@@ -64,7 +71,8 @@ export function AnimationModelsSystem(dt: number): void {
     }
     mutableAnimationModelsComponent.frame += 1
     if (
-      mutableAnimationModelsComponent.frame >= mutableAnimationModelsComponent.entity_frames.length
+      mutableAnimationModelsComponent.frame >=
+      mutableAnimationModelsComponent.entity_frames.length
     ) {
       mutableAnimationModelsComponent.frame = 0
       if (!mutableAnimationModelsComponent.looping) {

@@ -1979,9 +1979,7 @@
             "name" : "Puerta_Vidrio"
         },
         {
-            "children" : [
-                190
-            ],
+            
             "mesh" : 126,
             "name" : "Puerta"
         },
