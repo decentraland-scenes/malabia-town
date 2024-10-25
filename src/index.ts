@@ -96,7 +96,7 @@ export function main(): void {
   //
 
   const buildingCore = engine.addEntity()
-  Transform.create(buildingCore, { position: Vector3.create(0, -100, 0) })
+  Transform.create(buildingCore, { position: Vector3.create(0, -500, 0) })
 
   const bosque = engine.addEntity()
   GltfContainer.create(bosque, {
@@ -249,7 +249,8 @@ export function main(): void {
       AudioSource.createOrReplace(telefono, {
         audioClipUrl:
           'audio/' + audiosTelefono[randomInt(0, audiosTelefono.length)],
-        playing: true
+        playing: true,
+        // global:false
       })
     }
   )
@@ -391,7 +392,8 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   AudioSource.create(donacion, {
     audioClipUrl: 'audio/gaseosa.mp3',
     playing: false,
-    loop: false
+    loop: false,
+    // global:false
   })
 
   // Vending machine for donations
@@ -509,13 +511,13 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     GltfContainer.create(mariposas[n], { src: 'models/mariposa.gltf' })
     Transform.create(mariposas[n], {
       position: Vector3.create(
-        randomRange(10, 40),
+        randomRange(-16, 16),
         randomRange(0.5, 2.5),
-        randomRange(10, 40)
+        randomRange(-16, 16)
       ),
       rotation: Quaternion.fromEulerDegrees(0, randomRange(0, 170), 0),
       scale: Vector3.create(1.5, 1.5, 1.5),
-      parent: buildingCore
+      parent: bosque
     })
   }
 
@@ -571,7 +573,8 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     const electricidad = engine.addEntity()
     AudioSource.createOrReplace(electricidad, {
       audioClipUrl: 'audio/Electricidad.mp3',
-      playing: true
+      playing: true,
+      // global:false
     })
     Transform.create(electricidad, {
       position: portales[n].in,
@@ -588,7 +591,8 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     audioClipUrl: 'audio/Teletransporte.mp3',
     playing: true,
     loop: false,
-    volume: 0.6
+    volume: 0.6,
+    // global:false
   })
   Transform.create(tmp, { position: Vector3.create(0, 0, 0.5) })
   AvatarAttach.create(tmp, {
@@ -620,16 +624,10 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
         buildingVisible = true
         justTeleported = true
         Transform.getMutable(buildingCore).position.y = 0
-        // Transform.getMutable(mainDoor).position.y = -100
+        // Transform.getMutable(mainDoor).position.y = -500
         const mutableBosqueT = Transform.getMutableOrNull(bosque)
         if (mutableBosqueT !== null) {
-          mutableBosqueT.position.y = -100
-        }
-        engine.removeEntity(bosque)
-        engine.removeEntity(electricidad1)
-        engine.removeEntity(portalfx)
-        for (let n = 0; n < mariposas.length; n++) {
-          engine.removeEntity(mariposas[n])
+          mutableBosqueT.position.y = -500
         }
         void movePlayerTo({
           newRelativePosition: Vector3.create(34, 0, 45),
@@ -647,7 +645,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
       ) {
         if (!justTeleported) {
           buildingVisible = false
-          Transform.getMutable(buildingCore).position.y = -100
+          Transform.getMutable(buildingCore).position.y = -500
           engine.removeEntity(static2)
           engine.removeEntity(static3)
           engine.removeEntity(static4)
@@ -657,14 +655,11 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
         if (mutableBosqueT !== null) {
           mutableBosqueT.position.y = 0
         }
-          for (let n = 0; n < mariposas.length; n++) {
-            mariposas.push(engine.addEntity())
-          }
           void movePlayerTo({
             newRelativePosition: Vector3.create(16, 0, 16),
             cameraTarget: Vector3.create(16 + 8, 2, 16 + 8)
           })
-          AudioSource.getMutable(tunelfx).playing = true
+          // AudioSource.getMutable(tunelfx).playing = true
           // pasillo_source.playOnce()
         }
       } else {
@@ -994,7 +989,8 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   AudioSource.createOrReplace(cuerno, {
     audioClipUrl: 'audio/cuerno.mp3',
     playing: false,
-    loop: false
+    loop: false,
+    // global:false
   })
 
   pointerEventsSystem.onPointerDown(
@@ -1009,13 +1005,13 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
 
   /* Puerta Cortina */
   
-  const puertaCortina = engine.addEntity()
-  GltfContainer.create(puertaCortina, { src: 'models/puerta_cortina.gltf' })
-  // MeshCollider.setPlane(puertaCortina, ColliderLayer.CL_NONE)
-  Transform.create(
-    puertaCortina,
-    blenderTransform(puertaCortinaT, buildingCore)
-  )
+  // const puertaCortina = engine.addEntity()
+  // GltfContainer.create(puertaCortina, { src: 'models/puerta_cortina.gltf' })
+  // // MeshCollider.setPlane(puertaCortina, ColliderLayer.CL_NONE)
+  // Transform.create(
+  //   puertaCortina,
+  //   blenderTransform(puertaCortinaT, buildingCore)
+  // )
 
   /* Caldero */
   
@@ -1025,7 +1021,8 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   AudioSource.create(caldero, {
     audioClipUrl: 'audio/caldero.mp3',
     playing: true,
-    loop: true
+    loop: true,
+    // global:false
   })
   MeshCollider.setBox(caldero)
   pointerEventsSystem.onPointerDown(
@@ -1062,7 +1059,8 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   AudioSource.create(fogonazo, {
     audioClipUrl: 'audio/fogonazo.mp3',
     playing: false,
-    loop: false
+    loop: false,
+    // global:false
   })
 
   /* Marco caldero */
@@ -1093,7 +1091,11 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   })
 
   function calderoRandom(): void {
-    VideoPlayer.deleteFrom(canvasCaldero)
+    const mutable = VideoPlayer.getMutableOrNull(canvasCaldero)
+    if (mutable !== null) {
+      mutable.playing = false
+      mutable.position = 0
+    }
     Material.deleteFrom(canvasCaldero)
 
     const obras = [
@@ -1147,9 +1149,11 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
       Transform.getMutable(canvasCaldero).rotation =
         Quaternion.fromEulerDegrees(0, 90, 0)
 
-      VideoPlayer.create(canvasCaldero, {
+      VideoPlayer.createOrReplace(canvasCaldero, {
         src: textureUrl,
-        playing: true
+        playing: true,
+        position: 0,
+        volume: 0.2
       })
 
       const videoTexture = Material.Texture.Video({
@@ -1162,7 +1166,9 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     } else {
       Transform.getMutable(canvasCaldero).scale = Vector3.create(1.5, 1.5, 0)
       Transform.getMutable(canvasCaldero).rotation =
-        Quaternion.fromEulerDegrees(0, 90, 180)
+      // Quaternion.fromEulerDegrees(0, 90, 180)
+      Quaternion.fromEulerDegrees(0, 90, 0)
+
       Material.setBasicMaterial(canvasCaldero, {
         texture: Material.Texture.Common({
           src: textureUrl
@@ -1244,11 +1250,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   
   const tunelfx = createModelsAnimation(tunelfxFrames, true, true)
   Transform.create(tunelfx, blenderTransform(tunelfxT, buildingCore))
-  AudioSource.create(tunelfx, {
-    audioClipUrl: 'audio/magia.mp3',
-    playing: false,
-    loop: false
-  })
+
 
   /* Portal Anim */
   const portalfxFrames = [

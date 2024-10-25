@@ -48,7 +48,7 @@ export function AnimationModelsSystem(dt: number): void {
         const frameTransform = Transform.getMutable(
           mutableAnimationModelsComponent.entity_frames[n]
         )
-        frameTransform.position.y = -100
+        frameTransform.position.y = -500
       }
       continue
     }
@@ -59,7 +59,7 @@ export function AnimationModelsSystem(dt: number): void {
       if (n === mutableAnimationModelsComponent.frame) {
         frameTransform.position.y = 0
       } else {
-        frameTransform.position.y = -100
+        frameTransform.position.y = -500
       }
     }
     mutableAnimationModelsComponent.frame += 1
