@@ -197,7 +197,7 @@ export function main(): void {
   )
 
   // Screen
-  const pantalla =  createEntityWBT(buildingCore, pantallaT)
+  const pantalla =  createEntityWBT(buildingCore, pantallaT, '', true)
   MeshRenderer.setPlane(pantalla)
   MeshCollider.setPlane(pantalla)
 
