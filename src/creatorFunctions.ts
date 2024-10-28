@@ -39,8 +39,8 @@ export function createEntityWBT(
 
 export function createEntity(
   parent: Entity,
-  transform?: Partial<TransformType>,
   src?: createEntitySrc,
+  transform?: Partial<TransformType>,
   collider?: boolean
 ): Entity {
   let entity: Entity

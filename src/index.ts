@@ -17,6 +17,7 @@ import {
   pointerEventsSystem,
   TextShape,
   Transform,
+ type TransformType,
   VideoPlayer
 } from '@dcl/sdk/src/ecs'
 // import * as eth from "eth-connect"
@@ -75,7 +76,10 @@ import {
   wearablesFrames,
   labFrames,
   antorchasT,
-  portales
+  portales,
+  createEntity,
+  puertaCortinaT,
+  createEntityWBT
 } from './creatorFunctions'
 // import { abiManaArray } from './erc20Abi'
 // import { abiMensajes } from './mensajesAbi'
@@ -132,61 +136,29 @@ export function main(): void {
   const buildingCore = engine.addEntity()
   Transform.create(buildingCore, { position: Vector3.create(0, -500, 0) })
 
+  const MAIN_TRANSFORM: Partial<TransformType> = { position: Vector3.create(24, 0, 24) }
+
   const bosque = engine.addEntity()
   GltfContainer.create(bosque, {
     src: 'models/bosque.gltf'
   })
-  Transform.create(bosque, { position: Vector3.create(16 + 8, 0, 16 + 8) })
+  Transform.create(bosque, MAIN_TRANSFORM)
 
-  const walls = engine.addEntity()
-  GltfContainer.create(walls, { src: 'models/walls.gltf' })
-  Transform.create(walls, {
-    position: Vector3.create(16 + 8, 0, 16 + 8),
-    parent: buildingCore
-  })
+  // Static Objects
+  // walls
+  createEntity(buildingCore, 'models/walls.gltf', MAIN_TRANSFORM)
+  // dynamic
+  createEntity(buildingCore, 'models/dynamic.gltf', MAIN_TRANSFORM)
+  // static
+  createEntity(buildingCore, 'models/static.gltf', MAIN_TRANSFORM)
+  // static2
+  createEntity(buildingCore, 'models/static2.gltf', MAIN_TRANSFORM)
+  // static3
+  createEntity(buildingCore, 'models/static3.gltf', MAIN_TRANSFORM)
+  // static4
+  createEntity(buildingCore, 'models/static4.gltf', MAIN_TRANSFORM)
 
-  const dynamic = engine.addEntity()
-  GltfContainer.create(dynamic, { src: 'models/dynamic.gltf' })
-  Transform.create(dynamic, {
-    position: Vector3.create(16 + 8, 0, 16 + 8),
-    parent: buildingCore
-  })
-
-  const static_ = engine.addEntity()
-  GltfContainer.create(static_, { src: 'models/static.gltf' })
-  Transform.create(static_, {
-    position: Vector3.create(16 + 8, 0, 16 + 8),
-    parent: buildingCore
-  })
-
-  const static2 = engine.addEntity()
-  GltfContainer.create(static2, { src: 'models/static2.gltf' })
-  Transform.create(static2, {
-    position: Vector3.create(16 + 8, 0, 16 + 8),
-    parent: buildingCore
-  })
-
-  
-
-  const static3 = engine.addEntity()
-  GltfContainer.create(static3, { src: 'models/static3.gltf' })
-  Transform.create(static3, {
-    position: Vector3.create(16 + 8, 0, 16 + 8),
-    parent: buildingCore
-  })
-
-  
-
-  const static4 = engine.addEntity()
-  GltfContainer.create(static4, { src: 'models/static4.gltf' })
-  Transform.create(static4, {
-    position: Vector3.create(16 + 8, 0, 16 + 8),
-    parent: buildingCore
-  })
-
-  //
-
-  // Dynamic objects
+  // Dynamic Objects
 
   const lavarropas01 = engine.addEntity()
   GltfContainer.create(lavarropas01, {
@@ -877,26 +849,17 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
 
   /* Puerta Cortina */
 
-  // const puertaCortina = engine.addEntity()
-  // GltfContainer.create(puertaCortina, { src: 'models/puerta_cortina.gltf' })
-  // // MeshCollider.setPlane(puertaCortina, ColliderLayer.CL_NONE)
-  // Transform.create(
-  //   puertaCortina,
-  //   blenderTransform(puertaCortinaT, buildingCore)
-  // )
+  createEntityWBT(buildingCore, puertaCortinaT, 'models/puerta_cortina.gltf')
 
   /* Caldero */
 
-  const caldero = engine.addEntity()
-  GltfContainer.create(caldero, { src: 'models/caldero.gltf' })
-  Transform.create(caldero, blenderTransform(calderoT, buildingCore))
+  const caldero =   createEntityWBT(buildingCore, calderoT, 'models/caldero.gltf', true)
   AudioSource.create(caldero, {
     audioClipUrl: 'audio/caldero.mp3',
     playing: true,
     loop: true
     // global:false
   })
-  MeshCollider.setBox(caldero)
   pointerEventsSystem.onPointerDown(
     {
       entity: caldero,
