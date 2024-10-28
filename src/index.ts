@@ -70,7 +70,12 @@ import {
   terrazafxT,
   velaT,
   exit1T,
-  exit2T
+  exit2T,
+  audiosTelefono,
+  wearablesFrames,
+  labFrames,
+  antorchasT,
+  portales
 } from './creatorFunctions'
 // import { abiManaArray } from './erc20Abi'
 // import { abiMensajes } from './mensajesAbi'
@@ -220,38 +225,7 @@ export function main(): void {
   GltfContainer.create(telefono, { src: 'models/telefono.gltf' })
   Transform.create(telefono, blenderTransform(telefonoT, buildingCore))
 
-  const audiosTelefono = [
-    'telefono/Audio A.mp3',
-    'telefono/Audio B.mp3',
-    'telefono/Audio C.mp3',
-    'telefono/Audio D.mp3',
-    'telefono/Audio E.mp3',
-    'telefono/Audio F.mp3',
-    'telefono/Audio G.mp3',
-    'telefono/Audio H.mp3',
-    'telefono/Audio I.mp3',
-    'telefono/Audio J.mp3',
-    'telefono/Audio K.mp3',
-    'telefono/WhatsApp Audio 2021-04-28 at 00.54.02.mp3',
-    'telefono/WhatsApp Audio 2021-04-28 at 00.54.27.mp3',
-    'telefono/WhatsApp Ptt 2021-04-26 at 16.13.37.mp3',
-    'telefono/WhatsApp Ptt 2021-04-26 at 16.21.54.mp3',
-    'telefono/WhatsApp Ptt 2021-04-26 at 16.25.44.mp3',
-    'telefono/WhatsApp Ptt 2021-04-26 at 16.33.53.mp3',
-    'telefono/WhatsApp Ptt 2021-04-26 at 16.34.24.mp3',
-    'telefono/WhatsApp Ptt 2021-04-26 at 16.35.33.mp3',
-    'telefono/WhatsApp Ptt 2021-04-26 at 16.36.04.mp3',
-    'telefono/WhatsApp Ptt 2021-04-26 at 17.15.33.mp3',
-    'telefono/WhatsApp Ptt 2021-04-26 at 18.24.37.mp3',
-    'telefono/WhatsApp Ptt 2021-04-26 at 18.26.27.mp3',
-    'telefono/WhatsApp Ptt 2021-04-26 at 19.03.03.mp3',
-    'telefono/WhatsApp Ptt 2021-04-27 at 12.42.38.mp3',
-    'telefono/WhatsApp Ptt 2021-04-27 at 12.43.52.mp3',
-    'telefono/WhatsApp Ptt 2021-04-27 at 19.39.29.mp3',
-    'telefono/WhatsApp Ptt 2021-04-27 at 23.12.05.mp3',
-    'telefono/WhatsApp Ptt 2021-04-28 at 06.04.37.mp3',
-    'telefono/WhatsApp Ptt 2021-04-28 at 16.44.23.mp3'
-  ]
+  
 
   pointerEventsSystem.onPointerDown(
     {
@@ -317,13 +291,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     position: Vector3.create(8, -5, 8)
   }
 
-  const wearablesFrames = [
-    'models/wearables-001.gltf',
-    'models/wearables-002.gltf',
-    'models/wearables-003.gltf',
-    'models/wearables-004.gltf',
-    'models/wearables-005.gltf'
-  ]
 
   const wearablesEntities: Entity[] = []
   for (let n = 0; n < wearablesFrames.length; n++) {
@@ -337,13 +304,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
 
   /* Lab Anim */
 
-  const labFrames = [
-    'models/laboratorio-001.gltf',
-    'models/laboratorio-002.gltf',
-    'models/laboratorio-003.gltf',
-    'models/laboratorio-004.gltf',
-    'models/laboratorio-005.gltf'
-  ]
 
   const labEntities: Entity[] = []
 
@@ -441,62 +401,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   // const mensajeOk = ui.createComponent(ui.Announcement, { value: '¡Mensaje en camino! Aparecerá en unos segundos', duration: 10, startHidden: true, yOffset: -40 })
   // const mensajeError = ui.createComponent(ui.Announcement, { value: 'Error al enviar mensaje ¿Está conectado MetaMask?', duration: 10, startHidden: true, yOffset: -60 })
 
-  const antorchasT = [
-    {
-      position: {
-        x: 18.8179,
-        y: -8.52734,
-        z: 0.035372
-      },
-      rotation: {
-        w: 0.707107,
-        x: 0,
-        y: 0,
-        z: 0.707107
-      },
-      scale: {
-        x: 2.0297,
-        y: 2.0297,
-        z: 2.0297
-      }
-    },
-    {
-      position: {
-        x: 12.4945,
-        y: -8.52734,
-        z: 0.035372
-      },
-      rotation: {
-        w: 0.707107,
-        x: 0,
-        y: 0,
-        z: 0.707107
-      },
-      scale: {
-        x: 2.0297,
-        y: 2.0297,
-        z: 2.0297
-      }
-    },
-    {
-      position: {
-        x: 10.0745,
-        y: -8.52734,
-        z: 0.035372
-      },
-      rotation: {
-        w: 0.707107,
-        x: 0,
-        y: 0,
-        z: 0.707107
-      },
-      scale: {
-        x: 2.0297,
-        y: 2.0297,
-        z: 2.0297
-      }
-    }
-  ]
+  
 
   for (let n = 0; n < antorchasT.length; n++) {
     const antorcha = engine.addEntity()
@@ -536,44 +441,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     parent: bosque
   })
 
-  const portales = [
-    {
-      // Pasillo
-      in: Vector3.create(46.17, 1.75, 30.97),
-      dist: 1,
-      out: [
-        { x: 46.17, y: 1.75, z: 28.14 },
-        { x: 48.17, y: 1.75, z: 21 }
-      ]
-    },
-    {
-      // Vulva
-      in: Vector3.create(14, 1.75, 14.6),
-      dist: 1,
-      out: [
-        { x: 14, y: 1.75, z: 11.6 },
-        { x: 14, y: 1.75, z: 10.6 }
-      ]
-    },
-    {
-      // Lavadero
-      in: Vector3.create(38.64, 1.75, 11.42),
-      dist: 1.5,
-      out: [
-        { x: 42.5, y: 1.75, z: 16.6 },
-        { x: 38.64, y: 1.75, z: 11.42 }
-      ]
-    },
-    {
-      // Inodoros
-      in: Vector3.create(10.69, 6.92, 11.54),
-      dist: 3,
-      out: [
-        { x: 10.69, y: 6.92, z: 18.54 },
-        { x: 10.69, y: 6.92, z: 22.54 }
-      ]
-    }
-  ]
+ 
 
   for (let n = 0; n < portales.length; n++) {
     const electricidad = engine.addEntity()

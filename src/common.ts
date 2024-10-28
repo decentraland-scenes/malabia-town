@@ -260,18 +260,24 @@ export function blenderTransform(
     blenderT.position.z,
     blenderT.position.y * -1 + 24
   )
-  const rotation = Quaternion.create(
-    blenderT.rotation.x * -1, // X Invert
-    blenderT.rotation.z, // Z
-    blenderT.rotation.y * -1, // Y Invert
-    blenderT.rotation.w * -1 // W Invert
-  )
-
-  const scale = Vector3.create(
-    blenderT.scale.x,
-    blenderT.scale.z,
-    blenderT.scale.y
-  )
+  let rotation:Quaternion 
+  if (blenderT.rotation !== undefined) {
+    rotation = Quaternion.create(
+      blenderT.rotation.x * -1, // X Invert
+      blenderT.rotation.z, // Z
+      blenderT.rotation.y * -1, // Y Invert
+      blenderT.rotation.w * -1 // W Invert
+    )    
+  } else { rotation = Quaternion.create(1, 0, 0, 0) }
+  
+  let scale: Vector3
+  if (blenderT.scale !== undefined) {
+    scale = Vector3.create(
+      blenderT.scale.x,
+      blenderT.scale.z,
+      blenderT.scale.y
+    )
+  } else { scale = Vector3.One()}
 
   if (parent !== undefined) {
     return {

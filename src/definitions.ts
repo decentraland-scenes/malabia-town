@@ -3,8 +3,8 @@ import { type Quaternion, type Vector3 } from '@dcl/sdk/math'
 
 export type BlenderTransform = {
   position: Vector3
-  rotation: Quaternion
-  scale: Vector3
+  rotation?: Quaternion
+  scale?: Vector3
   parent?: Entity
 }
 

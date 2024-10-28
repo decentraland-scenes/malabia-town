@@ -66,7 +66,7 @@ export function AnimationModelsSystem(dt: number): void {
       if (n === mutableAnimationModelsComponent.frame) {
         frameTransform.position.y = 0
       } else {
-        frameTransform.position.y = -500
+        frameTransform.position.y = -30
       }
     }
     mutableAnimationModelsComponent.frame += 1
