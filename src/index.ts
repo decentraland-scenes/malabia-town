@@ -491,20 +491,20 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
       if (
         distanceIsLessThan(
           Transform.get(mainDoor).position,
-          Transform.get(engine.CameraEntity).position,
-          2
+          Transform.get(engine.PlayerEntity).position,
+          1
         )
       ) {
         buildingVisible = true
         justTeleported = true
         Transform.getMutable(buildingCore).position.y = 0
-        // Transform.getMutable(mainDoor).position.y = -500
+        Transform.getMutable(mainDoor).position.y = -20
         const mutableBosqueT = Transform.getMutableOrNull(bosque)
         if (mutableBosqueT !== null) {
           mutableBosqueT.position.y = -500
         }
         void movePlayerTo({
-          newRelativePosition: Vector3.create(34, 0, 45),
+          newRelativePosition: Vector3.create(37, 0, 45),
           cameraTarget: Vector3.create(46, 1, 45)
         })
       }
@@ -512,9 +512,9 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     } else {
       if (
         distanceIsLessThan(
-          Vector3.create(35, 1.75, 45),
-          Transform.get(engine.CameraEntity).position,
-          2
+          Vector3.create(35, 0, 45),
+          Transform.get(engine.PlayerEntity).position,
+          1.5
         )
       ) {
         if (!justTeleported) {
@@ -524,7 +524,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
           // engine.removeEntity(static3)
           // engine.removeEntity(static4)
 
-          // Transform.getMutable(mainDoor).position.y = 1
+          Transform.getMutable(mainDoor).position.y = 1
           const mutableBosqueT = Transform.getMutableOrNull(bosque)
           if (mutableBosqueT !== null) {
             mutableBosqueT.position.y = 0
@@ -719,20 +719,20 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     }
   )
 
-  function pizarronSystem(dt: number): void {
-    if (enviarMensajePrompt.isVisible()) return
-    if (
-      !distanceIsLessThan(
-        Transform.get(pizarron).position,
-        Transform.get(engine.CameraEntity).position,
-        4
-      )
-    ) {
-      enviarMensajePrompt.hide()
-    }
-  }
+  // function pizarronSystem(dt: number): void {
+  //   if (enviarMensajePrompt.isVisible()) return
+  //   if (
+  //     !distanceIsLessThan(
+  //       Transform.get(pizarron).position,
+  //       Transform.get(engine.CameraEntity).position,
+  //       4
+  //     )
+  //   ) {
+  //     enviarMensajePrompt.hide()
+  //   }
+  // }
 
-  engine.addSystem(pizarronSystem)
+  // engine.addSystem(pizarronSystem)
 
   const messageTexts: string[] = []
   let textColors = [
@@ -1055,12 +1055,12 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
 
   /* Malabia Upload Anim */
   const malabiaUploadFrames = [
-    'models/malabiaUploads-001.gltf',
-    'models/malabiaUploads-002.gltf',
-    'models/malabiaUploads-003.gltf',
-    'models/malabiaUploads-004.gltf',
-    'models/malabiaUploads-005.gltf',
-    'models/malabiaUploads-006.gltf'
+    'models/malabia_uploads-001.gltf',
+    'models/malabia_uploads-002.gltf',
+    'models/malabia_uploads-003.gltf',
+    'models/malabia_uploads-004.gltf',
+    'models/malabia_uploads-005.gltf',
+    'models/malabia_uploads-006.gltf'
   ]
 
   const malabiaUpload = createModelsAnimation(malabiaUploadFrames, true, true)
