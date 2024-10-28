@@ -79,7 +79,16 @@ import {
   portales,
   createEntity,
   puertaCortinaT,
-  createEntityWBT
+  createEntityWBT,
+  malabiaUploadFrames,
+  alfombrafxFrames,
+  caballofxFrames,
+  plantafxFrames,
+  tunelfxFrames,
+  exitFrames,
+  portalfxFrames,
+  terrazafxFrames,
+  electricidadPasilloFrames
 } from './creatorFunctions'
 // import { abiManaArray } from './erc20Abi'
 // import { abiMensajes } from './mensajesAbi'
@@ -160,45 +169,18 @@ export function main(): void {
 
   // Dynamic Objects
 
-  const lavarropas01 = engine.addEntity()
-  GltfContainer.create(lavarropas01, {
-    src: 'models/lavarropas.gltf',
-    visibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS
-  })
-  Transform.create(lavarropas01, blenderTransform(lav01T, buildingCore))
-
-  const lavarropas02 = engine.addEntity()
-  GltfContainer.create(lavarropas02, {
-    src: 'models/lavarropas.gltf',
-    visibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS
-  })
-  Transform.create(lavarropas02, blenderTransform(lav02T, buildingCore))
-
-  const lavarropas03 = engine.addEntity()
-  GltfContainer.create(lavarropas03, {
-    src: 'models/lavarropas.gltf',
-    visibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS
-  })
-  Transform.create(lavarropas03, blenderTransform(lav03T, buildingCore))
-
-  const lavarropasRayos = engine.addEntity()
-  GltfContainer.create(lavarropasRayos, { src: 'models/lavarropas_rayos.gltf' })
-  Transform.create(lavarropasRayos, blenderTransform(rayosT, buildingCore))
-
-  const corazon = engine.addEntity()
-  GltfContainer.create(corazon, { src: 'models/corazon.gltf' })
-  Transform.create(corazon, blenderTransform(corazonT, buildingCore))
-
-  const inodoros = engine.addEntity()
-  GltfContainer.create(inodoros, { src: 'models/inodoros.gltf' })
-  Transform.create(inodoros, blenderTransform(inodorosT, buildingCore))
-
-  const telefono = engine.addEntity()
-  GltfContainer.create(telefono, { src: 'models/telefono.gltf' })
-  Transform.create(telefono, blenderTransform(telefonoT, buildingCore))
-
+  // Washing Machines
+  createEntityWBT(buildingCore, lav01T, 'models/lavarropas.gltf')
+  createEntityWBT(buildingCore, lav02T, 'models/lavarropas.gltf')
+  createEntityWBT(buildingCore, lav03T, 'models/lavarropas.gltf')
+  createEntityWBT(buildingCore, rayosT, 'models/lavarropas_rayos.gltf')
   
-
+  // Heart, toilets
+  createEntityWBT(buildingCore, corazonT, 'models/corazon.gltf')
+  createEntityWBT(buildingCore, inodorosT, 'models/inodoros.gltf')
+  const telefono = createEntityWBT(buildingCore, telefonoT, 'models/telefono.gltf')
+  
+  // Phone
   pointerEventsSystem.onPointerDown(
     {
       entity: telefono,
@@ -214,10 +196,10 @@ export function main(): void {
     }
   )
 
-  const pantalla = engine.addEntity()
+  // Screen
+  const pantalla =  createEntityWBT(buildingCore, pantallaT)
   MeshRenderer.setPlane(pantalla)
   MeshCollider.setPlane(pantalla)
-  Transform.create(pantalla, blenderTransform(pantallaT, buildingCore))
 
   VideoPlayer.create(pantalla, {
     src: 'textures/oraculo/video Quinteto de Academia en Malabia.mp4',
@@ -258,36 +240,9 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
 }) */
 
   /* Wearables Anim */
-
-  const hiddenTransform = {
-    position: Vector3.create(8, -5, 8)
-  }
-
-
-  const wearablesEntities: Entity[] = []
-  for (let n = 0; n < wearablesFrames.length; n++) {
-    wearablesEntities.push(engine.addEntity())
-    GltfContainer.create(wearablesEntities[n], { src: wearablesFrames[n] })
-    Transform.create(wearablesEntities[n], {
-      position: Vector3.create(8, -5, 8),
-      parent: buildingCore
-    })
-  }
-
+  createEntityWBT(buildingCore, wearablesT, wearablesFrames)
   /* Lab Anim */
-
-
-  const labEntities: Entity[] = []
-
-  for (let n = 0; n < labFrames.length; n++) {
-    const newLabN = engine.addEntity()
-    labEntities.push(newLabN)
-    GltfContainer.create(newLabN, { src: labFrames[n] })
-    Transform.create(newLabN, {
-      position: Vector3.create(8, -5, 8),
-      parent: buildingCore
-    })
-  }
+  createEntityWBT(buildingCore, labT, labFrames)
 
   // const contracts = {
   //   mana: {
@@ -382,17 +337,11 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   }
 
   /* Mariposa */
-
-  const mariposa = engine.addEntity()
-  GltfContainer.create(mariposa, { src: 'models/mariposa.gltf' })
-  Transform.create(mariposa, blenderTransform(mariposaT, buildingCore))
+  createEntityWBT(buildingCore, mariposaT, 'models/mariposa.gltf')
 
   /* Mariposas Bosque */
-  const mariposas: Entity[] = []
   for (let n = 0; n < 10; n++) {
-    mariposas.push(engine.addEntity())
-    GltfContainer.create(mariposas[n], { src: 'models/mariposa.gltf' })
-    Transform.create(mariposas[n], {
+    createEntity(bosque, 'models/mariposa.gltf', {
       position: Vector3.create(
         randomRange(-16, 16),
         randomRange(0.5, 2.5),
@@ -400,8 +349,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
       ),
       rotation: Quaternion.fromEulerDegrees(0, randomRange(0, 170), 0),
       scale: Vector3.create(1.5, 1.5, 1.5),
-      parent: bosque
-    })
+    } )
   }
 
   /* Puerta principal */
@@ -451,13 +399,11 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   //   })
   // }
 
-  let frame: number = 0
   let buildingVisible: boolean = false
   let justTeleported: boolean = false
   let teleportTime: number = 0
   let teleporting: boolean = false
   let teleportingFrom: number = 0
-  let timePass: number = 0
   function AnimSystem(dt: number): void {
     if (!buildingVisible) {
       if (
@@ -513,40 +459,40 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
       }
     }
 
-    timePass += dt
-    if (timePass < 0.3) {
-      return
-    }
-    timePass = 0
-    for (let n = 0; n < wearablesFrames.length; n++) {
-      if (n === frame) {
-        // console.log("show", n)
-        Transform.createOrReplace(
-          wearablesEntities[n],
-          blenderTransform(wearablesT, buildingCore)
-        )
-        Transform.createOrReplace(
-          labEntities[n],
-          blenderTransform(labT, buildingCore)
-        )
-      } else {
-        // console.log("hide", n)
-        Transform.createOrReplace(wearablesEntities[n], {
-          position: hiddenTransform.position,
-          parent: buildingCore
-        })
-        Transform.createOrReplace(labEntities[n], {
-          position: hiddenTransform.position,
-          parent: buildingCore
-        })
-      }
-      // console.log(wearablesEntities[this.frame].getComponent(Transform).position)
-    }
+    // timePass += dt
+    // if (timePass < 0.3) {
+    //   return
+    // }
+    // timePass = 0
+    // for (let n = 0; n < wearablesFrames.length; n++) {
+    //   if (n === frame) {
+    //     // console.log("show", n)
+    //     Transform.createOrReplace(
+    //       wearablesEntities[n],
+    //       blenderTransform(wearablesT, buildingCore)
+    //     )
+    //     Transform.createOrReplace(
+    //       labEntities[n],
+    //       blenderTransform(labT, buildingCore)
+    //     )
+    //   } else {
+    //     // console.log("hide", n)
+    //     Transform.createOrReplace(wearablesEntities[n], {
+    //       position: hiddenTransform.position,
+    //       parent: buildingCore
+    //     })
+    //     Transform.createOrReplace(labEntities[n], {
+    //       position: hiddenTransform.position,
+    //       parent: buildingCore
+    //     })
+    //   }
+    //   // console.log(wearablesEntities[this.frame].getComponent(Transform).position)
+    // }
 
-    frame += 1
-    if (frame >= wearablesEntities.length) {
-      frame = 0
-    }
+    // frame += 1
+    // if (frame >= wearablesEntities.length) {
+    //   frame = 0
+    // }
 
     // Check Portales
 
@@ -600,76 +546,43 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   //   }
 
   /* Electricidad */
-  const electricidadPasilloFrames = [
-    'models/electricidad_pasillo-001.gltf',
-    'models/electricidad_pasillo-002.gltf',
-    'models/electricidad_pasillo-003.gltf',
-    'models/electricidad_pasillo-004.gltf',
-    'models/electricidad_pasillo-005.gltf',
-    'models/electricidad_pasillo-006.gltf'
-  ]
+  
 
   // Puerta principal (Bosque)
-  const electricidad1 = createModelsAnimation(
-    electricidadPasilloFrames,
-    true,
-    true
-  )
-  Transform.create(electricidad1, {
-    // position: Vector3.create(16 + 8 + 2, 0.2, 16 + 8 + 3),
+  createEntity(bosque, electricidadPasilloFrames, {
     position: Vector3.create(1.2, 0.2, 1.2),
     scale: Vector3.create(3, 10, 3),
     rotation: Quaternion.fromEulerDegrees(0, 0, 0),
-    parent: bosque
   })
+  
 
   // Vulva
-  const electricidad2 = createModelsAnimation(
-    electricidadPasilloFrames,
-    true,
-    true
-  )
-  Transform.create(electricidad2, {
+  createEntity(buildingCore, electricidadPasilloFrames, {
     position: Vector3.create(14, 0.1, 14.5),
     scale: Vector3.create(1, 0.7, 1),
-    parent: buildingCore
   })
+  
 
   // Inodoros
-  const electricidad3 = createModelsAnimation(
-    electricidadPasilloFrames,
-    true,
-    true
-  )
-  Transform.create(electricidad3, {
+  createEntity(buildingCore, electricidadPasilloFrames, {
     position: Vector3.create(9, 6.92, 11.54),
     scale: Vector3.create(1.5, 2, 1.5),
-    parent: buildingCore
   })
+  
 
   // Lavadero
-  const electricidad4 = createModelsAnimation(
-    electricidadPasilloFrames,
-    true,
-    true
-  )
-  Transform.create(electricidad4, {
+  createEntity(buildingCore, electricidadPasilloFrames, {
     position: Vector3.create(38.64, 0.05, 11.42),
     scale: Vector3.create(1, 0.6, 1),
-    parent: buildingCore
   })
+  
 
   // Pasillo
-  const electricidad5 = createModelsAnimation(
-    electricidadPasilloFrames,
-    true,
-    true
-  )
-  Transform.create(electricidad5, {
+  createEntity(buildingCore, electricidadPasilloFrames, {
     position: Vector3.create(46.17, 0.05, 30.97),
     scale: Vector3.create(1, 0.9, 1),
-    parent: buildingCore
   })
+  
 
   engine.addSystem(AnimationModelsSystem)
 
@@ -1016,15 +929,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
 
   calderoRandom()
 
-  /* Malabia Upload Anim */
-  const malabiaUploadFrames = [
-    'models/malabia_uploads-001.gltf',
-    'models/malabia_uploads-002.gltf',
-    'models/malabia_uploads-003.gltf',
-    'models/malabia_uploads-004.gltf',
-    'models/malabia_uploads-005.gltf',
-    'models/malabia_uploads-006.gltf'
-  ]
+
 
   const malabiaUpload = createModelsAnimation(malabiaUploadFrames, true, true)
   Transform.create(
@@ -1032,69 +937,29 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     blenderTransform(malabiaUploadT, buildingCore)
   )
 
-  /* Alfombra Anim */
-  const alfombrafxFrames = [
-    'models/alfombra-001.gltf',
-    'models/alfombra-002.gltf',
-    'models/alfombra-003.gltf',
-    'models/alfombra-004.gltf',
-    'models/alfombra-005.gltf',
-    'models/alfombra-006.gltf'
-  ]
+
 
   const alfombrafx = createModelsAnimation(alfombrafxFrames, true, true)
   Transform.create(alfombrafx, blenderTransform(malabiafxT, buildingCore))
 
-  /* Planta Anim */
-  const plantafxFrames = [
-    'models/planta-001.gltf',
-    'models/planta-002.gltf',
-    'models/planta-003.gltf',
-    'models/planta-004.gltf',
-    'models/planta-005.gltf',
-    'models/planta-006.gltf'
-  ]
   const plantafx = createModelsAnimation(plantafxFrames, true, true)
   Transform.create(plantafx, {
     position: Vector3.create(16 + 8, 0, 16 + 8),
     parent: buildingCore
   })
 
-  /* Caballo Anim */
-  const caballofxFrames = [
-    'models/caballo-001.gltf',
-    'models/caballo-002.gltf',
-    'models/caballo-003.gltf',
-    'models/caballo-004.gltf',
-    'models/caballo-005.gltf',
-    'models/caballo-006.gltf'
-  ]
+
 
   const caballofx = createModelsAnimation(caballofxFrames, true, true)
   Transform.create(caballofx, blenderTransform(caballofxT, buildingCore))
 
-  /* Caballo Anim */
-  const tunelfxFrames = [
-    'models/tunel-001.gltf',
-    'models/tunel-002.gltf',
-    'models/tunel-003.gltf',
-    'models/tunel-004.gltf',
-    'models/tunel-005.gltf',
-    'models/tunel-006.gltf'
-  ]
+
 
   const tunelfx = createModelsAnimation(tunelfxFrames, true, true)
   Transform.create(tunelfx, blenderTransform(tunelfxT, buildingCore))
 
   /* Portal Anim */
-  const portalfxFrames = [
-    'models/portal-001.gltf',
-    'models/portal-002.gltf',
-    'models/portal-003.gltf',
-    'models/portal-004.gltf',
-    'models/portal-005.gltf',
-    'models/portal-006.gltf'
-  ]
+ 
   const portalfx = createModelsAnimation(portalfxFrames, true, true)
   Transform.create(portalfx, {
     position: Vector3.create(0, 0, 0),
@@ -1102,14 +967,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   })
 
   /* Terraza Anim */
-  const terrazafxFrames = [
-    'models/terraza_luz-001.gltf',
-    'models/terraza_luz-002.gltf',
-    'models/terraza_luz-003.gltf',
-    'models/terraza_luz-004.gltf',
-    'models/terraza_luz-005.gltf',
-    'models/terraza_luz-006.gltf'
-  ]
+
 
   const terrazafx = createModelsAnimation(terrazafxFrames, true, true)
   Transform.create(terrazafx, blenderTransform(terrazafxT, buildingCore))
@@ -1121,12 +979,7 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   Transform.create(velafx, blenderTransform(velaT, buildingCore))
 
   /* Exit Anim */
-  const exitFrames = [
-    'models/exit-001.gltf',
-    'models/exit-002.gltf',
-    'models/exit-003.gltf',
-    'models/exit-004.gltf'
-  ]
+ 
 
   const exit1 = createModelsAnimation(exitFrames, true, true)
   Transform.create(exit1, blenderTransform(exit1T, buildingCore))

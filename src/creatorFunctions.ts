@@ -860,3 +860,12 @@ export const portales = [
     ]
   }
 ]
+
+export const electricidadPasilloFrames = [
+  'models/electricidad_pasillo-001.gltf',
+  'models/electricidad_pasillo-002.gltf',
+  'models/electricidad_pasillo-003.gltf',
+  'models/electricidad_pasillo-004.gltf',
+  'models/electricidad_pasillo-005.gltf',
+  'models/electricidad_pasillo-006.gltf'
+]
