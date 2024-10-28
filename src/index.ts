@@ -165,7 +165,7 @@ export function main(): void {
   // static3
   createEntity(buildingCore, 'models/static3.gltf', MAIN_TRANSFORM)
   // static4
-  createEntity(buildingCore, 'models/static4.gltf', MAIN_TRANSFORM)
+  createEntity(buildingCore, 'models/static4.gltf', {position: Vector3.create(26, 0, 24), scale:Vector3.create(1,1,1) })
 
   // Dynamic Objects
 
