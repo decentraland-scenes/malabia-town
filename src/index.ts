@@ -165,7 +165,7 @@ export function main(): void {
   // static3
   createEntity(buildingCore, 'models/static3.gltf', MAIN_TRANSFORM)
   // static4
-  createEntity(buildingCore, 'models/static4.gltf', {position: Vector3.create(26, 0, 24), scale:Vector3.create(1,1,1) })
+  createEntity(buildingCore, 'models/static4.gltf', MAIN_TRANSFORM)
 
   // Dynamic Objects
 
@@ -458,41 +458,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
         justTeleported = false
       }
     }
-
-    // timePass += dt
-    // if (timePass < 0.3) {
-    //   return
-    // }
-    // timePass = 0
-    // for (let n = 0; n < wearablesFrames.length; n++) {
-    //   if (n === frame) {
-    //     // console.log("show", n)
-    //     Transform.createOrReplace(
-    //       wearablesEntities[n],
-    //       blenderTransform(wearablesT, buildingCore)
-    //     )
-    //     Transform.createOrReplace(
-    //       labEntities[n],
-    //       blenderTransform(labT, buildingCore)
-    //     )
-    //   } else {
-    //     // console.log("hide", n)
-    //     Transform.createOrReplace(wearablesEntities[n], {
-    //       position: hiddenTransform.position,
-    //       parent: buildingCore
-    //     })
-    //     Transform.createOrReplace(labEntities[n], {
-    //       position: hiddenTransform.position,
-    //       parent: buildingCore
-    //     })
-    //   }
-    //   // console.log(wearablesEntities[this.frame].getComponent(Transform).position)
-    // }
-
-    // frame += 1
-    // if (frame >= wearablesEntities.length) {
-    //   frame = 0
-    // }
 
     // Check Portales
 
