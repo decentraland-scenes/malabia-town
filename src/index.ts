@@ -8,7 +8,6 @@ import {
   AvatarAttach,
   ColliderLayer,
   engine,
-  type Entity,
   GltfContainer,
   InputAction,
   Material,
@@ -17,7 +16,7 @@ import {
   pointerEventsSystem,
   TextShape,
   Transform,
- type TransformType,
+  type TransformType,
   VideoPlayer
 } from '@dcl/sdk/src/ecs'
 // import * as eth from "eth-connect"
@@ -29,7 +28,7 @@ import {
   randomIntExcluding,
   randomRange
 } from './common'
-import { createModelsAnimation, AnimationModelsSystem } from './modelsAnimation'
+import { AnimationModelsSystem, createModelsAnimation } from './modelsAnimation'
 
 // import { getUserAccount } from '@decentraland/EthereumController'
 // import { getProvider } from '@decentraland/web3-provider'
@@ -41,55 +40,55 @@ import { createModelsAnimation, AnimationModelsSystem } from './modelsAnimation'
 
 import { ReactEcsRenderer } from '@dcl/sdk/react-ecs'
 // import { getPlayer } from '@dcl/sdk/src/players'
-import { AnimationModelsComponent } from './definitions'
 import { movePlayerTo, openExternalUrl } from '~system/RestrictedActions'
 import {
+  alfombrafxFrames,
+  antorchasT,
+  audiosTelefono,
+  brocheInstagramT,
+  brocheMalabiaT,
+  caballofxFrames,
+  caballofxT,
+  // puertaCortinaT,
+  calderoT,
+  corazonT,
+  createEntity,
+  createEntityWBT,
+  cuernoT,
+  donacionT,
+  electricidadPasilloFrames,
+  exit1T,
+  exit2T,
+  exitFrames,
+  fogonazoT,
+  inodorosT,
+  labFrames,
+  labT,
   lav01T,
   lav02T,
   lav03T,
-  rayosT,
-  corazonT,
-  inodorosT,
-  telefonoT,
-  pantallaT,
-  donacionT,
-  mariposaT,
-  wearablesT,
-  labT,
-  pizarronT,
-  brocheInstagramT,
-  brocheMalabiaT,
-  cuernoT,
-  // puertaCortinaT,
-  calderoT,
-  fogonazoT,
-  marcoCalderoT,
-  malabiaUploadT,
   malabiafxT,
-  caballofxT,
-  tunelfxT,
-  terrazafxT,
-  velaT,
-  exit1T,
-  exit2T,
-  audiosTelefono,
-  wearablesFrames,
-  labFrames,
-  antorchasT,
-  portales,
-  createEntity,
-  puertaCortinaT,
-  createEntityWBT,
   malabiaUploadFrames,
-  alfombrafxFrames,
-  caballofxFrames,
+  malabiaUploadT,
+  marcoCalderoT,
+  mariposaT,
+  pantallaT,
+  pizarronT,
   plantafxFrames,
-  tunelfxFrames,
-  exitFrames,
+  portales,
   portalfxFrames,
+  puertaCortinaT,
+  rayosT,
+  telefonoT,
   terrazafxFrames,
-  electricidadPasilloFrames
+  terrazafxT,
+  tunelfxFrames,
+  tunelfxT,
+  velaT,
+  wearablesFrames,
+  wearablesT
 } from './creatorFunctions'
+import { AnimationModelsComponent } from './definitions'
 // import { abiManaArray } from './erc20Abi'
 // import { abiMensajes } from './mensajesAbi'
 
@@ -145,7 +144,9 @@ export function main(): void {
   const buildingCore = engine.addEntity()
   Transform.create(buildingCore, { position: Vector3.create(0, -500, 0) })
 
-  const MAIN_TRANSFORM: Partial<TransformType> = { position: Vector3.create(24, 0, 24) }
+  const MAIN_TRANSFORM: Partial<TransformType> = {
+    position: Vector3.create(24, 0, 24)
+  }
 
   const bosque = engine.addEntity()
   GltfContainer.create(bosque, {
@@ -174,12 +175,16 @@ export function main(): void {
   createEntityWBT(buildingCore, lav02T, 'models/lavarropas.gltf')
   createEntityWBT(buildingCore, lav03T, 'models/lavarropas.gltf')
   createEntityWBT(buildingCore, rayosT, 'models/lavarropas_rayos.gltf')
-  
+
   // Heart, toilets
   createEntityWBT(buildingCore, corazonT, 'models/corazon.gltf')
   createEntityWBT(buildingCore, inodorosT, 'models/inodoros.gltf')
-  const telefono = createEntityWBT(buildingCore, telefonoT, 'models/telefono.gltf')
-  
+  const telefono = createEntityWBT(
+    buildingCore,
+    telefonoT,
+    'models/telefono.gltf'
+  )
+
   // Phone
   pointerEventsSystem.onPointerDown(
     {
@@ -197,7 +202,7 @@ export function main(): void {
   )
 
   // Screen
-  const pantalla =  createEntityWBT(buildingCore, pantallaT, '', true)
+  const pantalla = createEntityWBT(buildingCore, pantallaT, '', true)
   MeshRenderer.setPlane(pantalla)
   MeshCollider.setPlane(pantalla)
 
@@ -328,8 +333,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   // const mensajeOk = ui.createComponent(ui.Announcement, { value: '¡Mensaje en camino! Aparecerá en unos segundos', duration: 10, startHidden: true, yOffset: -40 })
   // const mensajeError = ui.createComponent(ui.Announcement, { value: 'Error al enviar mensaje ¿Está conectado MetaMask?', duration: 10, startHidden: true, yOffset: -60 })
 
-  
-
   for (let n = 0; n < antorchasT.length; n++) {
     const antorcha = engine.addEntity()
     GltfContainer.create(antorcha, { src: 'models/antorcha.gltf' })
@@ -348,8 +351,8 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
         randomRange(-16, 16)
       ),
       rotation: Quaternion.fromEulerDegrees(0, randomRange(0, 170), 0),
-      scale: Vector3.create(1.5, 1.5, 1.5),
-    } )
+      scale: Vector3.create(1.5, 1.5, 1.5)
+    })
   }
 
   /* Puerta principal */
@@ -360,8 +363,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     position: Vector3.create(16 + 8, 1, 16 + 8),
     parent: bosque
   })
-
- 
 
   for (let n = 0; n < portales.length; n++) {
     const electricidad = engine.addEntity()
@@ -511,43 +512,37 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   //   }
 
   /* Electricidad */
-  
 
   // Puerta principal (Bosque)
   createEntity(bosque, electricidadPasilloFrames, {
     position: Vector3.create(1.2, 0.2, 1.2),
     scale: Vector3.create(3, 10, 3),
-    rotation: Quaternion.fromEulerDegrees(0, 0, 0),
+    rotation: Quaternion.fromEulerDegrees(0, 0, 0)
   })
-  
 
   // Vulva
   createEntity(buildingCore, electricidadPasilloFrames, {
     position: Vector3.create(14, 0.1, 14.5),
-    scale: Vector3.create(1, 0.7, 1),
+    scale: Vector3.create(1, 0.7, 1)
   })
-  
 
   // Inodoros
   createEntity(buildingCore, electricidadPasilloFrames, {
     position: Vector3.create(9, 6.92, 11.54),
-    scale: Vector3.create(1.5, 2, 1.5),
+    scale: Vector3.create(1.5, 2, 1.5)
   })
-  
 
   // Lavadero
   createEntity(buildingCore, electricidadPasilloFrames, {
     position: Vector3.create(38.64, 0.05, 11.42),
-    scale: Vector3.create(1, 0.6, 1),
+    scale: Vector3.create(1, 0.6, 1)
   })
-  
 
   // Pasillo
   createEntity(buildingCore, electricidadPasilloFrames, {
     position: Vector3.create(46.17, 0.05, 30.97),
-    scale: Vector3.create(1, 0.9, 1),
+    scale: Vector3.create(1, 0.9, 1)
   })
-  
 
   engine.addSystem(AnimationModelsSystem)
 
@@ -649,7 +644,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   /* Refrescar notas */
   // function refrescarMensajes(delay: number = 0):void {
   //   executeTask(async () => {
-  //     await sleep(delay)
   //     const messages = await getMensajes()
   //     console.log(messages)
   //     console.log('Mensajes')
@@ -731,7 +725,12 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
 
   /* Caldero */
 
-  const caldero =   createEntityWBT(buildingCore, calderoT, 'models/caldero.gltf', true)
+  const caldero = createEntityWBT(
+    buildingCore,
+    calderoT,
+    'models/caldero.gltf',
+    true
+  )
   AudioSource.create(caldero, {
     audioClipUrl: 'audio/caldero.mp3',
     playing: true,
@@ -894,15 +893,11 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
 
   calderoRandom()
 
-
-
   const malabiaUpload = createModelsAnimation(malabiaUploadFrames, true, true)
   Transform.create(
     malabiaUpload,
     blenderTransform(malabiaUploadT, buildingCore)
   )
-
-
 
   const alfombrafx = createModelsAnimation(alfombrafxFrames, true, true)
   Transform.create(alfombrafx, blenderTransform(malabiafxT, buildingCore))
@@ -913,18 +908,14 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
     parent: buildingCore
   })
 
-
-
   const caballofx = createModelsAnimation(caballofxFrames, true, true)
   Transform.create(caballofx, blenderTransform(caballofxT, buildingCore))
-
-
 
   const tunelfx = createModelsAnimation(tunelfxFrames, true, true)
   Transform.create(tunelfx, blenderTransform(tunelfxT, buildingCore))
 
   /* Portal Anim */
- 
+
   const portalfx = createModelsAnimation(portalfxFrames, true, true)
   Transform.create(portalfx, {
     position: Vector3.create(0, 0, 0),
@@ -932,7 +923,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   })
 
   /* Terraza Anim */
-
 
   const terrazafx = createModelsAnimation(terrazafxFrames, true, true)
   Transform.create(terrazafx, blenderTransform(terrazafxT, buildingCore))
@@ -944,7 +934,6 @@ input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, false, (e) => {
   Transform.create(velafx, blenderTransform(velaT, buildingCore))
 
   /* Exit Anim */
- 
 
   const exit1 = createModelsAnimation(exitFrames, true, true)
   Transform.create(exit1, blenderTransform(exit1T, buildingCore))

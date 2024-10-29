@@ -655,9 +655,8 @@ export const velaFrames = [
   'models/vela-004.gltf',
   'models/vela-005.gltf',
   'models/vela-006.gltf'
-
 ]
-  
+
 export const velaT = {
   position: {
     x: -16.2303,

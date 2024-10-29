@@ -1,6 +1,5 @@
 // Get distance
 
-import * as utils from '@dcl-sdk/utils'
 import { type BlenderTransform } from './definitions'
 import { Quaternion, Vector3 } from '@dcl/sdk/math'
 import {
@@ -260,24 +259,24 @@ export function blenderTransform(
     blenderT.position.z,
     blenderT.position.y * -1 + 24
   )
-  let rotation:Quaternion 
+  let rotation: Quaternion
   if (blenderT.rotation !== undefined) {
     rotation = Quaternion.create(
       blenderT.rotation.x * -1, // X Invert
       blenderT.rotation.z, // Z
       blenderT.rotation.y * -1, // Y Invert
       blenderT.rotation.w * -1 // W Invert
-    )    
-  } else { rotation = Quaternion.create(1, 0, 0, 0) }
-  
+    )
+  } else {
+    rotation = Quaternion.create(1, 0, 0, 0)
+  }
+
   let scale: Vector3
   if (blenderT.scale !== undefined) {
-    scale = Vector3.create(
-      blenderT.scale.x,
-      blenderT.scale.z,
-      blenderT.scale.y
-    )
-  } else { scale = Vector3.One()}
+    scale = Vector3.create(blenderT.scale.x, blenderT.scale.z, blenderT.scale.y)
+  } else {
+    scale = Vector3.One()
+  }
 
   if (parent !== undefined) {
     return {
@@ -292,8 +291,4 @@ export function blenderTransform(
     rotation,
     scale
   }
-}
-
-export async function sleep(ms: number): Promise<void> {
-  await new Promise((resolve) => utils.timers.setTimeout(() => resolve, ms))
 }
