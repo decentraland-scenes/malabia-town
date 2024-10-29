@@ -31,7 +31,7 @@
         },
         {
             "mesh" : 3,
-            "name" : "Telefono_Collider"
+            "name" : "Telefono_collider"
         }
     ],
     "materials" : [
@@ -118,7 +118,7 @@
             ]
         },
         {
-            "name" : "Telefono_Collider",
+            "name" : "Telefono_collider",
             "primitives" : [
                 {
                     "attributes" : {
